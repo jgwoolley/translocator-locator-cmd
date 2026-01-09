@@ -24,18 +24,21 @@ namespace VSTutorial
                 });
         }
 
-        private TextCommandResult ProcessFindTL()
+      private TextCommandResult ProcessFindTL()
 {
     if (capi.World?.Player?.Entity == null) 
         return TextCommandResult.Error("Player not found.");
 
-    BlockPos playerPos = capi.World.Player.Entity.Pos.AsBlockPos;
+    // The raw "Global" coordinates
+    BlockPos pPos = capi.World.Player.Entity.Pos.AsBlockPos;
+    
+    // The offset used by the game to show "User Friendly" coordinates
+    BlockPos mapMiddle = capi.World.DefaultSpawnPosition.AsBlockPos;
+
     List<string> results = new List<string>();
     int radius = 80;
 
-    // 1. Find the internal ID for translocators to avoid string comparisons in the loop
-    // We look for any block that contains "statictranslocator"
-    List<int> tlIds = new List<int>();
+    HashSet<int> tlIds = new HashSet<int>();
     foreach (var block in capi.World.Blocks)
     {
         if (block?.Code != null && block.Code.Path.Contains("statictranslocator"))
@@ -44,43 +47,40 @@ namespace VSTutorial
         }
     }
 
-    if (tlIds.Count == 0) return TextCommandResult.Error("Translocator block type not found in registry.");
+    BlockPos tmpPos = new BlockPos(0, 0, 0, pPos.dimension);
 
-    // 2. Scan the area
-    BlockPos tmpPos = new BlockPos();
     for (int x = -radius; x <= radius; x++)
     {
-        for (int y = -30; y <= 30; y++) // Translocators are usually near floor level
+        for (int z = -radius; z <= radius; z++)
         {
-            for (int z = -radius; z <= radius; z++)
+            for (int y = -20; y <= 20; y++) 
             {
-                tmpPos.Set(playerPos.X + x, playerPos.Y + y, playerPos.Z + z);
-                
+                tmpPos.Set(pPos.X + x, pPos.Y + y, pPos.Z + z);
                 int blockId = capi.World.BlockAccessor.GetBlockId(tmpPos);
                 
                 if (tlIds.Contains(blockId))
                 {
-                    double dist = tmpPos.DistanceTo(playerPos);
-                    
-                    // Attempt to get the BlockEntity for status, but don't rely on it for the find
-                    BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(tmpPos);
-                    string status = "FOUND";
-                    string color = "#ffff77";
+                    // Convert World -> User/Map Coordinates
+                    int userX = tmpPos.X - mapMiddle.X;
+                    int userY = tmpPos.Y; // Y is usually absolute
+                    int userZ = tmpPos.Z - mapMiddle.Z;
 
+                    double dist = tmpPos.DistanceTo(pPos);
+                    
+                    // Attempt to get repair status
+                    BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(tmpPos);
+                    bool repaired = false;
                     if (be != null)
                     {
                         var field = be.GetType().GetField("repaired", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                                  ?? be.GetType().GetField("Repaired", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                        
-                        if (field != null)
-                        {
-                            bool repaired = (bool)field.GetValue(be);
-                            status = repaired ? "ACTIVE" : "BROKEN";
-                            color = repaired ? "#77ff77" : "#ff7777";
-                        }
+                        if (field != null) repaired = (bool)field.GetValue(be);
                     }
 
-                    results.Add($"<strong><font color=\"{color}\">[{status}]</font></strong> at {tmpPos.X}, {tmpPos.Y}, {tmpPos.Z} ({(int)dist}m)");
+                    string status = repaired ? "ACTIVE" : "BROKEN";
+                    string color = repaired ? "#77ff77" : "#ff7777";
+
+                    results.Add($"<font color=\"{color}\">[{status}]</font> at <strong>{userX}, {userY}, {userZ}</strong> ({(int)dist}m away)");
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace VSTutorial
     if (results.Count > 0)
         return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
     
-    return TextCommandResult.Success($"No translocators found in {radius} block radius.");
+    return TextCommandResult.Success($"No translocators found near your map coordinates.");
 }
 
     }
