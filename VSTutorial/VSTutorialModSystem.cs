@@ -25,64 +25,72 @@ namespace VSTutorial
         }
 
         private TextCommandResult ProcessFindTL()
+{
+    if (capi.World?.Player?.Entity == null) 
+        return TextCommandResult.Error("Player not found.");
+
+    BlockPos playerPos = capi.World.Player.Entity.Pos.AsBlockPos;
+    List<string> results = new List<string>();
+    int radius = 80;
+
+    // 1. Find the internal ID for translocators to avoid string comparisons in the loop
+    // We look for any block that contains "statictranslocator"
+    List<int> tlIds = new List<int>();
+    foreach (var block in capi.World.Blocks)
+    {
+        if (block?.Code != null && block.Code.Path.Contains("statictranslocator"))
         {
-            if (capi.World?.Player?.Entity == null) 
-                return TextCommandResult.Error("Player not found.");
+            tlIds.Add(block.Id);
+        }
+    }
 
-            BlockPos playerPos = capi.World.Player.Entity.Pos.AsBlockPos;
-            List<string> results = new List<string>();
+    if (tlIds.Count == 0) return TextCommandResult.Error("Translocator block type not found in registry.");
 
-            // We scan a 160x160 area around the player (roughly 10 chunks)
-            // Scanning every single block is slow, so we only check Block Entities
-            int radius = 80; 
-
-            for (int x = -radius; x <= radius; x++)
+    // 2. Scan the area
+    BlockPos tmpPos = new BlockPos();
+    for (int x = -radius; x <= radius; x++)
+    {
+        for (int y = -30; y <= 30; y++) // Translocators are usually near floor level
+        {
+            for (int z = -radius; z <= radius; z++)
             {
-                for (int y = -64; y <= 64; y++) // Search 64 blocks up and down
+                tmpPos.Set(playerPos.X + x, playerPos.Y + y, playerPos.Z + z);
+                
+                int blockId = capi.World.BlockAccessor.GetBlockId(tmpPos);
+                
+                if (tlIds.Contains(blockId))
                 {
-                    for (int z = -radius; z <= radius; z++)
+                    double dist = tmpPos.DistanceTo(playerPos);
+                    
+                    // Attempt to get the BlockEntity for status, but don't rely on it for the find
+                    BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(tmpPos);
+                    string status = "FOUND";
+                    string color = "#ffff77";
+
+                    if (be != null)
                     {
-                        BlockPos tmpPos = new BlockPos(playerPos.X + x, playerPos.Y + y, playerPos.Z + z, playerPos.dimension);
+                        var field = be.GetType().GetField("repaired", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                                 ?? be.GetType().GetField("Repaired", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
                         
-                        // GetBlockEntity is the most basic, stable method in the API
-                        BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(tmpPos);
-                        
-                        if (be != null && be.GetType().Name == "BEStaticTranslocator")
+                        if (field != null)
                         {
-                            int dist = (int)tmpPos.DistanceTo(playerPos);
-                            
-                            // Reflection to avoid "Namespace Not Found" errors
-                            bool repaired = false;
-                            var repProp = be.GetType().GetProperty("Repaired");
-                            if (repProp != null) repaired = (bool)repProp.GetValue(be);
-
-                            string color = repaired ? "#77ff77" : "#ff7777";
-                            string status = repaired ? "ACTIVE" : "BROKEN";
-
-                            string msg = $"<strong><font color=\"{color}\">[{status}]</font></strong> at {tmpPos.X}, {tmpPos.Y}, {tmpPos.Z} ({dist}m)";
-
-                            if (repaired)
-                            {
-                                var destProp = be.GetType().GetProperty("tpDestination");
-                                if (destProp != null && destProp.GetValue(be) is BlockPos dest)
-                                {
-                                    int travel = (int)tmpPos.DistanceTo(dest);
-                                    msg += $"\n   <font color=\"#aaaaaa\">└─ Leads to: {dest.X}, {dest.Y}, {dest.Z} ({travel}m away)</font>";
-                                }
-                            }
-
-                            results.Add(msg);
+                            bool repaired = (bool)field.GetValue(be);
+                            status = repaired ? "ACTIVE" : "BROKEN";
+                            color = repaired ? "#77ff77" : "#ff7777";
                         }
                     }
+
+                    results.Add($"<strong><font color=\"{color}\">[{status}]</font></strong> at {tmpPos.X}, {tmpPos.Y}, {tmpPos.Z} ({(int)dist}m)");
                 }
             }
-
-            if (results.Count > 0)
-            {
-                return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
-            }
-            
-            return TextCommandResult.Success("No translocators found in immediate vicinity (80 block radius).");
         }
+    }
+
+    if (results.Count > 0)
+        return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
+    
+    return TextCommandResult.Success($"No translocators found in {radius} block radius.");
+}
+
     }
 }
