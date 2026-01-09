@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Datastructures;
+using Vintagestory.GameContent;
 
 namespace VSTutorial
 {
@@ -18,52 +19,40 @@ namespace VSTutorial
             this.capi = api;
 
             api.ChatCommands.Create("findtl")
-                .WithDescription("Finds nearby translocators")
+                .WithDescription("Finds nearby translocators. Usage: .findtl [addWaypoints(true/false)]")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(api.ChatCommands.Parsers.OptionalBool("addWaypoints", "false"))
                 .HandleWith(args => 
                 {
-                    return ProcessFindTL();
+                    bool shouldAddWaypoints = (bool)args[0];
+                    return ProcessFindTL(shouldAddWaypoints);
                 });
         }
 
-      private TextCommandResult ProcessFindTL()
+        private TextCommandResult ProcessFindTL(bool addWaypoints)
         {
-            if (capi.World?.Player?.Entity == null) {
+            if (capi.World?.Player?.Entity == null) 
                 return TextCommandResult.Error("Player not found.");
-            }
 
-            // The raw "Global" coordinates
             BlockPos pPos = capi.World.Player.Entity.Pos.AsBlockPos;
-            
-            // The offset used by the game to show "User Friendly" coordinates
             BlockPos mapMiddle = capi.World.DefaultSpawnPosition.AsBlockPos;
-
+            List<string> clientCommands = new List<string>();
             List<string> results = new List<string>();
             int radius = 150;
-            
-            HashSet<int> tlIds = new HashSet<int>();
-            foreach (var block in capi.World.Blocks)
-            {
-                if (block?.Code != null && block.Code.Path.Contains("statictranslocator"))
-                {
-                    tlIds.Add(block.Id);
-                }
-            }
 
-            // Define the search area
-            BlockPos minPos = pPos.AddCopy(-radius, -radius, -radius);
-            BlockPos maxPos = pPos.AddCopy(radius, radius, radius);
+            var mapManager = capi.ModLoader.GetModSystem<WorldMapManager>();
+            var waypointLayer = mapManager?.MapLayers.OfType<WaypointMapLayer>().FirstOrDefault();
 
-            // SearchBlocks is much faster than nested for-loops
-            capi.World.BlockAccessor.SearchBlocks(minPos, maxPos, (block, pos) =>
+            capi.World.BlockAccessor.SearchBlocks(pPos.AddCopy(-radius, -radius, -radius), pPos.AddCopy(radius, radius, radius), (block, pos) =>
             {
-                // Only process if it's a static translocator
                 if (block.Code.Path.Contains("statictranslocator"))
                 {
-                    // Logic: Repaired translocators have 'repaired' or 'active' in the name
-                    // Broken ones usually have 'broken' or just the base name.
-                    bool isRepaired = block.Code.Path.Contains("normal") || block.Code.Path.Contains("repaired") || 
-                        block.Code.Path.Contains("active");
+                    bool isRepaired = !block.Code.Path.Contains("broken") && 
+                                     (block.Code.Path.Contains("normal") || 
+                                      block.Code.Path.Contains("repaired") || 
+                                      block.Code.Path.Contains("active"));
 
+                    // Define display variables
                     int userX = pos.X - mapMiddle.X;
                     int userY = pos.Y;
                     int userZ = pos.Z - mapMiddle.Z;
@@ -71,15 +60,22 @@ namespace VSTutorial
                     string status = isRepaired ? "ACTIVE" : "BROKEN";
                     string color = isRepaired ? "#77ff77" : "#ff7777";
 
+                    if (addWaypoints)
+                    {
+                        string wpColor = isRepaired ? "green" : "red";
+                        string wpName = isRepaired ? "Active Translocator" : "Broken Translocator";
+                        capi.SendChatMessage($"/waypoint addati spiral ={pos.X} ={pos.Y} ={pos.Z} false {wpColor} {wpName}");
+                    }
+                    
                     results.Add($"<font color=\"{color}\">[{status}]</font> at <strong>{userX}, {userY}, {userZ}</strong> ({(int)dist}m away)");
                 }
-                return true; // Keep searching
+                return true; 
             });
 
             if (results.Count > 0)
                 return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
             
-            return TextCommandResult.Success($"No translocators found near your map coordinates.");
+            return TextCommandResult.Success($"No translocators found within {radius} blocks.");
         }
     }
 }
