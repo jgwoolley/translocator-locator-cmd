@@ -1,0 +1,51 @@
+name: Build and Package VS Mod
+
+# on:
+#   push:
+#     tags:
+#       - 'v*' # Triggers on tags like v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x' # Use '7.0.x' if targeting VS 1.20 or older
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build Mod
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Prepare Packaging Directory
+        run: |
+          mkdir -p publish/assets
+          # Copy the compiled DLL (Update 'YourModName' to your actual DLL name)
+          cp bin/Release/net8.0/YourModName.dll publish/
+          # Copy mod metadata and assets
+          cp modinfo.json publish/
+          if [ -d "assets" ]; then cp -r assets publish/; fi
+          if [ -f "modicon.png" ]; then cp modicon.png publish/; fi
+
+      - name: Create Zip Archive
+        id: package
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          ZIP_NAME="YourModName_${VERSION}.zip"
+          cd publish
+          zip -r ../$ZIP_NAME .
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.package.outputs.zip_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
