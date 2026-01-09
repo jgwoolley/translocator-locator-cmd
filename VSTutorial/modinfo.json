@@ -1,7 +1,7 @@
 {
     "type": "code",
-    "modid": "vstutorial",
-    "name": "VSTutorial - Simple Command",
+    "modid": "nf2t_translocator_finder_cmd",
+    "name": "Nf3t - Translocator Finder Client",
     "authors": [
         "Nat @ Vintage Story Wiki"
     ],
