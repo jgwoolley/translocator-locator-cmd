@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Datastructures;
 
 namespace VSTutorial
 {
@@ -25,72 +26,60 @@ namespace VSTutorial
         }
 
       private TextCommandResult ProcessFindTL()
-{
-    if (capi.World?.Player?.Entity == null) 
-        return TextCommandResult.Error("Player not found.");
-
-    // The raw "Global" coordinates
-    BlockPos pPos = capi.World.Player.Entity.Pos.AsBlockPos;
-    
-    // The offset used by the game to show "User Friendly" coordinates
-    BlockPos mapMiddle = capi.World.DefaultSpawnPosition.AsBlockPos;
-
-    List<string> results = new List<string>();
-    int radius = 80;
-
-    HashSet<int> tlIds = new HashSet<int>();
-    foreach (var block in capi.World.Blocks)
-    {
-        if (block?.Code != null && block.Code.Path.Contains("statictranslocator"))
         {
-            tlIds.Add(block.Id);
-        }
-    }
+            if (capi.World?.Player?.Entity == null) {
+                return TextCommandResult.Error("Player not found.");
+            }
 
-    BlockPos tmpPos = new BlockPos(0, 0, 0, pPos.dimension);
+            // The raw "Global" coordinates
+            BlockPos pPos = capi.World.Player.Entity.Pos.AsBlockPos;
+            
+            // The offset used by the game to show "User Friendly" coordinates
+            BlockPos mapMiddle = capi.World.DefaultSpawnPosition.AsBlockPos;
 
-    for (int x = -radius; x <= radius; x++)
-    {
-        for (int z = -radius; z <= radius; z++)
-        {
-            for (int y = -20; y <= 20; y++) 
+            List<string> results = new List<string>();
+            int radius = 150;
+            
+            HashSet<int> tlIds = new HashSet<int>();
+            foreach (var block in capi.World.Blocks)
             {
-                tmpPos.Set(pPos.X + x, pPos.Y + y, pPos.Z + z);
-                int blockId = capi.World.BlockAccessor.GetBlockId(tmpPos);
-                
-                if (tlIds.Contains(blockId))
+                if (block?.Code != null && block.Code.Path.Contains("statictranslocator"))
                 {
-                    // Convert World -> User/Map Coordinates
-                    int userX = tmpPos.X - mapMiddle.X;
-                    int userY = tmpPos.Y; // Y is usually absolute
-                    int userZ = tmpPos.Z - mapMiddle.Z;
+                    tlIds.Add(block.Id);
+                }
+            }
 
-                    double dist = tmpPos.DistanceTo(pPos);
-                    
-                    // Attempt to get repair status
-                    BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(tmpPos);
-                    bool repaired = false;
-                    if (be != null)
-                    {
-                        var field = be.GetType().GetField("repaired", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                                 ?? be.GetType().GetField("Repaired", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                        if (field != null) repaired = (bool)field.GetValue(be);
-                    }
+            // Define the search area
+            BlockPos minPos = pPos.AddCopy(-radius, -radius, -radius);
+            BlockPos maxPos = pPos.AddCopy(radius, radius, radius);
 
-                    string status = repaired ? "ACTIVE" : "BROKEN";
-                    string color = repaired ? "#77ff77" : "#ff7777";
+            // SearchBlocks is much faster than nested for-loops
+            capi.World.BlockAccessor.SearchBlocks(minPos, maxPos, (block, pos) =>
+            {
+                // Only process if it's a static translocator
+                if (block.Code.Path.Contains("statictranslocator"))
+                {
+                    // Logic: Repaired translocators have 'repaired' or 'active' in the name
+                    // Broken ones usually have 'broken' or just the base name.
+                    bool isRepaired = block.Code.Path.Contains("normal") || block.Code.Path.Contains("repaired") || 
+                        block.Code.Path.Contains("active");
+
+                    int userX = pos.X - mapMiddle.X;
+                    int userY = pos.Y;
+                    int userZ = pos.Z - mapMiddle.Z;
+                    double dist = Math.Sqrt(pos.DistanceSqTo(pPos.X, pPos.Y, pPos.Z));
+                    string status = isRepaired ? "ACTIVE" : "BROKEN";
+                    string color = isRepaired ? "#77ff77" : "#ff7777";
 
                     results.Add($"<font color=\"{color}\">[{status}]</font> at <strong>{userX}, {userY}, {userZ}</strong> ({(int)dist}m away)");
                 }
-            }
+                return true; // Keep searching
+            });
+
+            if (results.Count > 0)
+                return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
+            
+            return TextCommandResult.Success($"No translocators found near your map coordinates.");
         }
-    }
-
-    if (results.Count > 0)
-        return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
-    
-    return TextCommandResult.Success($"No translocators found near your map coordinates.");
-}
-
     }
 }

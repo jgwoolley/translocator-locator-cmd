@@ -3,9 +3,9 @@
     "modid": "nf2t_translocator_finder_cmd",
     "name": "Nf3t - Translocator Finder Client",
     "authors": [
-        "Nat @ Vintage Story Wiki"
+        "Unknown"
     ],
-    "description": "Entry #3 to the wiki's code tutorial series. Creates a /spawn command.",
+    "description": "Adds a command to find Translocators.",
     "version": "1.0.0",
     "dependencies": {
         "game": ""

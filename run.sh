@@ -1,4 +1,2 @@
-docker run -w /app -v "$(pwd)":/app mcr.microsoft.com/dotnet/sdk:8.0 dotnet restore ZZCakeBuild/CakeBuild.csproj
-docker run -w /app -v "$(pwd)":/app mcr.microsoft.com/dotnet/sdk:8.0 dotnet clean /app/ZZCakeBuild/CakeBuild.csproj
 docker run -w /app -v "$(pwd)":/app mcr.microsoft.com/dotnet/sdk:8.0 dotnet build /app/ZZCakeBuild/CakeBuild.csproj /p:VINTAGE_STORY=/app/vs_server
 docker run -w /app -v "$(pwd)":/app mcr.microsoft.com/dotnet/sdk:8.0 dotnet run --project /app/ZZCakeBuild/CakeBuild.csproj -- --target=Package
