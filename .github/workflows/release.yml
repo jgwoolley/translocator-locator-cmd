@@ -1,10 +1,11 @@
 name: Build and Package VS Mod
 
-# on:
-#   push:
+on:
+  push:
+    branches: [ "main", "master" ] # Triggers on every push to your main branch
+
 #     tags:
 #       - 'v*' # Triggers on tags like v1.0.0
-
 jobs:
   build:
     runs-on: ubuntu-latest
