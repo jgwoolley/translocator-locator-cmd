@@ -74,9 +74,13 @@ namespace CakeBuild
     {
         public override void Run(BuildContext context)
         {
+            var homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var toolPath = Path.Combine(homePath, ".dotnet", "dotnet");
+            
             context.DotNetClean($"../{BuildContext.ProjectName}/{BuildContext.ProjectName}.csproj",
                 new DotNetCleanSettings
                 {
+                    ToolPath = toolPath,
                     Configuration = context.BuildConfiguration
                 });
 
@@ -84,6 +88,7 @@ namespace CakeBuild
             context.DotNetPublish($"../{BuildContext.ProjectName}/{BuildContext.ProjectName}.csproj",
                 new DotNetPublishSettings
                 {
+                    ToolPath = toolPath,
                     Configuration = context.BuildConfiguration
                 });
         }

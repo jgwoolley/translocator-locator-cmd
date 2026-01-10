@@ -3,17 +3,18 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
+    <VINTAGE_STORY>$(MSBuildProjectDirectory)/../vs_server</VINTAGE_STORY>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Cake.Frosting" Version="3.0.0" />
+    <PackageReference Include="Cake.Frosting" Version="4.0.0" />
     <PackageReference Include="Cake.Json" Version="7.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   
   <ItemGroup>
       <Reference Include="VintagestoryAPI">
-      <HintPath>../vs_server/VintagestoryAPI.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
      <Private>true</Private>
       </Reference>
   </ItemGroup>

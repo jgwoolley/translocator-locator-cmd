@@ -1,13 +1,13 @@
 {
     "type": "code",
-    "modid": "nf2t_translocator_finder_cmd",
-    "name": "Nf3t - Translocator Finder Client",
-    "authors": [
-        "Unknown"
-    ],
+    "modid": "nf3t_translocator_finder_cmd",
+    "name": "Nf3t - Translocator Locator (Command)",
+    "authors": ["Nf3t"],
     "description": "Adds a command to find Translocators.",
     "version": "1.0.0",
+    "side": "Client",
+    "requiredOnServer": false,
     "dependencies": {
-        "game": ""
+        "game": "1.21.6"
     }
 }

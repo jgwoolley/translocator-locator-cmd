@@ -1,0 +1,17 @@
+=========================================
+          CREDITS & ATTRIBUTION
+=========================================
+
+Mod: Translocator Locator by Nf3t (nf3t_translocator_finder_cmd)
+Author: nf3t
+
+-----------------------------------------
+ASSET CREDITS:
+-----------------------------------------
+The mod icon/graphics are derived from:
+- Fish Cake With Swirl SVG Vector
+- Created by: joypixels
+- Source: https://www.svgrepo.com/svg/403297/fish-cake-with-swirl
+- License: MIT License
+
+Thank you to the original creator for their contribution to the community!

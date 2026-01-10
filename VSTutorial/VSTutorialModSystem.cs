@@ -1,79 +1,123 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
+using System.Linq;
 
 namespace VSTutorial
 {
-    public class VSTutorialModSystem : ModSystem
+    public class TranslocatorResult
     {
-        private ICoreClientAPI capi;
+        public bool IsRepaired { get;  }
+        public double Distance { get; }
+        public int UserX { get; }
+        public int UserY { get; }
+        public int UserZ { get; }
+        
+
+        public TranslocatorResult(bool isRepaired, double distance, int userX, int userY, int userZ)
+        {
+            this.IsRepaired = isRepaired;
+            this.Distance = distance;
+            this.UserX = userX;
+            this.UserY = userY;
+            this.UserZ = userZ;
+        }
+        
+        public string ToChatString()
+        {
+            string color = IsRepaired ? "#77ff77" : "#ff7777";
+            string status = IsRepaired ? "ACTIVE" : "BROKEN";
+            return $"<font color=\"{color}\">[{status}]</font> " +
+                   $"at <strong>{UserX}, {UserY}, {UserZ}</strong> ({(int)Distance}m away)";
+        }
+
+        public string ToWaypointString()
+        {
+            string wpColor = IsRepaired ? "green" : "red";
+            string wpName = IsRepaired ? "Active Translocator" : "Broken Translocator";
+            return $"/waypoint addati spiral {UserX} {UserY} {UserZ} false {wpColor} {wpName}";
+        }
+    }
+    
+    public class VsTutorialModSystem : ModSystem
+    {
+        private ICoreClientAPI _api;
 
         public override bool ShouldLoad(EnumAppSide side) => side == EnumAppSide.Client;
 
         public override void StartClientSide(ICoreClientAPI api)
         {
-            this.capi = api;
+            this._api = api;
 
             api.ChatCommands.Create("findtl")
                 .WithDescription("Finds nearby translocators. Usage: .findtl [addWaypoints(true/false)]")
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
-                .WithArgs(api.ChatCommands.Parsers.OptionalBool("addWaypoints", "false"))
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints", "false"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
                 .HandleWith(args => 
                 {
-                    bool shouldAddWaypoints = (bool)args[0];
-                    return ProcessFindTL(shouldAddWaypoints);
+                    bool addWaypoints = (bool)args[0];
+                    int radius =(int)args[1];
+                    return ProcessFindTranslocator(addWaypoints, radius);
                 });
         }
 
-        private TextCommandResult ProcessFindTL(bool addWaypoints)
+        private TextCommandResult ProcessFindTranslocator(bool addWaypoints, int radius)
         {
-            if (capi.World?.Player?.Entity == null) 
-                return TextCommandResult.Error("Player not found.");
-
-            BlockPos pPos = capi.World.Player.Entity.Pos.AsBlockPos;
-            BlockPos mapMiddle = capi.World.DefaultSpawnPosition.AsBlockPos;
-            List<string> clientCommands = new List<string>();
-            List<string> results = new List<string>();
-            int radius = 150;
-
-            var mapManager = capi.ModLoader.GetModSystem<WorldMapManager>();
-            var waypointLayer = mapManager?.MapLayers.OfType<WaypointMapLayer>().FirstOrDefault();
-
-            capi.World.BlockAccessor.SearchBlocks(pPos.AddCopy(-radius, -radius, -radius), pPos.AddCopy(radius, radius, radius), (block, pos) =>
+            if (_api.World?.Player?.Entity == null)
             {
-                if (block.Code.Path.Contains("statictranslocator"))
+                return TextCommandResult.Error("Player not found.");
+            }
+
+            BlockPos pPos = _api.World.Player.Entity.Pos.AsBlockPos;
+            BlockPos mapMiddle = _api.World.DefaultSpawnPosition.AsBlockPos;
+            List<TranslocatorResult> results = new List<TranslocatorResult>();
+            
+            _api.World.BlockAccessor.SearchBlocks(pPos.AddCopy(-radius, -radius, -radius), pPos.AddCopy(radius, radius, radius), (block, pos) =>
+            {
+                if (!block.Code.Path.StartsWith("statictranslocator"))
                 {
-                    bool isRepaired = !block.Code.Path.Contains("broken") && 
-                                     (block.Code.Path.Contains("normal") || 
-                                      block.Code.Path.Contains("repaired") || 
-                                      block.Code.Path.Contains("active"));
-
-                    // Define display variables
-                    int userX = pos.X - mapMiddle.X;
-                    int userY = pos.Y;
-                    int userZ = pos.Z - mapMiddle.Z;
-                    double dist = Math.Sqrt(pos.DistanceSqTo(pPos.X, pPos.Y, pPos.Z));
-                    string status = isRepaired ? "ACTIVE" : "BROKEN";
-                    string color = isRepaired ? "#77ff77" : "#ff7777";
-
-                    if (addWaypoints)
-                    {
-                        string wpColor = isRepaired ? "green" : "red";
-                        string wpName = isRepaired ? "Active Translocator" : "Broken Translocator";
-                        capi.SendChatMessage($"/waypoint addati spiral ={pos.X} ={pos.Y} ={pos.Z} false {wpColor} {wpName}");
-                    }
-                    
-                    results.Add($"<font color=\"{color}\">[{status}]</font> at <strong>{userX}, {userY}, {userZ}</strong> ({(int)dist}m away)");
+                    return true;
                 }
+                
+                _api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", block.Code.Path, pos);
+                
+                bool isRepaired = !block.Code.Path.StartsWith("statictranslocator-broken") && block.Code.Path.StartsWith("statictranslocator-normal");
+                
+                // Define display variables
+                int userX = pos.X - mapMiddle.X;
+                int userY = pos.Y;
+                int userZ = pos.Z - mapMiddle.Z;
+                double dist = Math.Sqrt(pos.DistanceSqTo(pPos.X, pPos.Y, pPos.Z));
+
+                TranslocatorResult result = new TranslocatorResult(isRepaired, dist, userX, userY, userZ);
+                results.Add(result);
+                    
                 return true; 
             });
 
-            if (results.Count > 0)
-                return TextCommandResult.Success("Found:\n" + string.Join("\n", results));
+            List<TranslocatorResult> sortedResults = results
+                .OrderByDescending(tl => tl.Distance)
+                .ToList(); 
+            
+            List<String> messages = new List<string>();
+            foreach (var result in sortedResults)
+            {
+                if (addWaypoints)
+                {
+                    _api.SendChatMessage(result.ToWaypointString());
+                }
+                messages.Add(result.ToChatString());
+
+            }
+            
+            if (messages.Count > 0)
+            {
+                return TextCommandResult.Success("Found:\n" + string.Join("\n", messages));
+            }
             
             return TextCommandResult.Success($"No translocators found within {radius} blocks.");
         }
