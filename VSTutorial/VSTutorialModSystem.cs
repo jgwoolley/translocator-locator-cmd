@@ -50,16 +50,16 @@ namespace VSTutorial
         public override void StartClientSide(ICoreClientAPI api)
         {
             this._api = api;
-
+            
             api.ChatCommands.Create("findtl")
                 .WithDescription("Finds nearby translocators.")
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
                 .WithArgs(
-                    api.ChatCommands.Parsers.OptionalBool("addWaypoints", "false"),
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
                     api.ChatCommands.Parsers.OptionalInt("radius", 150))
                 .HandleWith(args => 
                 {
-                    bool addWaypoints = (bool)args[0];
+                    bool addWaypoints = true.Equals(args[0]);
                     int radius =(int)args[1];
                     return ProcessFindTranslocator(addWaypoints, radius);
                 });
@@ -92,7 +92,7 @@ namespace VSTutorial
                 int userY = pos.Y;
                 int userZ = pos.Z - mapMiddle.Z;
                 double dist = Math.Sqrt(pos.DistanceSqTo(pPos.X, pPos.Y, pPos.Z));
-
+                
                 TranslocatorResult result = new TranslocatorResult(isRepaired, dist, userX, userY, userZ);
                 results.Add(result);
                     
