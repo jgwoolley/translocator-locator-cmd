@@ -1,13 +1,14 @@
 {
     "type": "code",
-    "modid": "nf3t_translocator_finder_cmd",
+    "modid": "nf3ttranslocatorfindercmd",
     "name": "Nf3t - Translocator Locator (Command)",
     "authors": ["Nf3t"],
-    "description": "Adds a command to find Translocators.",
-    "version": "1.0.0",
+    "description": "A client side mod for VintageStory which allows you to find Translocators, and optionally, add them as waypoints. An XRAY for Translocators!",
+    "version": "1.0.2",
     "side": "Client",
     "requiredOnServer": false,
     "dependencies": {
-        "game": "1.21.6"
+        "game": "1.21.0",
+        "survival": "1.21.0"
     }
 }
