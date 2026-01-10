@@ -52,7 +52,7 @@ namespace VSTutorial
             this._api = api;
 
             api.ChatCommands.Create("findtl")
-                .WithDescription("Finds nearby translocators. Usage: .findtl [addWaypoints(true/false)]")
+                .WithDescription("Finds nearby translocators.")
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
                 .WithArgs(
                     api.ChatCommands.Parsers.OptionalBool("addWaypoints", "false"),
