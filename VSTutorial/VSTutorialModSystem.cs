@@ -1,44 +1,84 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 using System.Linq;
 
 namespace VSTutorial
 {
+    public class RelativePointDistance
+    {
+        public BlockPos MapMiddle { get; }
+        public BlockPos Pos { get; }
+        public int RelativeX => Pos.X - MapMiddle.X;
+        public int RelativeY => Pos.Y;
+        public int RelativeZ => Pos.Z - MapMiddle.Z;
+
+        public RelativePointDistance(BlockPos mapMiddle, BlockPos pos)
+        {
+            MapMiddle = mapMiddle;
+            Pos = pos;
+        }
+
+        public double DistanceTo(BlockPos other)
+        {
+            return Math.Sqrt(Pos.DistanceSqTo(other.X, other.Y, other.Z));
+        }
+        
+        public string ToWaypointString(string wpColor, string wpName)
+        {
+            return $"/waypoint addati spiral ={Pos.X} ={Pos.Y} ={Pos.Z} false {wpColor} {wpName}";
+        }
+    }
+    
     public class TranslocatorResult
     {
+        public BlockPos PlayerPos;
         public bool IsRepaired { get;  }
-        public double Distance { get; }
-        public int UserX { get; }
-        public int UserY { get; }
-        public int UserZ { get; }
+        public RelativePointDistance Source { get; }
+        public RelativePointDistance? Destination { get; }
+        public int Distance => (int)Source.DistanceTo(PlayerPos);
         
-
-        public TranslocatorResult(bool isRepaired, double distance, int userX, int userY, int userZ)
+        public TranslocatorResult(BlockPos mapMiddle, BlockPos source, BlockPos? destination, BlockPos playerPos, bool isRepaired)
         {
-            this.IsRepaired = isRepaired;
-            this.Distance = distance;
-            this.UserX = userX;
-            this.UserY = userY;
-            this.UserZ = userZ;
+            Source = new RelativePointDistance(mapMiddle, source);
+            Destination = destination == null ? null: new RelativePointDistance(mapMiddle, destination);
+            PlayerPos = playerPos;
+            IsRepaired = isRepaired;
         }
         
         public string ToChatString()
         {
             string color = IsRepaired ? "#77ff77" : "#ff7777";
             string status = IsRepaired ? "ACTIVE" : "BROKEN";
+            
+            string destinationResult = Destination == null ? "": $" → {Destination.RelativeX}, {Destination.RelativeY}, {Destination.RelativeZ} ({(int)Destination.DistanceTo(PlayerPos)}m away)";
+            
             return $"<font color=\"{color}\">[{status}]</font> " +
-                   $"at <strong>{UserX}, {UserY}, {UserZ}</strong> ({(int)Distance}m away)";
+                   $"at <strong>{Source.RelativeX}, {Source.RelativeY}, {Source.RelativeZ} ({Distance}m away){destinationResult}</strong>";
         }
 
-        public string ToWaypointString()
+        public string SourceToWaypointString()
         {
             string wpColor = IsRepaired ? "green" : "red";
             string wpName = IsRepaired ? "Active Translocator" : "Broken Translocator";
-            return $"/waypoint addati spiral {UserX} {UserY} {UserZ} false {wpColor} {wpName}";
+
+            return Source.ToWaypointString(wpColor, wpName);
         }
+        
+        public string DestinationToWaypointString()
+        {
+            if (Destination == null)
+            {
+                return "";
+            }
+            return Destination.ToWaypointString("green", "Active Translocator");
+        }
+        
     }
     
     public class VsTutorialModSystem : ModSystem
@@ -72,28 +112,45 @@ namespace VSTutorial
                 return TextCommandResult.Error("Player not found.");
             }
 
-            BlockPos pPos = _api.World.Player.Entity.Pos.AsBlockPos;
+            BlockPos playerPos = _api.World.Player.Entity.Pos.AsBlockPos;
             BlockPos mapMiddle = _api.World.DefaultSpawnPosition.AsBlockPos;
             List<TranslocatorResult> results = new List<TranslocatorResult>();
             
-            _api.World.BlockAccessor.SearchBlocks(pPos.AddCopy(-radius, -radius, -radius), pPos.AddCopy(radius, radius, radius), (block, pos) =>
+            _api.World.BlockAccessor.SearchBlocks(playerPos.AddCopy(-radius, -radius, -radius), playerPos.AddCopy(radius, radius, radius), (block, pos) =>
             {
                 if (!block.Code.Path.StartsWith("statictranslocator"))
                 {
                     return true;
                 }
+
+                bool isRepaired = false;
+
+                if (block.Code.Path.StartsWith("statictranslocator-broken"))
+                {
+                    isRepaired = false;
+                }
+                else if(block.Code.Path.StartsWith("statictranslocator-normal"))
+                {
+                    isRepaired = true;
+                }
+
+                BlockPos destination = null;
+                
+                if (block is BlockStaticTranslocator translocatorBlock)
+                {
+                    isRepaired = translocatorBlock.Repaired;
+                    _api.Logger.Debug("[Translocator Locator] Found repaired status: {0} for {1}", translocatorBlock.Repaired, pos);
+                    BlockEntity be = _api.World.BlockAccessor.GetBlockEntity(pos);
+                    if (be is BlockEntityStaticTranslocator translocator)
+                    {
+                        destination = translocator.TargetLocation;
+                        _api.Logger.Debug("[Translocator Locator] Found destination: {0} for {1}", destination, pos);
+                    }
+                }
                 
                 _api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", block.Code.Path, pos);
                 
-                bool isRepaired = !block.Code.Path.StartsWith("statictranslocator-broken") && block.Code.Path.StartsWith("statictranslocator-normal");
-                
-                // Define display variables
-                int userX = pos.X - mapMiddle.X;
-                int userY = pos.Y;
-                int userZ = pos.Z - mapMiddle.Z;
-                double dist = Math.Sqrt(pos.DistanceSqTo(pPos.X, pPos.Y, pPos.Z));
-                
-                TranslocatorResult result = new TranslocatorResult(isRepaired, dist, userX, userY, userZ);
+                TranslocatorResult result = new TranslocatorResult(mapMiddle, pos.Copy(), destination?.Copy(), playerPos.Copy(), isRepaired);
                 results.Add(result);
                     
                 return true; 
@@ -108,7 +165,12 @@ namespace VSTutorial
             {
                 if (addWaypoints)
                 {
-                    _api.SendChatMessage(result.ToWaypointString());
+                    _api.SendChatMessage(result.SourceToWaypointString());
+
+                    if (result.Destination != null)
+                    {
+                        _api.SendChatMessage(result.DestinationToWaypointString());
+                    }
                 }
                 messages.Add(result.ToChatString());
 
