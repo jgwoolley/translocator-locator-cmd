@@ -171,7 +171,7 @@ namespace VSTutorial
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findchest", "Finds nearby item containers.", false, s => s.Keywords.Contains("chest"));
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findsoil", "Finds nearby bony soil, and high fertility soil.", true, s => s.Keywords.Contains("soil"));
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findclay", "Finds nearby clay.", true, s => s.Keywords.Contains("clay"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findore", "Finds nearby ores.", true, s => s.Keywords.Contains("ore"));
+            AddProcessFindStartsWith(api, saveFilePath, selectors, "findore", "Finds nearby ores and crystals.", true, s => s.Keywords.Contains("ore"));
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findbees", "Finds nearby bees.", false, s => s.Keywords.Contains("bees"));
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findresin", "Finds nearby resin.", false, s => s.Keywords.Contains("resin"));
             AddProcessFindStartsWith(api, saveFilePath, selectors, "findmushroom", "Finds nearby mushrooms.", true, s => s.Keywords.Contains("mushroom"));
