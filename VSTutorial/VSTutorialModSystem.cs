@@ -10,18 +10,21 @@ using System.Linq;
 
 namespace VSTutorial
 {
-    public class RelativePointDistance
+    public class WayPoint
     {
-        public BlockPos MapMiddle { get; }
         public BlockPos Pos { get; }
-        public int RelativeX => Pos.X - MapMiddle.X;
-        public int RelativeY => Pos.Y;
-        public int RelativeZ => Pos.Z - MapMiddle.Z;
+        public string Name { get; }
+        public string Icon { get; }
+        public string Color { get; }
+        public string ExtraChat { get; set; }
 
-        public RelativePointDistance(BlockPos mapMiddle, BlockPos pos)
+        public WayPoint(BlockPos pos, string name, string icon, string color)
         {
-            MapMiddle = mapMiddle;
             Pos = pos;
+            Name = name;
+            Icon = icon;
+            Color = color;
+            ExtraChat = "";
         }
 
         public double DistanceTo(BlockPos other)
@@ -29,56 +32,54 @@ namespace VSTutorial
             return Math.Sqrt(Pos.DistanceSqTo(other.X, other.Y, other.Z));
         }
         
-        public string ToWaypointString(string wpColor, string wpName)
+        public string ToWaypointString()
         {
-            return $"/waypoint addati spiral ={Pos.X} ={Pos.Y} ={Pos.Z} false {wpColor} {wpName}";
-        }
-    }
-    
-    public class TranslocatorResult
-    {
-        public BlockPos PlayerPos;
-        public bool IsRepaired { get;  }
-        public RelativePointDistance Source { get; }
-        public RelativePointDistance? Destination { get; }
-        public int Distance => (int)Source.DistanceTo(PlayerPos);
-        
-        public TranslocatorResult(BlockPos mapMiddle, BlockPos source, BlockPos? destination, BlockPos playerPos, bool isRepaired)
-        {
-            Source = new RelativePointDistance(mapMiddle, source);
-            Destination = destination == null ? null: new RelativePointDistance(mapMiddle, destination);
-            PlayerPos = playerPos;
-            IsRepaired = isRepaired;
+            return $"/waypoint addati {Icon} ={(int)Pos.X} ={(int)Pos.Y} ={(int)Pos.Z} false {Color} \"{Name}\"";
         }
         
-        public string ToChatString()
+        public string GetDirectionArrow(BlockPos playerPos)
         {
-            string color = IsRepaired ? "#77ff77" : "#ff7777";
-            string status = IsRepaired ? "ACTIVE" : "BROKEN";
-            
-            string destinationResult = Destination == null ? "": $" → {Destination.RelativeX}, {Destination.RelativeY}, {Destination.RelativeZ} ({(int)Destination.DistanceTo(PlayerPos)}m away)";
-            
-            return $"<font color=\"{color}\">[{status}]</font> " +
-                   $"at <strong>{Source.RelativeX}, {Source.RelativeY}, {Source.RelativeZ} ({Distance}m away){destinationResult}</strong>";
-        }
+            // Calculate difference (Target - Player)
+            double dz = Pos.Z - playerPos.Z;
+            double dx = Pos.X - playerPos.X;
 
-        public string SourceToWaypointString()
-        {
-            string wpColor = IsRepaired ? "green" : "red";
-            string wpName = IsRepaired ? "Active Translocator" : "Broken Translocator";
+            // Atan2 returns the angle in radians
+            // Math.Atan2(y, x) -> we use Z as Y for the 2D plane
+            double radians = Math.Atan2(dz, dx);
+            double degrees = radians * (180 / Math.PI);
 
-            return Source.ToWaypointString(wpColor, wpName);
+            // Normalize to 0-360 for easier mapping
+            // 0 is East, 90 is South, 180 is West, 270 is North
+            double angle = (degrees + 360) % 360;
+
+            if (angle >= 337.5 || angle < 22.5)   return "→"; // East
+            if (angle >= 22.5  && angle < 67.5)   return "↘"; // South-East
+            if (angle >= 67.5  && angle < 112.5)  return "↓"; // South
+            if (angle >= 112.5 && angle < 157.5)  return "↙"; // South-West
+            if (angle >= 157.5 && angle < 202.5)  return "←"; // West
+            if (angle >= 202.5 && angle < 247.5)  return "↖"; // North-West
+            if (angle >= 247.5 && angle < 292.5)  return "↑"; // North
+            if (angle >= 292.5 && angle < 337.5)  return "↗"; // North-East
+
+            return "•"; 
         }
         
-        public string DestinationToWaypointString()
+        public string ToRelativeCoordinates(BlockPos mapMiddlePos, BlockPos playerPos)
         {
-            if (Destination == null)
-            {
-                return "";
-            }
-            return Destination.ToWaypointString("green", "Active Translocator");
+            int distance = (int) DistanceTo(playerPos);
+            string arrow = GetDirectionArrow(playerPos);
+            int relativeX = Pos.X - mapMiddlePos.X;
+            int relativeZ = Pos.Z - mapMiddlePos.Z;
+            
+            return $"{relativeX}, {Pos.Y}, {relativeZ} ({distance}m {arrow})";
         }
         
+        public string ToChatString(BlockPos mapMiddlePos, BlockPos playerPos)
+        {
+            
+            return $"<font color=\"{Color}\">[{Name}]</font> " +
+                   $"at <strong>{ToRelativeCoordinates(mapMiddlePos, playerPos)}{ExtraChat}</strong>";
+        }
     }
     
     public class VsTutorialModSystem : ModSystem
@@ -96,16 +97,19 @@ namespace VSTutorial
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
                 .WithArgs(
                     api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
-                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150),
+                    api.ChatCommands.Parsers.OptionalBool("checkTreasure"))
                 .HandleWith(args => 
                 {
                     bool addWaypoints = true.Equals(args[0]);
                     int radius =(int)args[1];
-                    return ProcessFindTranslocator(addWaypoints, radius);
+                    bool checkTreasure = true.Equals(args[2]);
+                    
+                    return ProcessFindTranslocator(addWaypoints, radius, checkTreasure);
                 });
         }
 
-        private TextCommandResult ProcessFindTranslocator(bool addWaypoints, int radius)
+        private TextCommandResult ProcessFindTranslocator(bool addWaypoints, int radius, bool checkTreasure)
         {
             if (_api.World?.Player?.Entity == null)
             {
@@ -114,10 +118,25 @@ namespace VSTutorial
 
             BlockPos playerPos = _api.World.Player.Entity.Pos.AsBlockPos;
             BlockPos mapMiddle = _api.World.DefaultSpawnPosition.AsBlockPos;
-            List<TranslocatorResult> results = new List<TranslocatorResult>();
+            List<WayPoint> results = new List<WayPoint>();
             
             _api.World.BlockAccessor.SearchBlocks(playerPos.AddCopy(-radius, -radius, -radius), playerPos.AddCopy(radius, radius, radius), (block, pos) =>
             {
+                if (checkTreasure)
+                {
+                    string[] keys = { "tapestry", "painting", "trunk", "chest", "lootvessel" };
+                    foreach(String key in keys)
+                    {
+                        if (block.Code.Path.StartsWith(key))
+                        {
+                            string blockName = block.GetPlacedBlockName(_api.World, pos);
+                            WayPoint wayPoint = new WayPoint(pos.Copy(), blockName, "vessel", "yellow");
+                            results.Add(wayPoint);
+                            return true;
+                        }
+                    }
+                }
+                
                 if (!block.Code.Path.StartsWith("statictranslocator"))
                 {
                     return true;
@@ -150,14 +169,24 @@ namespace VSTutorial
                 
                 _api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", block.Code.Path, pos);
                 
-                TranslocatorResult result = new TranslocatorResult(mapMiddle, pos.Copy(), destination?.Copy(), playerPos.Copy(), isRepaired);
-                results.Add(result);
+                WayPoint sourceWayPoint = new WayPoint(pos.Copy(), block.GetPlacedBlockName(_api.World, pos),
+                    "spiral", isRepaired ? "green" : "red");
+                results.Add(sourceWayPoint);
+                
+                if (destination != null)
+                {
+                    WayPoint destinationWayPoint = new WayPoint(destination.Copy(), block.GetPlacedBlockName(_api.World, destination),
+                        "spiral", "green");
+                    results.Add(destinationWayPoint);
+                    destinationWayPoint.ExtraChat = " to " + sourceWayPoint.ToRelativeCoordinates(mapMiddle, playerPos);
+                    sourceWayPoint.ExtraChat = " to " + destinationWayPoint.ToRelativeCoordinates(mapMiddle, playerPos);
+                }  
                     
                 return true; 
             });
 
-            List<TranslocatorResult> sortedResults = results
-                .OrderByDescending(tl => tl.Distance)
+            List<WayPoint> sortedResults = results
+                .OrderByDescending(tl => tl.DistanceTo(playerPos))
                 .ToList(); 
             
             List<String> messages = new List<string>();
@@ -165,20 +194,17 @@ namespace VSTutorial
             {
                 if (addWaypoints)
                 {
-                    _api.SendChatMessage(result.SourceToWaypointString());
-
-                    if (result.Destination != null)
-                    {
-                        _api.SendChatMessage(result.DestinationToWaypointString());
-                    }
+                    _api.SendChatMessage(result.ToWaypointString());
                 }
-                messages.Add(result.ToChatString());
+                messages.Add(result.ToChatString(mapMiddle, playerPos));
 
             }
             
             if (messages.Count > 0)
             {
-                return TextCommandResult.Success("Found:\n" + string.Join("\n", messages));
+                string fullMessage = "Found:\n" + string.Join("\n", messages);
+                _api.ShowChatMessage(fullMessage);
+                return TextCommandResult.Success("");
             }
             
             return TextCommandResult.Success($"No translocators found within {radius} blocks.");
