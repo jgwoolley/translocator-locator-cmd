@@ -7,6 +7,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using System.Linq;
+using Vintagestory.API.Config;
 
 namespace VSTutorial
 {
@@ -85,7 +86,6 @@ namespace VSTutorial
     public class VsTutorialModSystem : ModSystem
     {
         private ICoreClientAPI _api;
-
         public override bool ShouldLoad(EnumAppSide side) => side == EnumAppSide.Client;
 
         public override void StartClientSide(ICoreClientAPI api)
@@ -97,34 +97,152 @@ namespace VSTutorial
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
                 .WithArgs(
                     api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
-                    api.ChatCommands.Parsers.OptionalInt("radius", 150),
-                    api.ChatCommands.Parsers.OptionalBool("checkTreasure"))
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
                 .HandleWith(args => 
                 {
                     bool addWaypoints = true.Equals(args[0]);
                     int radius =(int)args[1];
-                    bool checkTreasure = true.Equals(args[2]);
                     
-                    return ProcessFindTranslocator(addWaypoints, radius, checkTreasure);
+                    return ProcessFindTranslocator(addWaypoints, radius);
                 });
+            
+            api.ChatCommands.Create("findtreasure")
+                .WithDescription("Finds nearby treasure.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "tapestry", "painting", "trunk", "chest", "lootvessel", "chandelier", "storagevessel", "talldisplaycase", "displaycase"};
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            
+            api.ChatCommands.Create("findchest")
+                .WithDescription("Finds nearby chests.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "trunk", "chest", "lootvessel", "storagevessel", "talldisplaycase", "displaycase"};
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            
+            api.ChatCommands.Create("findart")
+                .WithDescription("Finds nearby tapestries or paintings.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "tapestry", "painting", "banner", "chandelier"};
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            
+            api.ChatCommands.Create("findbees")
+                .WithDescription("Finds nearby wild beehives.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "wildbeehives", "skeep" };
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            
+            api.ChatCommands.Create("findresin")
+                .WithDescription("Finds resin trees.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "log-resin" };
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            
+            // Should find closest like clay...
+            /*
+            api.ChatCommands.Create("findsoil")
+                .WithDescription("Finds nearby boney soil or high fertility soil.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "bonysoil", "soil-high", "soil-compost" };
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            */
+            api.ChatCommands.Create("findcrystal")
+                .WithDescription("Finds nearby crystals.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "crystal" };
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+            /*
+            api.ChatCommands.Create("findclay")
+                .WithDescription("Finds nearby boney soil or high fertility soil.")
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                    
+                    string[] keys = { "rawclay-fire", "rawclay-red", "rawclay-blue" };
+
+                    return ProcessFindStartsWith(addWaypoints, radius, keys);
+                });
+                */            
         }
 
-        private TextCommandResult ProcessFindTranslocator(bool addWaypoints, int radius, bool checkTreasure)
+        private TextCommandResult ProcessFindStartsWith(bool addWaypoints, int radius, string[] keys)
         {
-            if (_api.World?.Player?.Entity == null)
-            {
-                return TextCommandResult.Error("Player not found.");
-            }
-
-            BlockPos playerPos = _api.World.Player.Entity.Pos.AsBlockPos;
-            BlockPos mapMiddle = _api.World.DefaultSpawnPosition.AsBlockPos;
-            List<WayPoint> results = new List<WayPoint>();
-            
-            _api.World.BlockAccessor.SearchBlocks(playerPos.AddCopy(-radius, -radius, -radius), playerPos.AddCopy(radius, radius, radius), (block, pos) =>
-            {
-                if (checkTreasure)
+            Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock =
+                (mapMiddlePos, playerPos, results, block, pos) =>
                 {
-                    string[] keys = { "tapestry", "painting", "trunk", "chest", "lootvessel" };
                     foreach(String key in keys)
                     {
                         if (block.Code.Path.StartsWith(key))
@@ -135,8 +253,17 @@ namespace VSTutorial
                             return true;
                         }
                     }
-                }
-                
+
+                    return true;
+                };
+            
+            return ProcessFindBlock(addWaypoints, radius, onBlock);
+        }
+        
+        private TextCommandResult ProcessFindTranslocator(bool addWaypoints, int radius)
+        {
+            Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock = (mapMiddlePos, playerPos, results, block, pos) =>
+            {
                 if (!block.Code.Path.StartsWith("statictranslocator"))
                 {
                     return true;
@@ -178,11 +305,30 @@ namespace VSTutorial
                     WayPoint destinationWayPoint = new WayPoint(destination.Copy(), block.GetPlacedBlockName(_api.World, destination),
                         "spiral", "green");
                     results.Add(destinationWayPoint);
-                    destinationWayPoint.ExtraChat = " to " + sourceWayPoint.ToRelativeCoordinates(mapMiddle, playerPos);
-                    sourceWayPoint.ExtraChat = " to " + destinationWayPoint.ToRelativeCoordinates(mapMiddle, playerPos);
-                }  
-                    
-                return true; 
+                    destinationWayPoint.ExtraChat = " to " + sourceWayPoint.ToRelativeCoordinates(mapMiddlePos, playerPos);
+                    sourceWayPoint.ExtraChat = " to " + destinationWayPoint.ToRelativeCoordinates(mapMiddlePos, playerPos);
+                }
+
+                return true;
+            };
+
+            return ProcessFindBlock(addWaypoints, radius, onBlock);
+        }
+        
+        private TextCommandResult ProcessFindBlock(bool addWaypoints, int radius, Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock)
+        {
+            if (_api.World?.Player?.Entity == null)
+            {
+                return TextCommandResult.Error("Player not found.");
+            }
+
+            BlockPos playerPos = _api.World.Player.Entity.Pos.AsBlockPos;
+            BlockPos mapMiddlePos = _api.World.DefaultSpawnPosition.AsBlockPos;
+            List<WayPoint> results = new List<WayPoint>();
+            
+            _api.World.BlockAccessor.SearchBlocks(playerPos.AddCopy(-radius, -radius, -radius), playerPos.AddCopy(radius, radius, radius), (block, pos) =>
+            {
+                return onBlock(mapMiddlePos, playerPos, results, block, pos);
             });
 
             List<WayPoint> sortedResults = results
@@ -192,12 +338,11 @@ namespace VSTutorial
             List<String> messages = new List<string>();
             foreach (var result in sortedResults)
             {
+                messages.Add(result.ToChatString(mapMiddlePos, playerPos));
                 if (addWaypoints)
                 {
                     _api.SendChatMessage(result.ToWaypointString());
                 }
-                messages.Add(result.ToChatString(mapMiddle, playerPos));
-
             }
             
             if (messages.Count > 0)
@@ -207,7 +352,8 @@ namespace VSTutorial
                 return TextCommandResult.Success("");
             }
             
-            return TextCommandResult.Success($"No translocators found within {radius} blocks.");
+            return TextCommandResult.Success($"Not found within {radius} blocks.");
         }
+
     }
 }
