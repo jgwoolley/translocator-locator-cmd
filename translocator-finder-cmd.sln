@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSTutorial", "VSTutorial\VS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "ZZCakeBuild\CakeBuild.csproj", "{5828ECF7-9ED7-4FA5-874E-4DC8787CEDFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDocs", "CreateDocs\CreateDocs.csproj", "{245830F4-D555-4418-8268-35417AB5216C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5828ECF7-9ED7-4FA5-874E-4DC8787CEDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5828ECF7-9ED7-4FA5-874E-4DC8787CEDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5828ECF7-9ED7-4FA5-874E-4DC8787CEDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245830F4-D555-4418-8268-35417AB5216C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245830F4-D555-4418-8268-35417AB5216C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245830F4-D555-4418-8268-35417AB5216C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245830F4-D555-4418-8268-35417AB5216C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

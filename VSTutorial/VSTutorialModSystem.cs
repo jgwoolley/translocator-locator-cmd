@@ -20,6 +20,8 @@ namespace VSTutorial
 
         [JsonProperty] public BlockPos Pos { get; }
         [JsonProperty] public string Name { get; }
+        
+        // https://wiki.vintagestory.at/VTML
         [JsonProperty] public string Icon { get; }
         [JsonProperty] public string Color { get; }
         [JsonProperty] public string ExtraChat { get; set; }
@@ -104,17 +106,190 @@ namespace VSTutorial
     }
     
     public class BlockSelector {
-        public string StartsWith { get; }
-        public string Color { get; }
-        public string Icon { get; }
-        public string[] Keywords { get; }
+        [JsonProperty] public string StartsWith { get; set; } = "";
+        [JsonProperty] public string Color { get; set; } = "";
+        [JsonProperty] public string Icon { get; set; } = "";
+        [JsonProperty] public string[] Keywords { get; set; } = new string[] { };
 
+        public BlockSelector()
+        {
+            
+        }
+        
+        [JsonConstructor]
         public BlockSelector(string startsWith, string icon, string color, string[] keywords)
         {
             StartsWith = startsWith;
             Color = color;
             Icon = icon;
             Keywords = keywords;
+        }
+    }
+
+    public class LocatorCommand
+    {
+        [JsonProperty] public string Name { get; set; } =  "";
+        [JsonProperty] public string Description { get;set; } =  "";
+        [JsonProperty] public bool ClosestOnly { get; set;} = true;
+        [JsonProperty] public string Keyword { get; set;} =  "";
+
+        public LocatorCommand()
+        {
+        }
+
+        [JsonConstructor]
+        public LocatorCommand(string name, string description, bool closestOnly, string keyword)
+        {
+            Name = name;
+            Description = description;
+            ClosestOnly = closestOnly;
+            Keyword = keyword;
+            
+        }
+
+        public void CreateCommand(ICoreClientAPI api, String saveFilePath, TranslocatorLocatorConfig config)
+        {
+            
+            System.Func<BlockSelector,bool> predicate = s => s.Keywords.Contains(this.Keyword);
+        
+            api.ChatCommands.Create(this.Name)
+                .WithDescription(this.Description)
+                // Added a boolean parser. Optional(false) makes it default to false if omitted.
+                .WithArgs(
+                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
+                    api.ChatCommands.Parsers.OptionalInt("radius", config.DefaultSearchRadius))
+                .HandleWith(args => 
+                {
+                    bool addWaypoints = true.Equals(args[0]);
+                    int radius =(int)args[1];
+                
+                    List<BlockSelector> filteredSelectors = config.Selectors
+                        .Where(predicate)
+                        .ToList();
+                
+                    Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock =
+                        (mapMiddlePos, playerPos, results, block, pos) =>
+                        {
+                            foreach(BlockSelector selector in filteredSelectors)
+                            {
+                                if (block.Code.Path.StartsWith(selector.StartsWith))
+                                {
+                                    string blockName = block.GetPlacedBlockName(api.World, pos);
+                                    WayPoint wayPoint = new WayPoint(block.Code.Path, pos.Copy(), blockName, selector.Icon, selector.Color); 
+                                    results.Add(wayPoint);
+                                    return true;
+                                }
+                            }
+
+                            return true;
+                        };
+                    
+                    return VsTutorialModSystem.ProcessFindBlock(api, saveFilePath, addWaypoints, radius, this.ClosestOnly, onBlock);
+                });
+            
+        }
+    }
+    
+    public class TranslocatorLocatorConfig
+    {
+        public static String ConfigName = "translocatorLocator.json";
+        
+        public int DefaultSearchRadius { get; set; } = 150;
+        public List<BlockSelector> Selectors { get; set; } = new List<BlockSelector>();
+        public List<LocatorCommand> Commands { get; set; } = new List<LocatorCommand>();
+
+        public string GenerateCommandsTable()
+        {
+            var sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("<table>");
+            sb.AppendLine("  <tr><th>Command</th><th>Description</th></tr>");
+            sb.AppendLine("  <tr><td>.findtl</td><td>Finds nearby translocators.</td></tr>");
+
+            foreach (var cmd in this.Commands)
+            {
+                sb.AppendLine($"  <tr><td>.{cmd.Name}</td><td>{cmd.Description}</td></tr>");
+            }
+
+            sb.AppendLine("</table>");
+            return sb.ToString();
+        }
+        
+        public static TranslocatorLocatorConfig GetDefault()
+        {
+            return new TranslocatorLocatorConfig
+            {
+                DefaultSearchRadius = 150,
+                Selectors = new List<BlockSelector>
+                {
+                    new("tapestry", "vessel" , "blue", ["art", "treasure"]),
+                    new("painting", "vessel" , "blue", ["art", "treasure"]), 
+                    new("chandelier", "vessel" , "brown", ["art", "treasure"]), 
+                    new("trunk", "vessel" , "brown", ["chest", "treasure"]), 
+                    new("lootvessel", "vessel" , "brown", ["chest", "treasure"]), 
+                    new("storagevessel", "vessel" , "brown", ["chest", "treasure"]), 
+                    new("talldisplaycase", "vessel" , "brown", ["chest", "treasure"]), 
+                    new("displaycase", "vessel" , "brown", ["chest", "treasure"]),
+                    new("bonysoil", "rocks" , "brown", ["soil"]), 
+                    new("soil-high", "rocks" , "brown", ["soil"]), 
+                    new("soil-compost", "rocks" , "brown", ["soil"]), 
+                    new("rawclay-fire", "rocks" , "orange", ["clay"]), 
+                    new("rawclay-red", "rocks" , "red", ["clay"]), 
+                    new("rawclay-blue", "rocks" , "blue", ["clay"]), 
+                    new("looseores", "pick" , "yellow", ["ore"]), 
+                    new("ore", "pick" , "red", ["ore"]), 
+                    new("crystal", "rocks" , "black", ["ore"]), 
+                    new("wildbeehives", "bee" , "yellow", ["bees"]), 
+                    new("skeep", "bee" , "yellow", ["bees"]), 
+                    new("log-resin", "tree" , "yellow", ["resin"]), 
+                    new("mushroom", "mushroom" , "red", ["plant"]),
+                    new("fruittree", "tree2" , "red", ["fruit"]),
+                    new("tallplant-tule", "x" , "red", ["plant"]),
+                    new("tallplant-coopersreed", "x" , "red", ["plant"]),
+                    new("tallplant-papyrus", "x" , "red", ["plant"]),
+                    new("bigberrybush", "berries" , "red", ["plant"]),
+                    new("smallberrybush", "berries" , "red", ["plant"]),
+                    new("flower", "x" , "red", ["plant"]),
+                },
+                Commands = new List<LocatorCommand>
+                {
+                    new("findtreasure", "Finds nearby treasure.", false, "treasure"),
+                    new("findart", "Finds nearby tapestries, paintings, and chandeliers.", false, "art"),
+                    new("findchest", "Finds nearby item containers.", false, "chest"),
+                    new("findsoil", "Finds nearby bony soil, and high fertility soil.", true, "soil"),
+                    new("findclay", "Finds nearby clay.", true, "clay"),
+                    new("findore", "Finds nearby ores and crystals.", true, "ore"),
+                    new("findbees", "Finds nearby bees.", false, "bees"),
+                    new("findresin", "Finds nearby resin.", false, "resin"),
+                    new("findplants", "Finds nearby mushrooms, reeds, bushes.", true, "plant"),
+                    new("findfruit", "Finds nearby fruit trees.", false, "fruit"),
+                },
+            };
+        }
+        
+        public static TranslocatorLocatorConfig Load(ICoreClientAPI api)
+        {
+            TranslocatorLocatorConfig? config = null;
+            
+            try
+            {
+                config =  api.LoadModConfig<TranslocatorLocatorConfig>(TranslocatorLocatorConfig.ConfigName);
+            }
+            catch (Exception e)
+            {
+                api.Logger.Error("Failed to load mod config, using defaults. Error: " + e.Message);
+            }
+            
+            if (config == null || config.Commands == null || config.Selectors == null)
+            {
+                api.Logger.Notification("Config missing or invalid, generating default...");
+                config = TranslocatorLocatorConfig.GetDefault();
+        
+                // Save the clean default so the user has a valid file to edit
+                api.StoreModConfig(config, TranslocatorLocatorConfig.ConfigName);
+            }
+
+            return config;
         }
     }
     
@@ -124,6 +299,8 @@ namespace VSTutorial
         
         public override void StartClientSide(ICoreClientAPI api)
         {
+            TranslocatorLocatorConfig config = TranslocatorLocatorConfig.Load(api);
+            
             string saveFilePath = Path.Combine(GamePaths.DataPath, "ModData", "found_waypoints.json");
             
             api.ChatCommands.Create("findtl")
@@ -131,7 +308,7 @@ namespace VSTutorial
                 // Added a boolean parser. Optional(false) makes it default to false if omitted.
                 .WithArgs(
                     api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
-                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
+                    api.ChatCommands.Parsers.OptionalInt("radius", config.DefaultSearchRadius))
                 .HandleWith(args => 
                 {
                     bool addWaypoints = true.Equals(args[0]);
@@ -140,84 +317,10 @@ namespace VSTutorial
                     return ProcessFindTranslocator(api, saveFilePath, addWaypoints, radius);
                 });
             
-            // TODO: Turn into a config
-            List<BlockSelector> selectors = new([
-                new("tapestry", "vessel" , "blue", ["art", "treasure"]),
-                new("painting", "vessel" , "blue", ["art", "treasure"]), 
-                new("chandelier", "vessel" , "brown", ["art", "treasure"]), 
-                new("trunk", "vessel" , "brown", ["chest", "treasure"]), 
-                new("lootvessel", "vessel" , "brown", ["chest", "treasure"]), 
-                new("storagevessel", "vessel" , "brown", ["chest", "treasure"]), 
-                new("talldisplaycase", "vessel" , "brown", ["chest", "treasure"]), 
-                new("displaycase", "vessel" , "brown", ["chest", "treasure"]),
-                new("bonysoil", "rocks" , "brown", ["soil"]), 
-                new("soil-high", "rocks" , "brown", ["soil"]), 
-                new("soil-compost", "rocks" , "brown", ["soil"]), 
-                new("rawclay-fire", "rocks" , "orange", ["clay"]), 
-                new("rawclay-red", "rocks" , "red", ["clay"]), 
-                new("rawclay-blue", "rocks" , "blue", ["clay"]), 
-                new("looseores", "pick" , "yellow", ["ore"]), 
-                new("ore", "pick" , "red", ["ore"]), 
-                new("crystal", "rocks" , "black", ["ore"]), 
-                new("wildbeehives", "bee" , "yellow", ["bees"]), 
-                new("skeep", "bee" , "yellow", ["bees"]), 
-                new("log-resin", "tree" , "yellow", ["resin"]), 
-                new("mushroom", "mushroom" , "red", ["mushroom"])
-            ]);
-            
-            // TODO: Turn into a config with a serializable class...
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findtreasure", "Finds nearby treasure.", false, s => s.Keywords.Contains("treasure"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findart", "Finds nearby tapestries, paintings, and chandeliers.", false, s => s.Keywords.Contains("art"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findchest", "Finds nearby item containers.", false, s => s.Keywords.Contains("chest"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findsoil", "Finds nearby bony soil, and high fertility soil.", true, s => s.Keywords.Contains("soil"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findclay", "Finds nearby clay.", true, s => s.Keywords.Contains("clay"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findore", "Finds nearby ores and crystals.", true, s => s.Keywords.Contains("ore"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findbees", "Finds nearby bees.", false, s => s.Keywords.Contains("bees"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findresin", "Finds nearby resin.", false, s => s.Keywords.Contains("resin"));
-            AddProcessFindStartsWith(api, saveFilePath, selectors, "findmushroom", "Finds nearby mushrooms.", true, s => s.Keywords.Contains("mushroom"));
-        }
-
-        private static void AddProcessFindStartsWith(ICoreClientAPI api, String saveFilePath, List<BlockSelector> selectors, String name, String description, bool closestOnly, System.Func<BlockSelector,bool> predicate)
-        {
-            api.ChatCommands.Create(name)
-                .WithDescription(description)
-                // Added a boolean parser. Optional(false) makes it default to false if omitted.
-                .WithArgs(
-                    api.ChatCommands.Parsers.OptionalBool("addWaypoints"),
-                    api.ChatCommands.Parsers.OptionalInt("radius", 150))
-                .HandleWith(args => 
-                {
-                    bool addWaypoints = true.Equals(args[0]);
-                    int radius =(int)args[1];
-                    
-                    List<BlockSelector> filteredSelectors = selectors
-                        .Where(predicate)
-                        .ToList();
-                    
-                    return ProcessFindStartsWith(api, saveFilePath, addWaypoints, radius, closestOnly, filteredSelectors);
-                });
-        }
-        
-        private static TextCommandResult ProcessFindStartsWith(ICoreClientAPI api, string saveFilePath, bool addWaypoints, int radius, bool closestOnly, List<BlockSelector> selectors)
-        {
-            Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock =
-                (mapMiddlePos, playerPos, results, block, pos) =>
-                {
-                    foreach(BlockSelector selector in selectors)
-                    {
-                        if (block.Code.Path.StartsWith(selector.StartsWith))
-                        {
-                            string blockName = block.GetPlacedBlockName(api.World, pos);
-                            WayPoint wayPoint = new WayPoint(block.Code.Path, pos.Copy(), blockName, selector.Icon, selector.Color); 
-                            results.Add(wayPoint);
-                            return true;
-                        }
-                    }
-
-                    return true;
-                };
-            
-            return ProcessFindBlock(api, saveFilePath, addWaypoints, radius, closestOnly, onBlock);
+            foreach(LocatorCommand command in config.Commands)
+            {
+                command.CreateCommand(api, saveFilePath, config);
+            }
         }
         
         private static TextCommandResult ProcessFindTranslocator(ICoreClientAPI api, string saveFilePath, bool addWaypoints, int radius)
@@ -276,7 +379,7 @@ namespace VSTutorial
             return ProcessFindBlock(api, saveFilePath, addWaypoints, radius, false, onBlock);
         }
         
-        private static TextCommandResult ProcessFindBlock(ICoreClientAPI api, String saveFilePath, bool addWaypoints, int radius, bool closestOnly, Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock)
+        public static TextCommandResult ProcessFindBlock(ICoreClientAPI api, String saveFilePath, bool addWaypoints, int radius, bool closestOnly, Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock)
         {
             if (api.World?.Player?.Entity == null)
             {
@@ -358,14 +461,14 @@ namespace VSTutorial
                         string json = JsonConvert.SerializeObject(previousWayPoints, Formatting.Indented);
                         File.WriteAllText(saveFilePath, json);
                         api.Logger.Debug($"Saved {checkWayPoints.Count} waypoints to {saveFilePath}");
-                        return TextCommandResult.Success($"Found {sortedResults.Count} waypoints.");
+                        return TextCommandResult.Success($"Found {sortedResults.Count} waypoints within {radius} blocks.");
                     } catch (Exception e) {
                         return TextCommandResult.Error("Failed to save: " + e.Message);
                     }
                 }
                 else
                 {
-                    return TextCommandResult.Success($"Found {sortedResults.Count} waypoints.");
+                    return TextCommandResult.Success($"Found {sortedResults.Count} waypoints within {radius} blocks.");
                 }
             }
             
