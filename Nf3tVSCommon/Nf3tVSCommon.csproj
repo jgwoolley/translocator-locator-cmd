@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
+     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
         <VINTAGE_STORY>$(MSBuildProjectDirectory)/../vs_server</VINTAGE_STORY>
-        <RootNamespace>Nf3t.VintageStory.TranslocatorLocatorCmd</RootNamespace>
+        <RootNamespace>Nf3t.VintageStory.Common</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -50,20 +52,7 @@
             <Private>False</Private>
         </Reference>
     </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="assets\**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <Content Include="modinfo.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="assets\nf3ttranslocatorfindercmd\"/>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj" />
+   <ItemGroup>
+        <PackageReference Include="Dijkstra.NET" Version="1.2.1"/>
     </ItemGroup>
 </Project>

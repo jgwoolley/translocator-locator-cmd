@@ -5,7 +5,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
         <VINTAGE_STORY>$(MSBuildProjectDirectory)/../vs_server</VINTAGE_STORY>
-        <RootNamespace>VSTutorial</RootNamespace>
+        <RootNamespace>Nf3t.VintageStory.TranslocatorShortestPath</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -66,6 +66,9 @@
 
     <ItemGroup>
         <PackageReference Include="Dijkstra.NET" Version="1.2.1"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj" />
     </ItemGroup>
 
 </Project>

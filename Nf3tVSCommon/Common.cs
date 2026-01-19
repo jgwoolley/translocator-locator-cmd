@@ -1,21 +1,16 @@
 ﻿#nullable enable
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+using System.Text;
 using Dijkstra.NET.Graph;
 using Dijkstra.NET.ShortestPath;
 using Newtonsoft.Json;
 using Vintagestory.API.Client;
-using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
-namespace VSTutorial;
+namespace Nf3t.VintageStory.Common;
 
 public readonly record struct SimplePos(int X, int Y, int Z)
 {
@@ -109,7 +104,7 @@ public class TranslocatorPathResult
                 _graph.Connect(srcId, goalId, (int)src.DistanceTo(_goalPos), "Walk");
                 _graph.Connect(targetId, goalId, (int)target.Value.DistanceTo(_goalPos), "Walk");
             }
-
+        
         // 4. Add Edges: Chaining (Portals near each other)
         var allTps = translocators.Where(kvp => kvp.Value.HasValue).ToList();
         foreach (var tp1 in allTps)
@@ -179,6 +174,8 @@ public class SerializedSaveData
     [JsonProperty] public Dictionary<string, SimplePos> DefaultSpawnPositionPerSavegame { get; } = new();
 
     [JsonProperty] public Dictionary<string, TranslocatorPath> LastTranslocatorPathPerSavegame { get; } = new();
+    
+    [JsonProperty] public Dictionary<string, HashSet<WayPoint>?> WayPointsPerSavegame { get; } = new();
 }
 
 public class SaveData
@@ -188,12 +185,14 @@ public class SaveData
         TranslocatorsPerSavegame = new Dictionary<string, Dictionary<SimplePos, SimplePos?>>();
         DefaultSpawnPositionPerSavegame = new Dictionary<string, SimplePos>();
         LastTranslocatorPathPerSavegame = new Dictionary<string, TranslocatorPath>();
+        WayPointsPerSavegame = new Dictionary<string, HashSet<WayPoint>?>();
     }
 
     public Dictionary<string, Dictionary<SimplePos, SimplePos?>> TranslocatorsPerSavegame { get; }
     public Dictionary<string, SimplePos> DefaultSpawnPositionPerSavegame { get; }
     public Dictionary<string, TranslocatorPath> LastTranslocatorPathPerSavegame { get; }
-
+    public Dictionary<string, HashSet<WayPoint>?> WayPointsPerSavegame { get; }
+    
     public void Load(SerializedSaveData serializedSaveData)
     {
         foreach (var (savegameIdentifier, serializedEntries) in serializedSaveData.TranslocatorsPerSavegame)
@@ -213,6 +212,9 @@ public class SaveData
 
         foreach (var (savegameIdentifier, path) in serializedSaveData.LastTranslocatorPathPerSavegame)
             LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
+        
+        foreach (var (savegameIdentifier, wayPoints) in serializedSaveData.WayPointsPerSavegame)
+            WayPointsPerSavegame[savegameIdentifier] = wayPoints;
     }
 
     public SerializedSaveData Save()
@@ -237,6 +239,9 @@ public class SaveData
         foreach (var (savegameIdentifier, path) in LastTranslocatorPathPerSavegame)
             serializedSaveData.LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
 
+        foreach (var (savegameIdentifier, wayPoints) in WayPointsPerSavegame)
+            serializedSaveData.WayPointsPerSavegame[savegameIdentifier] = wayPoints;
+        
         return serializedSaveData;
     }
 }
@@ -355,116 +360,239 @@ public class Context
     }
 }
 
-public class TranslocatorLocatorCmdModSystem : ModSystem
+
+public class WayPoint
 {
-    public Context Context { get; set; }
-
-    public override bool ShouldLoad(EnumAppSide side)
+    [JsonConstructor]
+    public WayPoint(string codePath, BlockPos pos, string name, string icon, string color)
     {
-        return side == EnumAppSide.Client;
+        CodePath = codePath;
+        Pos = pos;
+        Name = name;
+        Icon = icon;
+        Color = color;
+        ExtraChat = "";
     }
 
-    public override void StartClientSide(ICoreClientAPI api)
+    [JsonProperty] public string CodePath { get; }
+
+    [JsonProperty] public BlockPos Pos { get; }
+    [JsonProperty] public string Name { get; }
+
+    // https://wiki.vintagestory.at/VTML
+    [JsonProperty] public string Icon { get; }
+    [JsonProperty] public string Color { get; }
+    [JsonProperty] public string ExtraChat { get; set; }
+
+    public double DistanceTo(BlockPos other)
     {
-        Context = new Context(api);
+        return Math.Sqrt(Pos.DistanceSqTo(other.X, other.Y, other.Z));
+    }
 
-        Context.Load();
+    public string ToWaypointString()
+    {
+        return $"/waypoint addati {Icon} ={Pos.X} ={Pos.Y} ={Pos.Z} false {Color} \"{Name}\"";
+    }
 
-        api.Event.LeaveWorld += () => Context.Save();
+    public string GetDirectionArrow(BlockPos playerPos)
+    {
+        // Calculate difference (Target - Player)
+        double dz = Pos.Z - playerPos.Z;
+        double dx = Pos.X - playerPos.X;
 
-        api.Event.RegisterGameTickListener(_ => Context.Save(), 5000);
-        api.Event.RegisterGameTickListener(_ =>
+        // Atan2 returns the angle in radians
+        // Math.Atan2(y, x) -> we use Z as Y for the 2D plane
+        var radians = Math.Atan2(dz, dx);
+        var degrees = radians * (180 / Math.PI);
+
+        // Normalize to 0-360 for easier mapping
+        // 0 is East, 90 is South, 180 is West, 270 is North
+        var angle = (degrees + 360) % 360;
+
+        if (angle >= 337.5 || angle < 22.5) return "→"; // East
+        if (angle >= 22.5 && angle < 67.5) return "↘"; // South-East
+        if (angle >= 67.5 && angle < 112.5) return "↓"; // South
+        if (angle >= 112.5 && angle < 157.5) return "↙"; // South-West
+        if (angle >= 157.5 && angle < 202.5) return "←"; // West
+        if (angle >= 202.5 && angle < 247.5) return "↖"; // North-West
+        if (angle >= 247.5 && angle < 292.5) return "↑"; // North
+        if (angle >= 292.5 && angle < 337.5) return "↗"; // North-East
+
+        return "•";
+    }
+
+    public string ToRelativeCoordinates(BlockPos mapMiddlePos, BlockPos playerPos)
+    {
+        var distance = (int)DistanceTo(playerPos);
+        var arrow = GetDirectionArrow(playerPos);
+        var relativeX = Pos.X - mapMiddlePos.X;
+        var relativeZ = Pos.Z - mapMiddlePos.Z;
+
+        return $"{relativeX}, {Pos.Y}, {relativeZ} ({distance}m {arrow})";
+    }
+
+    public string ToChatString(BlockPos mapMiddlePos, BlockPos playerPos)
+    {
+        return $"<font color=\"{Color}\">[{Name}]</font> " +
+               $"at <strong>{ToRelativeCoordinates(mapMiddlePos, playerPos)}{ExtraChat}</strong>";
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not WayPoint other) return false;
+        // We define a duplicate by its position. 
+        // Usually, you don't want two waypoints at the exact same spot.
+        return Pos.X == other.Pos.X && Pos.Y == other.Pos.Y && Pos.Z == other.Pos.Z;
+    }
+
+    public override int GetHashCode()
+    {
+        // Only hash the Position, as that is our "unique key"
+        return HashCode.Combine(Pos.X, Pos.Y, Pos.Z);
+    }
+}
+
+public class BlockSelector
+{
+    public BlockSelector()
+    {
+    }
+
+    [JsonConstructor]
+    public BlockSelector(string startsWith, string icon, string color, string[] keywords)
+    {
+        StartsWith = startsWith;
+        Color = color;
+        Icon = icon;
+        Keywords = keywords;
+    }
+
+    [JsonProperty] public string StartsWith { get; set; } = "";
+    [JsonProperty] public string Color { get; set; } = "";
+    [JsonProperty] public string Icon { get; set; } = "";
+    [JsonProperty] public string[] Keywords { get; set; } = new string[] { };
+}
+
+public class LocatorCommand
+{
+    public LocatorCommand()
+    {
+    }
+
+    [JsonConstructor]
+    public LocatorCommand(string name, string description, bool closestOnly, string keyword)
+    {
+        Name = name;
+        Description = description;
+        ClosestOnly = closestOnly;
+        Keyword = keyword;
+    }
+
+    [JsonProperty] public string Name { get; set; } = "";
+    [JsonProperty] public string Description { get; set; } = "";
+    [JsonProperty] public bool ClosestOnly { get; set; } = true;
+    [JsonProperty] public string Keyword { get; set; } = "";
+}
+
+public class TranslocatorLocatorConfig
+{
+    public static string ConfigName = "translocatorLocator.json";
+
+    public int DefaultSearchRadius { get; set; } = 150;
+    public List<BlockSelector> Selectors { get; set; } = new();
+    public List<LocatorCommand> Commands { get; set; } = new();
+    public bool EnableTranslocatorPath { get; set; }
+
+    public string GenerateCommandsTable()
+    {
+        var sb = new StringBuilder();
+
+        sb.AppendLine("<table>");
+        sb.AppendLine("  <tr><th>Command</th><th>Description</th></tr>");
+        sb.AppendLine("  <tr><td>.findtl</td><td>Finds nearby translocators.</td></tr>");
+
+        foreach (var cmd in Commands) sb.AppendLine($"  <tr><td>.{cmd.Name}</td><td>{cmd.Description}</td></tr>");
+
+        sb.AppendLine("</table>");
+        return sb.ToString();
+    }
+
+    public static TranslocatorLocatorConfig GetDefault()
+    {
+        return new TranslocatorLocatorConfig
         {
-            if (!api.Input.MouseGrabbed || api.World.Player.Entity.State != EnumEntityState.Active) return;
-
-            var selection = api.World.Player.CurrentBlockSelection;
-            if (selection == null) return;
-
-            if (api.World.BlockAccessor.GetBlockEntity(selection.Position) is BlockEntityStaticTranslocator
-                translocator)
+            EnableTranslocatorPath = false,
+            DefaultSearchRadius = 150,
+            Selectors = new List<BlockSelector>
             {
-                var source = new SimplePos
-                    { X = selection.Position.X, Y = selection.Position.Y, Z = selection.Position.Z };
-
-                if (translocator.TargetLocation != null)
-                {
-                    var target = new SimplePos
-                    {
-                        X = translocator.TargetLocation.X, Y = translocator.TargetLocation.Y,
-                        Z = translocator.TargetLocation.Z
-                    };
-                    Context.AddTranslocator(source, target);
-                    Context.AddTranslocator(target, source);
-                }
-                else
-                {
-                    Context.AddTranslocator(source, null);
-                }
+                // TODO: Add gear pile
+                new("tapestry", "vessel", "blue", ["art", "treasure"]),
+                new("painting", "vessel", "blue", ["art", "treasure"]),
+                new("chandelier", "vessel", "brown", ["art", "treasure"]),
+                new("trunk", "vessel", "brown", ["chest", "treasure"]),
+                new("lootvessel", "vessel", "brown", ["chest", "treasure"]),
+                new("storagevessel", "vessel", "brown", ["chest", "treasure"]),
+                new("talldisplaycase", "vessel", "brown", ["chest", "treasure"]),
+                new("displaycase", "vessel", "brown", ["chest", "treasure"]),
+                new("bonysoil", "rocks", "brown", ["soil"]),
+                new("soil-high", "rocks", "brown", ["soil"]),
+                new("soil-compost", "rocks", "brown", ["soil"]),
+                new("rawclay-fire", "rocks", "orange", ["clay"]),
+                new("rawclay-red", "rocks", "red", ["clay"]),
+                new("rawclay-blue", "rocks", "blue", ["clay"]),
+                new("looseores", "pick", "yellow", ["ore"]),
+                new("ore", "pick", "red", ["ore"]),
+                new("crystal", "rocks", "black", ["ore"]),
+                new("wildbeehives", "bee", "yellow", ["bees"]),
+                new("skeep", "bee", "yellow", ["bees"]),
+                new("log-resin", "tree", "yellow", ["resin"]),
+                new("mushroom", "mushroom", "red", ["plant"]),
+                new("fruittree", "tree2", "red", ["fruit"]),
+                new("tallplant-tule", "x", "red", ["plant"]),
+                new("tallplant-coopersreed", "x", "red", ["plant"]),
+                new("tallplant-papyrus", "x", "red", ["plant"]),
+                new("bigberrybush", "berries", "red", ["plant"]),
+                new("smallberrybush", "berries", "red", ["plant"]),
+                new("flower", "x", "red", ["plant"])
+            },
+            Commands = new List<LocatorCommand>
+            {
+                new("findtreasure", "Finds nearby treasure.", false, "treasure"),
+                new("findart", "Finds nearby tapestries, paintings, and chandeliers.", false, "art"),
+                new("findchest", "Finds nearby item containers.", false, "chest"),
+                new("findsoil", "Finds nearby bony soil, and high fertility soil.", true, "soil"),
+                new("findclay", "Finds nearby clay.", true, "clay"),
+                new("findore", "Finds nearby ores and crystals.", true, "ore"),
+                new("findbees", "Finds nearby bees.", false, "bees"),
+                new("findresin", "Finds nearby resin.", false, "resin"),
+                new("findplants", "Finds nearby mushrooms, reeds, bushes.", true, "plant"),
+                new("findfruit", "Finds nearby fruit trees.", false, "fruit")
             }
-        }, 200);
-        
-        api.ChatCommands.Create("pathtl")
-            .WithDescription("Find shortest path to coordinates using known translocators, by specifying an optional target location, and start location. Or will fall back to previous target location, and current player position.")
-            .WithArgs(api.ChatCommands.Parsers.OptionalWorldPosition("goal"), api.ChatCommands.Parsers.OptionalWorldPosition("start"))
-            .HandleWith(args =>
-            {
-                var playerPos = Context.GetPlayerPos();
-                
-                var goalArg = Context.GetSimplePos((Vec3d)args[0]);
-                var startArg = Context.GetSimplePos((Vec3d)args[1]);
-                
-                if (goalArg == startArg)
-                {
-                    if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
-                            Context.ClientApi.World.SavegameIdentifier, out var path))
-                    {
-                        return CreateHandle(Context, playerPos, playerPos, path.GoalPos);
-                    }
-
-                    return TextCommandResult.Error("Did not find existing history, please provide at least one argument.");
-                }
-                
-                return CreateHandle(Context, playerPos, startArg, goalArg);
-            });
-        
-        api.ChatCommands.Create("pathtlhist")
-            .WithDescription("Find shortest path to coordinates using known translocators with the previously given value.")
-            .WithArgs()
-            .HandleWith(_ =>
-            {
-                var playerPos = Context.GetPlayerPos();
-                
-                if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
-                        Context.ClientApi.World.SavegameIdentifier, out var path))
-                {
-                    return CreateHandle(Context, playerPos, path.StartPos, path.GoalPos);
-                }
-
-                return TextCommandResult.Error("Did not find existing history.");
-            });
-        
-        api.ChatCommands.Create("counttl")
-            .WithDescription("Give a count of currently seen translocators.")
-            .WithArgs()
-            .HandleWith(_ => TextCommandResult.Success($"Currently seen translocators in current world: {Context.Translocators.Count}."));
+        };
     }
 
-    private static TextCommandResult CreateHandle(Context context, SimplePos playerPos, SimplePos startPos, SimplePos goalPos)
+    public static TranslocatorLocatorConfig Load(ICoreClientAPI api)
     {
-        var result = context.CalculatePath(playerPos, goalPos);
+        TranslocatorLocatorConfig? config = null;
 
-        var birdsEyeDistance = result.GetBirdsEyeDistance();
-
-        if (result.IsFounded())
+        try
         {
-            var steps = string.Join(" \u21D2 ",
-                result.Path.Select(p => p.ToRelativeString(context.DefaultSpawnPosition)));
-
-            return TextCommandResult.Success(
-                $"<strong>Next:</strong> {result.GetNextStep()?.ToRelativeString(context.DefaultSpawnPosition, playerPos)}\n<strong>Path distance:</strong> {result.GetTotalDistance()} block(s).\n<strong>Birds eye distance:</strong> {result.GetBirdsEyeDistance()} block(s).\n<strong>Path Count:</strong> {result.Path.Count}\n<strong>Full Path:</strong> {steps}");
+            config = api.LoadModConfig<TranslocatorLocatorConfig>(ConfigName);
+        }
+        catch (Exception e)
+        {
+            api.Logger.Error("Failed to load mod config, using defaults. Error: " + e.Message);
         }
 
-        return TextCommandResult.Success(
-            $"No translocator shortcut found. Birds eye distance {birdsEyeDistance}");
+        if (config == null || config.Commands == null || config.Selectors == null)
+        {
+            api.Logger.Notification("Config missing or invalid, generating default...");
+            config = GetDefault();
+
+            // Save the clean default so the user has a valid file to edit
+            api.StoreModConfig(config, ConfigName);
+        }
+
+        return config;
     }
 }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDocs", "CreateDocs\Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslocatorShortestPath", "TranslocatorShortestPath\TranslocatorShortestPath.csproj", "{EF59AD52-7BD3-4662-A0D1-0827A6E90953}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nf3tVSCommon", "Nf3tVSCommon\Nf3tVSCommon.csproj", "{821014C6-34AA-464B-AF6B-5248997F8886}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EF59AD52-7BD3-4662-A0D1-0827A6E90953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF59AD52-7BD3-4662-A0D1-0827A6E90953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF59AD52-7BD3-4662-A0D1-0827A6E90953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821014C6-34AA-464B-AF6B-5248997F8886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821014C6-34AA-464B-AF6B-5248997F8886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821014C6-34AA-464B-AF6B-5248997F8886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821014C6-34AA-464B-AF6B-5248997F8886}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

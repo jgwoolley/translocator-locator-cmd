@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TranslocatorLocatorCmd\TranslocatorLocatorCmd.csproj"/>
+        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj" />
     </ItemGroup>
 
 </Project>
