@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\VSTutorial\VSTutorial.csproj" />
+        <ProjectReference Include="..\TranslocatorLocatorCmd\TranslocatorLocatorCmd.csproj"/>
     </ItemGroup>
 
 </Project>
