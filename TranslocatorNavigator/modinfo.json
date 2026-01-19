@@ -1,0 +1,16 @@
+{
+  "type": "code",
+  "modid": "nf3ttranslocatornavigator",
+  "name": "Nf3t - Translocator Navigator",
+  "authors": [
+    "Nf3t"
+  ],
+  "description": "A client side mod that calculates the shortest path between your current position and a target, factoring in translocator jumps as \"shortcuts.\"",
+  "version": "1.0.0",
+  "side": "Client",
+  "requiredOnServer": false,
+  "dependencies": {
+    "game": "1.21.0",
+    "survival": "1.21.0"
+  }
+}

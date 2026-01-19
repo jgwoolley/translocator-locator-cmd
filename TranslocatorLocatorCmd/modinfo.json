@@ -6,7 +6,7 @@
     "Nf3t"
   ],
   "description": "A client side mod for VintageStory which allows you to find Translocators, and optionally, add them as waypoints. An XRAY for Translocators!",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "side": "Client",
   "requiredOnServer": false,
   "dependencies": {

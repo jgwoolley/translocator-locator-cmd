@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "ZZCakeBuild\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDocs", "CreateDocs\CreateDocs.csproj", "{245830F4-D555-4418-8268-35417AB5216C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslocatorShortestPath", "TranslocatorShortestPath\TranslocatorShortestPath.csproj", "{EF59AD52-7BD3-4662-A0D1-0827A6E90953}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslocatorNavigator", "TranslocatorNavigator\TranslocatorNavigator.csproj", "{EF59AD52-7BD3-4662-A0D1-0827A6E90953}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nf3tVSCommon", "Nf3tVSCommon\Nf3tVSCommon.csproj", "{821014C6-34AA-464B-AF6B-5248997F8886}"
 EndProject

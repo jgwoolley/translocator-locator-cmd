@@ -27,7 +27,7 @@ public static class Program
 
 public class BuildContext : FrostingContext
 {
-    public static readonly string[] ProjectNames = { "TranslocatorLocatorCmd", "TranslocatorShortestPath" };
+    public static readonly string[] ProjectNames = { "TranslocatorLocatorCmd", "TranslocatorNavigator" };
 
     public BuildContext(ICakeContext context)
         : base(context)
