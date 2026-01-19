@@ -100,7 +100,7 @@ public class TranslocatorShortestPathModSystem : ModSystem
         api.ChatCommands.Create("counttl")
             .WithDescription("Give a count of currently seen translocators.")
             .WithArgs()
-            .HandleWith(_ => TextCommandResult.Success($"Currently seen translocators in current world: {Context.Translocators.Count}."));
+            .HandleWith(_ => Context.GetCollectionPerSaveCount("translocators", Context.SaveData.TranslocatorsPerSavegame));
     }
 
     private static TextCommandResult CreateHandle(Context context, SimplePos playerPos, SimplePos startPos, SimplePos goalPos)

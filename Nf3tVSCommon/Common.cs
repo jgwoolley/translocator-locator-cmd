@@ -1,14 +1,17 @@
 ﻿#nullable enable
 
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text;
 using Dijkstra.NET.Graph;
 using Dijkstra.NET.ShortestPath;
 using Newtonsoft.Json;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
+using System.Linq;
 
 namespace Nf3t.VintageStory.Common;
 
@@ -175,7 +178,7 @@ public class SerializedSaveData
 
     [JsonProperty] public Dictionary<string, TranslocatorPath> LastTranslocatorPathPerSavegame { get; } = new();
     
-    [JsonProperty] public Dictionary<string, HashSet<WayPoint>?> WayPointsPerSavegame { get; } = new();
+    [JsonProperty] public Dictionary<string, List<WayPoint>> WayPointsPerSavegame { get; } = new();
 }
 
 public class SaveData
@@ -212,9 +215,11 @@ public class SaveData
 
         foreach (var (savegameIdentifier, path) in serializedSaveData.LastTranslocatorPathPerSavegame)
             LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
-        
-        foreach (var (savegameIdentifier, wayPoints) in serializedSaveData.WayPointsPerSavegame)
-            WayPointsPerSavegame[savegameIdentifier] = wayPoints;
+
+        foreach (var (savegameIdentifier, waypoints) in serializedSaveData.WayPointsPerSavegame)
+        {
+            WayPointsPerSavegame[savegameIdentifier] =  new HashSet<WayPoint>(waypoints);
+        }
     }
 
     public SerializedSaveData Save()
@@ -240,7 +245,7 @@ public class SaveData
             serializedSaveData.LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
 
         foreach (var (savegameIdentifier, wayPoints) in WayPointsPerSavegame)
-            serializedSaveData.WayPointsPerSavegame[savegameIdentifier] = wayPoints;
+            serializedSaveData.WayPointsPerSavegame[savegameIdentifier] = wayPoints == null ? new() : wayPoints.ToList();
         
         return serializedSaveData;
     }
@@ -252,7 +257,7 @@ public class Context
     {
         ClientApi = clientApi;
         SaveData = new SaveData();
-        SaveFilePath = Path.Combine(GamePaths.DataPath, "ModData", "found_translocators.json");
+        SaveFilePath = Path.Combine(GamePaths.DataPath, "ModData", "Nf3tData.json");
         IsDirty = false;
         DefaultSpawnPosition = new SimplePos(ClientApi.World.DefaultSpawnPosition.AsBlockPos.X,
             ClientApi.World.DefaultSpawnPosition.AsBlockPos.Y, ClientApi.World.DefaultSpawnPosition.AsBlockPos.Z);
@@ -294,7 +299,7 @@ public class Context
             ClientApi.Logger.Error(e);
         }
     }
-
+    
     public void Save()
     {
         if (!IsDirty) return;
@@ -357,6 +362,30 @@ public class Context
     public SimplePos GetPlayerPos()
     {
         return GetSimplePos(ClientApi.World.Player.Entity.Pos);
+    }
+
+    public TextCommandResult GetCollectionPerSaveCount<T>(string name, Dictionary<string, T?> collection) where T : IEnumerable
+    {
+        var worldId = ClientApi.World.SavegameIdentifier;
+    
+        // Log available keys for debugging
+        string keys = string.Join(", ", collection.Keys);
+        ClientApi.Logger.Debug("Current World: {0}. Available worlds: [{1}].", worldId, keys);
+
+        // 1. Calculate Local Count (Safe check for missing key or null value)
+        int localCount = 0;
+        if (collection.TryGetValue(worldId, out var value) && value != null)
+        {
+            localCount = value.Cast<object>().Count();
+        }
+
+        // 2. Calculate Global Count
+        // We cast to object because T is a generic IEnumerable
+        var globalCount = collection.Values
+            .Sum(x => x == null ? 0: x.Cast<object>().Count());
+
+        return TextCommandResult.Success(
+            $"Currently seen {name} in current world: {localCount}. Across all worlds: {globalCount}.");
     }
 }
 
@@ -494,9 +523,9 @@ public class LocatorCommand
     [JsonProperty] public string Keyword { get; set; } = "";
 }
 
-public class TranslocatorLocatorConfig
+public class Nf3tConfig
 {
-    public static string ConfigName = "translocatorLocator.json";
+    public static string ConfigName = "Nf3tConfig.json";
 
     public int DefaultSearchRadius { get; set; } = 150;
     public List<BlockSelector> Selectors { get; set; } = new();
@@ -517,9 +546,9 @@ public class TranslocatorLocatorConfig
         return sb.ToString();
     }
 
-    public static TranslocatorLocatorConfig GetDefault()
+    public static Nf3tConfig GetDefault()
     {
-        return new TranslocatorLocatorConfig
+        return new Nf3tConfig
         {
             EnableTranslocatorPath = false,
             DefaultSearchRadius = 150,
@@ -571,13 +600,13 @@ public class TranslocatorLocatorConfig
         };
     }
 
-    public static TranslocatorLocatorConfig Load(ICoreClientAPI api)
+    public static Nf3tConfig Load(ICoreClientAPI api)
     {
-        TranslocatorLocatorConfig? config = null;
+        Nf3tConfig? config = null;
 
         try
         {
-            config = api.LoadModConfig<TranslocatorLocatorConfig>(ConfigName);
+            config = api.LoadModConfig<Nf3tConfig>(ConfigName);
         }
         catch (Exception e)
         {

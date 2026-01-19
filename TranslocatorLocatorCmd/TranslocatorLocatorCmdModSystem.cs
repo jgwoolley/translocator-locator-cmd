@@ -21,7 +21,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
 
     public override void StartClientSide(ICoreClientAPI api)
     {
-        var config = TranslocatorLocatorConfig.Load(api);
+        var config = Nf3tConfig.Load(api);
         var context = new Context(api);
         context.Load();
 
@@ -41,23 +41,13 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
 
         api.ChatCommands.Create("countwaypoints")
             .WithDescription("Count local waypoints.")
-            .HandleWith(_ =>
-            {
-                var count = 0;
-                context.SaveData.WayPointsPerSavegame.TryGetValue(api.World.SavegameIdentifier,
-                    out var checkWayPoints);
-                if (checkWayPoints != null)
-                {
-                    count = checkWayPoints.Count;
-                }
-                
-                return TextCommandResult.Success($"Currently seen local waypoints in current world: {count}.");
-            });
-        
+            .HandleWith(_ => context.GetCollectionPerSaveCount("waypoints", context.SaveData.WayPointsPerSavegame)
+
+         );
         foreach (var command in config.Commands) CreateCommand(api, context, config, command);
     }
 
-    public static void CreateCommand(ICoreClientAPI api, Context context, TranslocatorLocatorConfig config, LocatorCommand command)
+    public static void CreateCommand(ICoreClientAPI api, Context context, Nf3tConfig config, LocatorCommand command)
     {
         System.Func<BlockSelector, bool> predicate = s => s.Keywords.Contains(command.Keyword);
 
@@ -200,11 +190,11 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                     api.SendChatMessage(result.ToWaypointString());
             }
         }
-
-        context.Save();
         
         if (messages.Count > 0)
         {
+            context.Save();
+
             var fullMessage = string.Join("\n", messages);
             api.ShowChatMessage(fullMessage);
 
@@ -212,6 +202,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                 checkWayPoints.UnionWith(sortedResults);
                 try
                 {
+                    context.IsDirty = true;
                     context.Save();
                     return TextCommandResult.Success($"Found {sortedResults.Count} waypoints within {radius} blocks.");
                 }
