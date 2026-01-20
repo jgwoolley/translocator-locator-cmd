@@ -6,7 +6,7 @@
     "Nf3t"
   ],
   "description": "A client side mod that calculates the shortest path between your current position and a target, factoring in translocator jumps as \"shortcuts.\"",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "side": "Client",
   "requiredOnServer": false,
   "dependencies": {
