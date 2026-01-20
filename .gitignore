@@ -675,3 +675,5 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/csharp,visualstudio,visualstudiocode,rider
 
 vs_server
+ModDB
+.idea

@@ -11,7 +11,6 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using System.Linq;
 
 namespace Nf3t.VintageStory.Common;
 
@@ -554,7 +553,7 @@ public class Nf3tConfig
             DefaultSearchRadius = 150,
             Selectors = new List<BlockSelector>
             {
-                // TODO: Add gear pile
+                new("gear-rusty", "gear", "brown", ["treasure"]),
                 new("tapestry", "vessel", "blue", ["art", "treasure"]),
                 new("painting", "vessel", "blue", ["art", "treasure"]),
                 new("chandelier", "vessel", "brown", ["art", "treasure"]),
@@ -569,6 +568,9 @@ public class Nf3tConfig
                 new("rawclay-fire", "rocks", "orange", ["clay"]),
                 new("rawclay-red", "rocks", "red", ["clay"]),
                 new("rawclay-blue", "rocks", "blue", ["clay"]),
+                new("rock-whitemarble", "rocks", "white", ["marble"]),
+                new("rock-redmarble", "rocks", "red", ["marble"]),
+                new("rock-greenmarble", "rocks", "green", ["marble"]),
                 new("looseores", "pick", "yellow", ["ore"]),
                 new("ore", "pick", "red", ["ore"]),
                 new("crystal", "rocks", "black", ["ore"]),
@@ -586,16 +588,17 @@ public class Nf3tConfig
             },
             Commands = new List<LocatorCommand>
             {
-                new("findtreasure", "Finds nearby treasure.", false, "treasure"),
+                new("findtreasure", "Finds nearby treasure, and gears.", false, "treasure"),
                 new("findart", "Finds nearby tapestries, paintings, and chandeliers.", false, "art"),
                 new("findchest", "Finds nearby item containers.", false, "chest"),
                 new("findsoil", "Finds nearby bony soil, and high fertility soil.", true, "soil"),
                 new("findclay", "Finds nearby clay.", true, "clay"),
-                new("findore", "Finds nearby ores and crystals.", true, "ore"),
+                new("findore", "Finds nearby ores, and crystals.", true, "ore"),
                 new("findbees", "Finds nearby bees.", false, "bees"),
                 new("findresin", "Finds nearby resin.", false, "resin"),
-                new("findplants", "Finds nearby mushrooms, reeds, bushes.", true, "plant"),
-                new("findfruit", "Finds nearby fruit trees.", false, "fruit")
+                new("findplants", "Finds nearby mushrooms, reeds, bushes, and flowers.", true, "plant"),
+                new("findfruit", "Finds nearby fruit trees.", false, "fruit"),
+                new("findmarble", "Finds nearby marble.", true, "marble"),
             }
         };
     }

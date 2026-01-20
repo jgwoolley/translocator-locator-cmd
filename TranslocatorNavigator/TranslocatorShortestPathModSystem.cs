@@ -82,7 +82,7 @@ public class TranslocatorShortestPathModSystem : ModSystem
             });
         
         api.ChatCommands.Create("pathtlhist")
-            .WithDescription("Find shortest path to coordinates using known translocators with the previously given value.")
+            .WithDescription("Find shortest path to coordinates using known translocators with the previously given start and target location. Fails if none found.")
             .WithArgs()
             .HandleWith(_ =>
             {
@@ -98,7 +98,7 @@ public class TranslocatorShortestPathModSystem : ModSystem
             });
         
         api.ChatCommands.Create("counttl")
-            .WithDescription("Give a count of currently seen translocators.")
+            .WithDescription("Counts the translocators seen by this mod within this world, as well as any others. Translocators are stored on the client system to prevent duplication.")
             .WithArgs()
             .HandleWith(_ => Context.GetCollectionPerSaveCount("translocators", Context.SaveData.TranslocatorsPerSavegame));
     }
