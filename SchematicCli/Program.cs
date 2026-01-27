@@ -20,7 +20,7 @@ void Process(string fileName, BlockSchematic data)
             var beBytes = Ascii85.Decode(rawBlockEntity);
             if (beBytes != null)
             {
-                using (MemoryStream ms = new MemoryStream(beBytes))
+                using (var ms = new MemoryStream(beBytes))
                 {
                     BinaryReader reader = new BinaryReader(ms);
                     tree.FromBytes(reader);
@@ -34,17 +34,18 @@ void Process(string fileName, BlockSchematic data)
     var types = new HashSet<string>();
     foreach (var result in results)
     {
-        if (result.assetLocation == null || !result.assetLocation.BeginsWith("game", "tapestry"))
+        if (result.assetLocation == null || !result.assetLocation.BeginsWith("game", "painting-trout"))
         {
             continue;
         }
-
+       /* 
         var type = result.tree.GetAsString("type");
         if (type == null)
         {
             continue;
         }
-        types.Add(type);
+        */
+        types.Add(result.assetLocation);
     }
 
     if (types.Count == 0)
@@ -52,10 +53,12 @@ void Process(string fileName, BlockSchematic data)
         return;
     }
 
+    /*
     if (!types.Contains("schematic-b12"))
     {
         return;
     }
+    */
     
     Console.WriteLine($"{fileName}: {string.Join(", ", types)}");
 }
