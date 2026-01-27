@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslocatorNavigator", "Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nf3tVSCommon", "Nf3tVSCommon\Nf3tVSCommon.csproj", "{821014C6-34AA-464B-AF6B-5248997F8886}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchematicCli", "SchematicCli\SchematicCli.csproj", "{81D39567-5312-4629-996E-F03543E3C489}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{821014C6-34AA-464B-AF6B-5248997F8886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{821014C6-34AA-464B-AF6B-5248997F8886}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821014C6-34AA-464B-AF6B-5248997F8886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D39567-5312-4629-996E-F03543E3C489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D39567-5312-4629-996E-F03543E3C489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D39567-5312-4629-996E-F03543E3C489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D39567-5312-4629-996E-F03543E3C489}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -400,6 +400,7 @@ public class WayPoint
         Icon = icon;
         Color = color;
         ExtraChat = "";
+        BlockCount = 1;
     }
 
     [JsonProperty] public string CodePath { get; }
@@ -411,6 +412,7 @@ public class WayPoint
     [JsonProperty] public string Icon { get; }
     [JsonProperty] public string Color { get; }
     [JsonProperty] public string ExtraChat { get; set; }
+    [JsonProperty] public int BlockCount { get; set; }
 
     public double DistanceTo(BlockPos other)
     {
@@ -461,7 +463,15 @@ public class WayPoint
 
     public string ToChatString(BlockPos mapMiddlePos, BlockPos playerPos)
     {
-        return $"<font color=\"{Color}\">[{Name}]</font> " +
+        var prefix = "";
+        if (BlockCount > 1)
+        {
+            prefix += "x";
+            prefix += BlockCount;
+            prefix += " ";
+        }
+        
+        return $"<font color=\"{Color}\">{prefix}[{Name}]</font> " +
                $"at <strong>{ToRelativeCoordinates(mapMiddlePos, playerPos)}{ExtraChat}</strong>";
     }
 

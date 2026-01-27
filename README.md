@@ -14,6 +14,11 @@ Various mods I have created for VintageStory
 * [Nf3tVSCommon](Nf3tVSCommon): Contains the common code shared between the mods.
 * [ZZCakeBuild](ZZCakeBuild): Builds the Mods.
 * [CreateImages](CreateImages): These are some scripts that will generate VintageStory modicons as well as Screenshots in the correct resolution for ModDB.
+* [SchematicCli](SchematicCli): A script for analyzing schematics for tapestries.
+
+## Old files
+Files that are no longer used.
+
 * [CreateDocs](CreateDocs): Very basic project that used to build the command templates.
 * Old Docker build scripts:
     * [build.sh](build.sh): Builds the projects?

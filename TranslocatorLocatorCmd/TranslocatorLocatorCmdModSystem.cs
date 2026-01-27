@@ -47,7 +47,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         foreach (var command in config.Commands) CreateCommand(api, context, config, command);
     }
 
-    public static void CreateCommand(ICoreClientAPI api, Context context, Nf3tConfig config, LocatorCommand command)
+    private static void CreateCommand(ICoreClientAPI api, Context context, Nf3tConfig config, LocatorCommand command)
     {
         System.Func<BlockSelector, bool> predicate = s => s.Keywords.Contains(command.Keyword);
 
@@ -148,7 +148,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         return ProcessFindBlock(api, context, addWaypoints, radius, false, onBlock);
     }
 
-    public static TextCommandResult ProcessFindBlock(ICoreClientAPI api, Context context, bool addWaypoints,
+    private static TextCommandResult ProcessFindBlock(ICoreClientAPI api, Context context, bool addWaypoints,
         int radius, bool closestOnly, Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock)
     {
         if (api.World?.Player?.Entity == null) return TextCommandResult.Error("Player not found.");
@@ -162,12 +162,25 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
             playerPos.AddCopy(radius, radius, radius), (block, pos) =>
                 onBlock(mapMiddlePos, playerPos, results, block, pos));
 
-        IEnumerable<WayPoint> query = results
-            .OrderBy(tl => tl.DistanceTo(playerPos));
+        IEnumerable<WayPoint> query = results;
 
         if (closestOnly)
+        {
             query = query.GroupBy(wp => wp.Name)
-                .Select(group => group.First());
+                .Select(group =>
+                {
+                    // Find the closest within this specific group
+                    var closest = group.OrderBy(wp => wp.DistanceTo(playerPos)).First();
+                    closest.BlockCount = group.Count();
+                    return closest;
+                })
+                // Now sort the reduced list (much faster)
+                .OrderBy(wp => wp.DistanceTo(playerPos)); 
+        }
+        else
+        {
+            query = query.OrderBy(tl => tl.DistanceTo(playerPos));
+        }
 
         var sortedResults = query.Reverse().ToList();
 
