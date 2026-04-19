@@ -558,6 +558,7 @@ public class Nf3tConfig
             Selectors = new List<BlockSelector>
             {
                 new("gear-rusty", "gear", "brown", ["treasure"]),
+                new("loosegears", "gear", "brown", ["treasure"]),
                 new("tapestry", "vessel", "blue", ["art", "treasure"]),
                 new("painting", "vessel", "blue", ["art", "treasure"]),
                 new("chandelier", "vessel", "brown", ["art", "treasure"]),

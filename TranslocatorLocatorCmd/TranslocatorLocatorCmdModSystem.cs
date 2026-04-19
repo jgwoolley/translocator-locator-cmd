@@ -106,7 +106,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                         foreach (var selector in filteredSelectors)
                             if (block.Code.Path.StartsWith(selector.StartsWith))
                             {
-                                var blockName = block.GetPlacedBlockName(api.World, pos);
+                                var blockName = GetWaypointName(block, api.World, pos);
                                 var wayPoint = new WayPoint(block.Code.Path, pos.Copy(), blockName, selector.Icon,
                                     selector.Color);
                                 results.Add(wayPoint);
@@ -152,7 +152,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
 
                 api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", block.Code.Path, pos);
 
-                var sourceWayPoint = new WayPoint(block.Code.Path, pos.Copy(), block.GetPlacedBlockName(api.World, pos),
+                var sourceWayPoint = new WayPoint(block.Code.Path, pos.Copy(), GetWaypointName(block, api.World, pos),
                     "spiral", isRepaired ? "green" : "red");
                 results.Add(sourceWayPoint);
 
@@ -160,7 +160,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                 {
                     // TODO: Technically this codepath is incorrect as it is the source's path
                     var destinationWayPoint = new WayPoint(block.Code.Path, destination.Copy(),
-                        block.GetPlacedBlockName(api.World, destination),
+                        GetWaypointName(block, api.World, destination),
                         "spiral", "green");
                     results.Add(destinationWayPoint);
                     // TODO: Maybe just add destination to each waypoint...
@@ -260,5 +260,18 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         }
 
         return TextCommandResult.Success($"Not found within {radius} blocks.");
+    }
+
+    private static string GetWaypointName(Block block, IClientWorldAccessor world, BlockPos pos)
+    {
+        try
+        {
+            return block.GetPlacedBlockName(world, pos);
+        }
+        catch (Exception e)
+        {
+            world.Logger.Error(e);
+            return block.Code.Path;
+        }
     }
 }
