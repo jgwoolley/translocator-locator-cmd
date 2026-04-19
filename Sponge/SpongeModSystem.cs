@@ -1,5 +1,6 @@
 ﻿#nullable enable
 
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
@@ -14,11 +15,19 @@ public class SpongeConfig
 public class SpongeModSystem : ModSystem
 {
     public static SpongeConfig? Config;
+    public static ICoreClientAPI? ClientAPI;
 
     public override void Start(ICoreAPI api)
     {
         base.Start(api);
         api.RegisterItemClass("ItemSponge", typeof(ItemSponge));
+    }
+
+    public override void StartClientSide(ICoreClientAPI api)
+    {
+        base.StartClientSide(api);
+
+        ClientAPI = api;
     }
 
     public override void StartServerSide(ICoreServerAPI api)
