@@ -9,7 +9,7 @@
   },
   "shape": { "base": "game:item/resource/cloth" },
   "textures": {
-    "color": { "base": "game:block/cloth/linen/plain" }
+    "color": { "base": "game:block/cloth/linen/yellow" }
   },
   "guiTransform": {
     "rotation": { "x": -166, "y": 78, "z": -45 },

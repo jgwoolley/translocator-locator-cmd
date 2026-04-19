@@ -1,7 +1,7 @@
 {
-  "item-sponge-dry": "Sponge",
-  "itemdesc-sponge-dry": "Right-click to absorb nearby source water. Becomes wet after use.",
+  "item-sponge-dry": "Dry liquid sponge",
+  "itemdesc-sponge-dry": "Right-click to absorb nearby liquids. Becomes wet after use.",
 
-  "item-sponge-wet": "Wet sponge",
+  "item-sponge-wet": "Wet liquid sponge",
   "itemdesc-sponge-wet": "Right-click to wring it out."
 }
