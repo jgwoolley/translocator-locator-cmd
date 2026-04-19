@@ -1,0 +1,13 @@
+{
+  "type": "recipe",
+  "code": "sponge",
+  "ingredients": {
+    "C": { "type": "item", "code": "game:cloth-*", "quantity": 1 }
+  },
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "output": { "type": "item", "code": "spongeclean:sponge-dry", "quantity": 1 }
+}

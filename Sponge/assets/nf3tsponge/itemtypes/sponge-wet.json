@@ -1,0 +1,15 @@
+{
+  "code": "sponge-wet",
+  "class": "ItemSponge",
+  "creativeinventory": { "general": [ "*" ] },
+  "maxstacksize": 1,
+  "attributes": {
+    "handbook": { "group": "tools" },
+    "spongeState": "wet"
+  },
+  "guiTransform": { "origin": { "x": 0.5, "y": 0.5, "z": 0.5 } },
+  "shape": { "base": "item/basic/cloth" },
+  "texture": {
+    "base": "block/cloth/plain"
+  }
+}

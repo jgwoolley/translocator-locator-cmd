@@ -25,6 +25,39 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         var context = new Context(api);
         context.Load();
 
+        // TODO: Remove
+        api.ChatCommands.Create("findcolor").WithDescription("Calculates color per block.").HandleWith(_ =>
+        {
+            var assetColorLut = api.World.Blocks
+                .Where(b => b?.Code != null && b.Id != 0 && b.Textures != null && b.Textures.Count > 0)
+                .ToDictionary(
+                    block => block.Code, 
+                    block => {
+                        // Get the first available texture definition
+                        var texDef = block.Textures.ContainsKey("all") 
+                            ? block.Textures["all"] 
+                            : block.Textures.Values.First();
+            
+                        // Access the average color using the Baked TextureSubId
+                        return api.BlockTextureAtlas.GetAverageColor(texDef.Baked.TextureSubId);
+                    }
+                );
+            var randomFive = assetColorLut
+                .OrderBy(x => api.World.Rand.Next())
+                .Take(5)
+                .ToDictionary(x => x.Key, x => x.Value);
+            
+            foreach (var entry in randomFive)
+            {
+                // Mask the integer to ignore Alpha and get the last 6 hex digits
+                var hex = $"#{(entry.Value & 0xFFFFFF):X6}";
+    
+                api.Logger.Debug($"Block: {entry.Key} | Color: {hex}");
+            }
+            
+            return TextCommandResult.Success($"Success {assetColorLut.Count}");
+        });
+        
         api.ChatCommands.Create("findtl")
             .WithDescription("Finds nearby translocators.")
             // Added a boolean parser. Optional(false) makes it default to false if omitted.
