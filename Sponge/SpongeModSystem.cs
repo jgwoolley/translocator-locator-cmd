@@ -25,11 +25,11 @@ public class SpongeModSystem : ModSystem
     {
         base.StartServerSide(api);
 
-        Config = api.LoadModConfig<SpongeConfig>("nf3tsponge.json");
+        Config = api.LoadModConfig<SpongeConfig>("Nf3tSponge.json");
         if (Config == null)
         {
             Config = new SpongeConfig();
-            api.StoreModConfig(Config, "nf3tsponge.json");
+            api.StoreModConfig(Config, "Nf3tSponge.json");
         }
     }
 }
