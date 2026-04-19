@@ -60,7 +60,7 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj" />
+        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj"/>
     </ItemGroup>
 
 </Project>

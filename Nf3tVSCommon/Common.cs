@@ -1,6 +1,4 @@
-﻿#nullable enable
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text;
 using Dijkstra.NET.Graph;
@@ -106,7 +104,7 @@ public class TranslocatorPathResult
                 _graph.Connect(srcId, goalId, (int)src.DistanceTo(_goalPos), "Walk");
                 _graph.Connect(targetId, goalId, (int)target.Value.DistanceTo(_goalPos), "Walk");
             }
-        
+
         // 4. Add Edges: Chaining (Portals near each other)
         var allTps = translocators.Where(kvp => kvp.Value.HasValue).ToList();
         foreach (var tp1 in allTps)
@@ -176,7 +174,7 @@ public class SerializedSaveData
     [JsonProperty] public Dictionary<string, SimplePos> DefaultSpawnPositionPerSavegame { get; } = new();
 
     [JsonProperty] public Dictionary<string, TranslocatorPath> LastTranslocatorPathPerSavegame { get; } = new();
-    
+
     [JsonProperty] public Dictionary<string, List<WayPoint>> WayPointsPerSavegame { get; } = new();
 }
 
@@ -194,7 +192,7 @@ public class SaveData
     public Dictionary<string, SimplePos> DefaultSpawnPositionPerSavegame { get; }
     public Dictionary<string, TranslocatorPath> LastTranslocatorPathPerSavegame { get; }
     public Dictionary<string, HashSet<WayPoint>?> WayPointsPerSavegame { get; }
-    
+
     public void Load(SerializedSaveData serializedSaveData)
     {
         foreach (var (savegameIdentifier, serializedEntries) in serializedSaveData.TranslocatorsPerSavegame)
@@ -216,9 +214,7 @@ public class SaveData
             LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
 
         foreach (var (savegameIdentifier, waypoints) in serializedSaveData.WayPointsPerSavegame)
-        {
-            WayPointsPerSavegame[savegameIdentifier] =  new HashSet<WayPoint>(waypoints);
-        }
+            WayPointsPerSavegame[savegameIdentifier] = new HashSet<WayPoint>(waypoints);
     }
 
     public SerializedSaveData Save()
@@ -244,8 +240,9 @@ public class SaveData
             serializedSaveData.LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
 
         foreach (var (savegameIdentifier, wayPoints) in WayPointsPerSavegame)
-            serializedSaveData.WayPointsPerSavegame[savegameIdentifier] = wayPoints == null ? new() : wayPoints.ToList();
-        
+            serializedSaveData.WayPointsPerSavegame[savegameIdentifier] =
+                wayPoints == null ? new List<WayPoint>() : wayPoints.ToList();
+
         return serializedSaveData;
     }
 }
@@ -298,7 +295,7 @@ public class Context
             ClientApi.Logger.Error(e);
         }
     }
-    
+
     public void Save()
     {
         if (!IsDirty) return;
@@ -357,37 +354,34 @@ public class Context
         return new SimplePos((int)pos.X, (int)pos.Y,
             (int)pos.Z);
     }
-    
+
     public SimplePos GetPlayerPos()
     {
         return GetSimplePos(ClientApi.World.Player.Entity.Pos);
     }
 
-    public TextCommandResult GetCollectionPerSaveCount<T>(string name, Dictionary<string, T?> collection) where T : IEnumerable
+    public TextCommandResult GetCollectionPerSaveCount<T>(string name, Dictionary<string, T?> collection)
+        where T : IEnumerable
     {
         var worldId = ClientApi.World.SavegameIdentifier;
-    
+
         // Log available keys for debugging
-        string keys = string.Join(", ", collection.Keys);
+        var keys = string.Join(", ", collection.Keys);
         ClientApi.Logger.Debug("Current World: {0}. Available worlds: [{1}].", worldId, keys);
 
         // 1. Calculate Local Count (Safe check for missing key or null value)
-        int localCount = 0;
-        if (collection.TryGetValue(worldId, out var value) && value != null)
-        {
-            localCount = value.Cast<object>().Count();
-        }
+        var localCount = 0;
+        if (collection.TryGetValue(worldId, out var value) && value != null) localCount = value.Cast<object>().Count();
 
         // 2. Calculate Global Count
         // We cast to object because T is a generic IEnumerable
         var globalCount = collection.Values
-            .Sum(x => x == null ? 0: x.Cast<object>().Count());
+            .Sum(x => x == null ? 0 : x.Cast<object>().Count());
 
         return TextCommandResult.Success(
             $"Currently seen {name} in current world: {localCount}. Across all worlds: {globalCount}.");
     }
 }
-
 
 public class WayPoint
 {
@@ -470,7 +464,7 @@ public class WayPoint
             prefix += BlockCount;
             prefix += " ";
         }
-        
+
         return $"<font color=\"{Color}\">{prefix}[{Name}]</font> " +
                $"at <strong>{ToRelativeCoordinates(mapMiddlePos, playerPos)}{ExtraChat}</strong>";
     }
@@ -608,7 +602,7 @@ public class Nf3tConfig
                 new("findresin", "Finds nearby resin.", false, "resin"),
                 new("findplants", "Finds nearby mushrooms, reeds, bushes, and flowers.", true, "plant"),
                 new("findfruit", "Finds nearby fruit trees.", false, "fruit"),
-                new("findmarble", "Finds nearby marble.", true, "marble"),
+                new("findmarble", "Finds nearby marble.", true, "marble")
             }
         };
     }

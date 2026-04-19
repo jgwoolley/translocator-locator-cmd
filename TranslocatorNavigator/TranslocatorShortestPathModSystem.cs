@@ -56,33 +56,35 @@ public class TranslocatorShortestPathModSystem : ModSystem
                 }
             }
         }, 200);
-        
+
         api.ChatCommands.Create("pathtl")
-            .WithDescription("Find shortest path to coordinates using known translocators, by specifying an optional target location, and start location. Or will fall back to previous target location, and current player position.")
-            .WithArgs(api.ChatCommands.Parsers.OptionalWorldPosition("goal"), api.ChatCommands.Parsers.OptionalWorldPosition("start"))
+            .WithDescription(
+                "Find shortest path to coordinates using known translocators, by specifying an optional target location, and start location. Or will fall back to previous target location, and current player position.")
+            .WithArgs(api.ChatCommands.Parsers.OptionalWorldPosition("goal"),
+                api.ChatCommands.Parsers.OptionalWorldPosition("start"))
             .HandleWith(args =>
             {
                 var playerPos = Context.GetPlayerPos();
-                
+
                 var goalArg = Context.GetSimplePos((Vec3d)args[0]);
                 var startArg = Context.GetSimplePos((Vec3d)args[1]);
-                
+
                 if (goalArg == startArg)
                 {
                     if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
                             Context.ClientApi.World.SavegameIdentifier, out var path))
-                    {
                         return CreateHandle(Context, playerPos, playerPos, path.GoalPos);
-                    }
 
-                    return TextCommandResult.Error("Did not find existing history, please provide at least one argument.");
+                    return TextCommandResult.Error(
+                        "Did not find existing history, please provide at least one argument.");
                 }
-                
+
                 return CreateHandle(Context, playerPos, startArg, goalArg);
             });
-        
+
         api.ChatCommands.Create("pathtlhist")
-            .WithDescription("Find shortest path to coordinates using known translocators with the previously given start and target location. Fails if none found.")
+            .WithDescription(
+                "Find shortest path to coordinates using known translocators with the previously given start and target location. Fails if none found.")
             .WithArgs()
             .HandleWith(_ =>
             {
@@ -90,20 +92,21 @@ public class TranslocatorShortestPathModSystem : ModSystem
 
                 if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
                         Context.ClientApi.World.SavegameIdentifier, out var path))
-                {
                     return CreateHandle(Context, playerPos, path.StartPos, path.GoalPos);
-                }
 
                 return TextCommandResult.Error("Did not find existing history.");
             });
-        
+
         api.ChatCommands.Create("counttl")
-            .WithDescription("Counts the translocators seen by this mod within this world, as well as any others. Translocators are stored on the client system to prevent duplication.")
+            .WithDescription(
+                "Counts the translocators seen by this mod within this world, as well as any others. Translocators are stored on the client system to prevent duplication.")
             .WithArgs()
-            .HandleWith(_ => Context.GetCollectionPerSaveCount("translocators", Context.SaveData.TranslocatorsPerSavegame));
+            .HandleWith(_ =>
+                Context.GetCollectionPerSaveCount("translocators", Context.SaveData.TranslocatorsPerSavegame));
     }
 
-    private static TextCommandResult CreateHandle(Context context, SimplePos playerPos, SimplePos startPos, SimplePos goalPos)
+    private static TextCommandResult CreateHandle(Context context, SimplePos playerPos, SimplePos startPos,
+        SimplePos goalPos)
     {
         var result = context.CalculatePath(playerPos, goalPos);
 

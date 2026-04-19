@@ -2,10 +2,18 @@
   {
     "ingredientPattern": "CCCCCCCCC",
     "ingredients": {
-      "C": { "type": "item", "code": "game:cloth-plain", "quantity": 1 }
+      "C": {
+        "type": "item",
+        "code": "game:cloth-plain",
+        "quantity": 1
+      }
     },
     "width": 3,
     "height": 3,
-    "output": { "type": "item", "code": "nf3tsponge:sponge-dry", "quantity": 1 }
+    "output": {
+      "type": "item",
+      "code": "nf3tsponge:sponge-dry",
+      "quantity": 1
+    }
   }
 ]

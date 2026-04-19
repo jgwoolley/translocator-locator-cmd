@@ -1,36 +1,86 @@
 {
   "code": "sponge-wet",
   "class": "ItemSponge",
-  "creativeinventory": { "general": [ "*" ] },
+  "creativeinventory": {
+    "general": [
+      "*"
+    ]
+  },
   "maxstacksize": 1,
   "attributes": {
-    "handbook": { "group": "tools" },
+    "handbook": {
+      "group": "tools"
+    },
     "spongeState": "wet"
   },
-  "shape": { "base": "game:item/resource/cloth" },
+  "shape": {
+    "base": "game:item/resource/cloth"
+  },
   "textures": {
-    "color": { "base": "game:block/cloth/linen/blue" }
+    "color": {
+      "base": "game:block/cloth/linen/blue"
+    }
   },
   "guiTransform": {
-    "rotation": { "x": -166, "y": 78, "z": -45 },
-    "origin": { "x": 0.5, "y": 0.1, "z": 0.58 },
+    "rotation": {
+      "x": -166,
+      "y": 78,
+      "z": -45
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.58
+    },
     "scale": 2.5
   },
   "fpHandTransform": {
-    "translation": { "x": 0.25, "y": 0, "z": 0 },
-    "rotation": { "x": 152, "y": 71, "z": -87 },
-    "origin": { "x": 0.6, "y": 0.3, "z": 0.5 },
+    "translation": {
+      "x": 0.25,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 152,
+      "y": 71,
+      "z": -87
+    },
+    "origin": {
+      "x": 0.6,
+      "y": 0.3,
+      "z": 0.5
+    },
     "scale": 1.82
   },
   "tpHandTransform": {
-    "translation": { "x": -1, "y": -0.9, "z": -1.35 },
-    "rotation": { "x": 99, "y": -180, "z": 180 },
+    "translation": {
+      "x": -1,
+      "y": -0.9,
+      "z": -1.35
+    },
+    "rotation": {
+      "x": 99,
+      "y": -180,
+      "z": 180
+    },
     "scale": 0.49
   },
   "groundTransform": {
-    "translation": { "x": 0, "y": 0.25, "z": 0 },
-    "rotation": { "x": 0, "y": 0, "z": 0 },
-    "origin": { "x": 0.5, "y": 0.31, "z": 0.5299 },
+    "translation": {
+      "x": 0,
+      "y": 0.25,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.31,
+      "z": 0.5299
+    },
     "scale": 4
   }
 }

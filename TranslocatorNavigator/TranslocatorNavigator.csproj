@@ -68,7 +68,7 @@
         <PackageReference Include="Dijkstra.NET" Version="1.2.1"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj" />
+        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj"/>
     </ItemGroup>
 
 </Project>

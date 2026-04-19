@@ -11,7 +11,7 @@ ASSET CREDITS:
 The mod icon/graphics are derived from:
 - Fish Cake With Swirl SVG Vector
 - Created by: joypixels
-- Source: https://www.svgrepo.com/svg/403297/fish-cake-with-swirl
+- Source: https://www.svgrepo.com/svg/398384/sponge
 - License: MIT License
 
 Thank you to the original creator for their contribution to the community!

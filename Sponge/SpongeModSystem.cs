@@ -1,16 +1,18 @@
 ﻿#nullable enable
 
+using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
-using ProtoBuf;
 
 namespace Nf3t.VintageStory.Sponge;
 
 public class SpongeConfig
 {
-    // 1 => 3x3x3, 2 => 5x5x5, etc.
+    /// <summary>
+    ///     1 => 3x3x3, 2 => 5x5x5, etc.
+    /// </summary>
     public int AbsorbRadius = 1;
 }
 
@@ -32,16 +34,16 @@ public class SpongeFxPacket
 public class SpongeModSystem : ModSystem
 {
     public static SpongeConfig? Config;
-    
+
     private static ICoreClientAPI? _clientApi;
     private static IClientNetworkChannel? _clientChannel;
     private static IServerNetworkChannel? _serverChannel;
-    
+
     public override void Start(ICoreAPI api)
     {
         base.Start(api);
         api.RegisterItemClass("ItemSponge", typeof(ItemSponge));
-        
+
         // Register channel + message type on BOTH sides in Start()
         var ch = api.Network.RegisterChannel("nf3tsponge")
             .RegisterMessageType<SpongeFxPacket>();
@@ -72,7 +74,12 @@ public class SpongeModSystem : ModSystem
         Config = new SpongeConfig();
         api.StoreModConfig(Config, "Nf3tSponge.json");
     }
-    
+
+    /// <summary>
+    ///     Sends sponge packet to a player
+    /// </summary>
+    /// <param name="byEntity"></param>
+    /// <param name="blockSel"></param>
     public static void SendFxToPlayer(EntityAgent byEntity, BlockSelection blockSel)
     {
         if (_serverChannel == null) return;
@@ -84,9 +91,7 @@ public class SpongeModSystem : ModSystem
         // Fallback to block center so we never send zeros.
         var hitOffset = blockSel.HitPosition;
         if (hitOffset == null || (hitOffset.X == 0 && hitOffset.Y == 0 && hitOffset.Z == 0))
-        {
             hitOffset = new Vec3d(0.5, 0.5, 0.5);
-        }
 
         var hit = blockSel.Position.ToVec3d().Add(hitOffset);
 
@@ -103,35 +108,45 @@ public class SpongeModSystem : ModSystem
             Z = hit.Z
         }, sp);
     }
-    
+
+    /// <summary>
+    ///     This method will parse incoming sponge packets
+    /// </summary>
+    /// <param name="packet"></param>
     private static void OnFxPacketClient(SpongeFxPacket packet)
     {
         if (_clientApi == null) return;
 
         var pos = new Vec3d(packet.X, packet.Y, packet.Z);
 
-        _clientApi.Logger.Notification($"SpongeFxPacket received at {packet.X}, {packet.Y}, {packet.Z} dim {packet.Dimension}");
-        
+        _clientApi.Logger.Notification(
+            $"SpongeFxPacket received at {packet.X}, {packet.Y}, {packet.Z} dim {packet.Dimension}");
+
         SpawnWaterDrops(_clientApi, pos);
     }
 
-    private static void SpawnWaterDrops(ICoreClientAPI clientAPI, Vec3d pos)
+    /// <summary>
+    ///     Spawns water drops near where item sponge was used
+    /// </summary>
+    /// <param name="clientApi"></param>
+    /// <param name="pos"></param>
+    private static void SpawnWaterDrops(ICoreClientAPI clientApi, Vec3d pos)
     {
         // Blue-ish water
         var waterBlue = ColorUtil.ToRgba(200, 80, 140, 255);
 
         // Small "droplet" style: a bit upward + outward, then gravity pulls down
-        clientAPI.World.SpawnParticles(
-            quantity: 18,
-            color: waterBlue,
-            minPos: pos.AddCopy(-0.25, 0.00, -0.25),
-            maxPos: pos.AddCopy( 0.25, 0.05,  0.25),
-            minVelocity: new Vec3f(-0.25f, 0.15f, -0.25f),
-            maxVelocity: new Vec3f( 0.25f, 0.55f,  0.25f),
-            lifeLength: 0.35f,
-            gravityEffect: 1.5f,
-            scale: 0.7f,
-            model: EnumParticleModel.Cube  // looks more like drops than quads
+        clientApi.World.SpawnParticles(
+            18,
+            waterBlue,
+            pos.AddCopy(-0.25, 0.00, -0.25),
+            pos.AddCopy(0.25, 0.05, 0.25),
+            new Vec3f(-0.25f, 0.15f, -0.25f),
+            new Vec3f(0.25f, 0.55f, 0.25f),
+            0.35f,
+            1.5f,
+            0.7f,
+            EnumParticleModel.Cube // looks more like drops than quads
         );
     }
 }
