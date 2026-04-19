@@ -1,12 +1,12 @@
 {
   "type": "code",
   "modid": "nf3tsponge",
-  "name": "Nf3t - Sponge",
+  "name": "Nf3t - Water Sponge",
   "authors": [
     "Nf3t"
   ],
   "description": "Adds a sponge that removes source water blocks when you right-click.",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,

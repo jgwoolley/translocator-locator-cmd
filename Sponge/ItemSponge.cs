@@ -8,10 +8,10 @@ public class ItemSponge : Item
     {
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handHandling)
         {
-            IWorldAccessor world = byEntity.World;
+            var world = byEntity.World;
             if (world.Api.Side != EnumAppSide.Server) return;
 
-            string state = slot.Itemstack?.ItemAttributes?["spongeState"]?.AsString("dry") ?? "dry";
+            var state = slot.Itemstack?.ItemAttributes?["spongeState"]?.AsString("dry") ?? "dry";
 
             if (state == "wet")
             {
@@ -31,46 +31,43 @@ public class ItemSponge : Item
 
             int removed = AbsorbSourceWater(world, blockSel.Position, radius);
 
-            if (removed > 0)
+            if (removed <= 0) return;
+            
+            // Become wet after successful use
+            if (TrySetSponge(slot, world, "nf3tsponge:sponge-wet"))
             {
-                // Become wet after successful use
-                if (TrySetSponge(slot, world, "nf3tsponge:sponge-wet"))
-                {
-                    handHandling = EnumHandHandling.PreventDefault;
-                }
+                handHandling = EnumHandHandling.PreventDefault;
             }
         }
 
-        private int AbsorbSourceWater(IWorldAccessor world, BlockPos center, int radius)
+        private static int AbsorbSourceWater(IWorldAccessor world, BlockPos center, int radius)
         {
-            int removed = 0;
-            Block air = world.GetBlock(new AssetLocation("air"));
-            BlockPos tmp = new BlockPos();
+            var removed = 0;
+            var air = world.GetBlock(new AssetLocation("air"));
+            var tmp = new BlockPos(center.dimension);
 
-            for (int dx = -radius; dx <= radius; dx++)
-            for (int dy = -radius; dy <= radius; dy++)
-            for (int dz = -radius; dz <= radius; dz++)
+            for (var dx = -radius; dx <= radius; dx++)
+            for (var dy = -radius; dy <= radius; dy++)
+            for (var dz = -radius; dz <= radius; dz++)
             {
                 tmp.Set(center.X + dx, center.Y + dy, center.Z + dz);
 
-                Block b = world.BlockAccessor.GetBlock(tmp);
-                if (IsSourceWater(b))
-                {
-                    world.BlockAccessor.SetBlock(air.BlockId, tmp);
-                    removed++;
-                }
+                var b = world.BlockAccessor.GetBlock(tmp);
+                if (!IsSourceWater(b)) continue;
+                world.BlockAccessor.SetBlock(air.BlockId, tmp);
+                removed++;
             }
 
             return removed;
         }
 
-        private bool IsSourceWater(Block block)
+        private static bool IsSourceWater(Block block)
         {
             if (block == null) return false;
 
             // 1) Must be a liquid block identified as water
             // LiquidCode is a string in your API version.
-            string code = block.LiquidCode;
+            var code = block.LiquidCode;
             if (string.IsNullOrEmpty(code)) return false;
 
             // Most commonly "water". If you want other liquids, add them here.
@@ -94,7 +91,7 @@ public class ItemSponge : Item
             return lvl >= 7;
         }
 
-        private bool TrySetSponge(ItemSlot slot, IWorldAccessor world, string assetCode)
+        private static bool TrySetSponge(ItemSlot slot, IWorldAccessor world, string assetCode)
         {
             // assetCode example: "nf3tsponge:sponge-wet"
             Item spongeItem = world.GetItem(new AssetLocation(assetCode));
