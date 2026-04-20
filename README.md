@@ -7,9 +7,9 @@ Mods URL: [https://mods.vintagestory.at/show/user/0FE64B20508C53BB01DE](https://
 Various mods I have created for VintageStory
 
 * [Schematic Preview](https://github.com/jgwoolley/vintage-story-schematic-preview/)
-* [Translocator Locator](TranslocatorLocatorCmd)
-* [Translocator Navigator](TranslocatorNavigator)
-* [Water Sponge](Sponge)
+* [Translocator Locator](./TranslocatorLocatorCmdMod)
+* [Translocator Navigator](./TranslocatorNavigatorMod)
+* [Water Sponge](./WaterSpongeMod)
 
 ## Other files
 
