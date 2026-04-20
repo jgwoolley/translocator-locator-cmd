@@ -6,7 +6,7 @@
     "Nf3t"
   ],
   "description": "Adds a sponge that removes source water blocks when you right-click.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,
