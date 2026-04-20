@@ -96,7 +96,7 @@
       },
       "transitionedStack": {
         "type": "item",
-        "code": "sponge-wet"
+        "code": "sponge-dry"
       }
     }
   ]
