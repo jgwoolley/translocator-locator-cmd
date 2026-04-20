@@ -8,8 +8,4 @@
         <RootNamespace>ConsoleApp1</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Nf3tVSCommon\Nf3tVSCommon.csproj"/>
-    </ItemGroup>
-
 </Project>

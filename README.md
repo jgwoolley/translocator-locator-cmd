@@ -17,14 +17,16 @@ Various mods I have created for VintageStory
 * [ZZCakeBuild](ZZCakeBuild): Builds the Mods.
 * [CreateImages](CreateImages): These are some scripts that will generate VintageStory modicons as well as Screenshots in the correct resolution for ModDB.
 * [SchematicCli](SchematicCli): A script for analyzing schematics for tapestries.
-* [Libs](Libs): Experimentally working on adding git submodule support to get the .dlls instead.
+* [NEW_MODS.md](NEW_MODS.md): Some tips for adding new mods.
 
 ## Old files
 Files that are no longer used.
 
 * [CreateDocs](CreateDocs): Very basic project that used to build the command templates.
-* Old Docker build scripts:
-    * [build.sh](build.sh): Builds the projects?
-    * [run.sh](run.sh): Builds the projects?
-    * [clean.sh](clean.sh): Runs project cleanup commands.
-    * [extract.sh](extract.sh): Downloads VintageStory server, which it turns out, is not good enough to get the development environment setup.
+* Efforts to build the project without references to VINTAGESTORY HOME
+    * [Libs](Libs): Experimentally working on adding git submodule support to get the .dlls instead.
+    * Old Docker build scripts
+        * [build.sh](build.sh): Builds the projects?
+        * [run.sh](run.sh): Builds the projects?
+        * [clean.sh](clean.sh): Runs project cleanup commands.
+        * [extract.sh](extract.sh): Downloads VintageStory server, which it turns out, is not good enough to get the development environment setup.

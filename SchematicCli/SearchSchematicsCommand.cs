@@ -1,50 +1,20 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.ComponentModel;
-using Spectre.Console.Cli;
 using Newtonsoft.Json;
+using Spectre.Console.Cli;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Nf3t.VintageStory.SchematicCli;
 
-public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
-{        
-    public class Settings : CommandSettings
-    {
-        [CommandArgument(  0, "[vintagestoryPath]")]
-        [Description("Path to the Vintagestory")]
-        public required string[] VintagestoryPaths { get; init; }
-
-        [CommandOption("-d|--domain")]
-        [Description("The domain to add")]
-        [DefaultValue("game")]
-        public required string Domain { get; init; }
-
-        [CommandOption("-p|--partialPath")]
-        [Description("The partial path to add")]
-        [DefaultValue("tapestry")]
-        public required string PartialPath { get; init; }
-        
-        [CommandOption( "-k|--treeKey")] 
-        [Description("The Tree Key to add")]
-        [DefaultValue("type")]
-        public required string TreeKey { get; init; }
-                
-        [CommandOption( "-v|--treeValue")] 
-        [Description("The partial path to add")]
-        public string? TreeValue { get; init; }
-       
-    }
-
+public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
+{
     protected override int Execute(CommandContext context, Settings settings, CancellationToken cancellation)
     {
-        var request = new Request(Domain: settings.Domain, PartialPath: settings.PartialPath, TreeKey: settings.TreeKey, settings.TreeValue);
-        foreach (var path in settings.VintagestoryPaths)
-        {
-            Run(path, request);
-        }
+        var request = new Request(settings.Domain, settings.PartialPath, settings.TreeKey, settings.TreeValue);
+        foreach (var path in settings.VintagestoryPaths) Run(path, request);
         return 0;
     }
 
@@ -56,9 +26,8 @@ public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
             return new Result(index, blockId, assetLocation, null, null);
         }).Where(result => result.AssetLocation != null &&
                            result.AssetLocation.BeginsWith(request.Domain, request.PartialPath));
-        
+
         if (request.TreeKey != null)
-        {
             results = results.Select(result =>
             {
                 if (!data.BlockEntities.TryGetValue(result.Index, out var rawBlockEntity)) return result;
@@ -68,27 +37,27 @@ public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
                 var reader = new BinaryReader(ms);
                 var tree = new TreeAttribute();
                 tree.FromBytes(reader);
-            
+
                 var treeValue = tree.GetAsString(request.TreeKey);
                 if (treeValue == null) return result;
-                
+
                 return result with { TreeKey = request.TreeKey, TreeValue = treeValue };
             }); //.Where(result => request.TreeKey == result.TreeKey && request.TreeValue == result.TreeValue);
-        }
 
         return results.ToList();
     }
 
-    private static  IOrderedEnumerable<AggregateResult> ProcessToAggregateResults(List<Result> results)
+    private static IOrderedEnumerable<AggregateResult> ProcessToAggregateResults(List<Result> results)
     {
-        return results.GroupBy(result => new AggregateKey(AssetLocation: result.AssetLocation, TreeKey: result.TreeKey, TreeValue: result.TreeValue)).Select(group=>
-        {
-            var count = group.Count();
+        return results.GroupBy(result => new AggregateKey(result.AssetLocation, result.TreeKey, result.TreeValue))
+            .Select(group =>
+            {
+                var count = group.Count();
 
-            return new AggregateResult(AssetLocation: group.Key.AssetLocation, TreeKey: group.Key.TreeKey, TreeValue: group.Key.TreeValue, Count: count);
-        }).OrderBy(result => result.Count);
+                return new AggregateResult(group.Key.AssetLocation, group.Key.TreeKey, group.Key.TreeValue, count);
+            }).OrderBy(result => result.Count);
     }
-    
+
     private static void ProcessFileContent(string filePath, string jsonContent, Request request)
     {
         // Deserialize into your BlockSchematic class
@@ -101,7 +70,8 @@ public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
         foreach (var result in aggregates)
         {
             var output = $"{filePath}: block = {result.AssetLocation}, count = {result.Count}";
-            if(result is { TreeKey: not null, TreeValue: not null }) output += $", treeKey={result.TreeKey}, treeValue={result.TreeValue}";
+            if (result is { TreeKey: not null, TreeValue: not null })
+                output += $", treeKey={result.TreeKey}, treeValue={result.TreeValue}";
             Console.WriteLine(output);
         }
     }
@@ -142,7 +112,7 @@ public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
                 Console.WriteLine($"Error loading {filePath}: {ex.Message}");
             }
     }
-    
+
     private static void Run(string basePath, Request request)
     {
         var assetPath = Path.Combine(basePath, "assets");
@@ -157,9 +127,32 @@ public class SearchSchematicsCommand: Command<SearchSchematicsCommand.Settings>
             return;
         }
 
-        foreach (var modPath in Directory.EnumerateDirectories(assetPath))
-        {
-           ProcessModPath(modPath, request);
-        }
+        foreach (var modPath in Directory.EnumerateDirectories(assetPath)) ProcessModPath(modPath, request);
+    }
+
+    public class Settings : CommandSettings
+    {
+        [CommandArgument(0, "[vintagestoryPath]")]
+        [Description("Path to the Vintagestory")]
+        public required string[] VintagestoryPaths { get; init; }
+
+        [CommandOption("-d|--domain")]
+        [Description("The domain to add")]
+        [DefaultValue("game")]
+        public required string Domain { get; init; }
+
+        [CommandOption("-p|--partialPath")]
+        [Description("The partial path to add")]
+        [DefaultValue("tapestry")]
+        public required string PartialPath { get; init; }
+
+        [CommandOption("-k|--treeKey")]
+        [Description("The Tree Key to add")]
+        [DefaultValue("type")]
+        public required string TreeKey { get; init; }
+
+        [CommandOption("-v|--treeValue")]
+        [Description("The partial path to add")]
+        public string? TreeValue { get; init; }
     }
 }

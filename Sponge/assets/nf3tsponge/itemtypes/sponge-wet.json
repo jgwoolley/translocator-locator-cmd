@@ -83,12 +83,21 @@
     },
     "scale": 4
   },
-  "transitionableProps": [{
-    "type": "Perish",
-    "freshHoursByType": {
-      "*": { "avg": 6 }
-    },
-    "transitionHours": { "avg": 1 },
-    "transitionedStack": { "type": "item", "code": "sponge-wet" }
-  }]
+  "transitionableProps": [
+    {
+      "type": "Perish",
+      "freshHoursByType": {
+        "*": {
+          "avg": 6
+        }
+      },
+      "transitionHours": {
+        "avg": 1
+      },
+      "transitionedStack": {
+        "type": "item",
+        "code": "sponge-wet"
+      }
+    }
+  ]
 }
