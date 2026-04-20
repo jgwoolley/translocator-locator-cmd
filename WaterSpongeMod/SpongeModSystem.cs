@@ -1,35 +1,11 @@
 ﻿#nullable enable
 
-using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
 namespace Nf3t.VintageStory.Sponge;
-
-public class SpongeConfig
-{
-    /// <summary>
-    ///     1 => 3x3x3, 2 => 5x5x5, etc.
-    /// </summary>
-    public int AbsorbRadius = 1;
-}
-
-[ProtoContract]
-public class SpongeFxPacket
-{
-    [ProtoMember(1)] public int Dimension { get; set; }
-
-    [ProtoMember(2)] public double X { get; set; }
-    [ProtoMember(3)] public double Y { get; set; }
-    [ProtoMember(4)] public double Z { get; set; }
-
-    // If you keep normals:
-    [ProtoMember(5)] public float Nx { get; set; }
-    [ProtoMember(6)] public float Ny { get; set; }
-    [ProtoMember(7)] public float Nz { get; set; }
-}
 
 public class SpongeModSystem : ModSystem
 {
@@ -90,7 +66,7 @@ public class SpongeModSystem : ModSystem
         // HitPosition can be (0,0,0) in some interaction cases.
         // Fallback to block center so we never send zeros.
         var hitOffset = blockSel.HitPosition;
-        if (hitOffset == null || (hitOffset.X == 0 && hitOffset.Y == 0 && hitOffset.Z == 0))
+        if (hitOffset == null || hitOffset is { X: 0, Y: 0, Z: 0 })
             hitOffset = new Vec3d(0.5, 0.5, 0.5);
 
         var hit = blockSel.Position.ToVec3d().Add(hitOffset);

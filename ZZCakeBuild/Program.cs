@@ -27,7 +27,8 @@ public static class Program
 
 public class BuildContext : FrostingContext
 {
-    public static readonly string[] ProjectNames = { "TranslocatorLocatorCmdMod", "TranslocatorNavigatorMod", "WaterSpongeMod" };
+    public static readonly string[] ProjectNames =
+        { "TranslocatorLocatorCmdMod", "TranslocatorNavigatorMod", "WaterSpongeMod" };
 
     public BuildContext(ICakeContext context)
         : base(context)

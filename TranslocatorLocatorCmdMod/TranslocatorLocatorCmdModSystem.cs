@@ -44,7 +44,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                     }
                 );
             var randomFive = assetColorLut
-                .OrderBy(x => api.World.Rand.Next())
+                .OrderBy(_ => api.World.Rand.Next())
                 .Take(5)
                 .ToDictionary(x => x.Key, x => x.Value);
 

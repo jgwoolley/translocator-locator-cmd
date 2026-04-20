@@ -9,10 +9,8 @@ using Vintagestory.GameContent;
 
 namespace Nf3t.VintageStory.TranslocatorShortestPath;
 
-public class TranslocatorShortestPathModSystem : ModSystem
+public class TranslocatorNavigatorModSystem : ModSystem
 {
-    public Context? Context { get; set; }
-
     public override bool ShouldLoad(EnumAppSide side)
     {
         return side == EnumAppSide.Client;
@@ -20,13 +18,21 @@ public class TranslocatorShortestPathModSystem : ModSystem
 
     public override void StartClientSide(ICoreClientAPI api)
     {
-        Context = new Context(api);
+        var context = new Context(api);
 
-        Context.Load();
+        context.Load();
 
-        api.Event.LeaveWorld += () => Context.Save();
+        CreateGameTickListeners(api, context);
+        CreatePathCommand(api, context);
+        CreatePathHistoryCommand(api, context);
+        CreateCountTranslocatorCommand(api, context);
+    }
 
-        api.Event.RegisterGameTickListener(_ => Context.Save(), 5000);
+    private static void CreateGameTickListeners(ICoreClientAPI api, Context context)
+    {
+        api.Event.LeaveWorld += () => context.Save();
+
+        api.Event.RegisterGameTickListener(_ => context.Save(), 5000);
         api.Event.RegisterGameTickListener(_ =>
         {
             if (!api.Input.MouseGrabbed || api.World.Player.Entity.State != EnumEntityState.Active) return;
@@ -47,16 +53,19 @@ public class TranslocatorShortestPathModSystem : ModSystem
                         X = translocator.TargetLocation.X, Y = translocator.TargetLocation.Y,
                         Z = translocator.TargetLocation.Z
                     };
-                    Context.AddTranslocator(source, target);
-                    Context.AddTranslocator(target, source);
+                    context.AddTranslocator(source, target);
+                    context.AddTranslocator(target, source);
                 }
                 else
                 {
-                    Context.AddTranslocator(source, null);
+                    context.AddTranslocator(source, null);
                 }
             }
         }, 200);
+    }
 
+    private static void CreatePathCommand(ICoreClientAPI api, Context context)
+    {
         api.ChatCommands.Create("pathtl")
             .WithDescription(
                 "Find shortest path to coordinates using known translocators, by specifying an optional target location, and start location. Or will fall back to previous target location, and current player position.")
@@ -64,48 +73,54 @@ public class TranslocatorShortestPathModSystem : ModSystem
                 api.ChatCommands.Parsers.OptionalWorldPosition("start"))
             .HandleWith(args =>
             {
-                var playerPos = Context.GetPlayerPos();
+                var playerPos = context.GetPlayerPos();
 
                 var goalArg = Context.GetSimplePos((Vec3d)args[0]);
                 var startArg = Context.GetSimplePos((Vec3d)args[1]);
 
                 if (goalArg == startArg)
                 {
-                    if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
-                            Context.ClientApi.World.SavegameIdentifier, out var path))
-                        return CreateHandle(Context, playerPos, playerPos, path.GoalPos);
+                    if (context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
+                            context.ClientApi.World.SavegameIdentifier, out var path))
+                        return CreateHandle(context, playerPos, path.GoalPos);
 
                     return TextCommandResult.Error(
                         "Did not find existing history, please provide at least one argument.");
                 }
 
-                return CreateHandle(Context, playerPos, startArg, goalArg);
+                return CreateHandle(context, playerPos, goalArg);
             });
+    }
 
+    private static void CreatePathHistoryCommand(ICoreClientAPI api, Context context)
+    {
         api.ChatCommands.Create("pathtlhist")
             .WithDescription(
                 "Find shortest path to coordinates using known translocators with the previously given start and target location. Fails if none found.")
             .WithArgs()
             .HandleWith(_ =>
             {
-                var playerPos = Context.GetPlayerPos();
+                var playerPos = context.GetPlayerPos();
 
-                if (Context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
-                        Context.ClientApi.World.SavegameIdentifier, out var path))
-                    return CreateHandle(Context, playerPos, path.StartPos, path.GoalPos);
+                if (context.SaveData.LastTranslocatorPathPerSavegame.TryGetValue(
+                        context.ClientApi.World.SavegameIdentifier, out var path))
+                    return CreateHandle(context, playerPos, path.GoalPos);
 
                 return TextCommandResult.Error("Did not find existing history.");
             });
+    }
 
+    private static void CreateCountTranslocatorCommand(ICoreClientAPI api, Context context)
+    {
         api.ChatCommands.Create("counttl")
             .WithDescription(
                 "Counts the translocators seen by this mod within this world, as well as any others. Translocators are stored on the client system to prevent duplication.")
             .WithArgs()
             .HandleWith(_ =>
-                Context.GetCollectionPerSaveCount("translocators", Context.SaveData.TranslocatorsPerSavegame));
+                context.GetCollectionPerSaveCount("translocators", context.SaveData.TranslocatorsPerSavegame));
     }
 
-    private static TextCommandResult CreateHandle(Context context, SimplePos playerPos, SimplePos startPos,
+    private static TextCommandResult CreateHandle(Context context, SimplePos playerPos,
         SimplePos goalPos)
     {
         var result = context.CalculatePath(playerPos, goalPos);
