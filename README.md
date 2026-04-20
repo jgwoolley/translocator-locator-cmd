@@ -17,6 +17,7 @@ Various mods I have created for VintageStory
 * [ZZCakeBuild](ZZCakeBuild): Builds the Mods.
 * [CreateImages](CreateImages): These are some scripts that will generate VintageStory modicons as well as Screenshots in the correct resolution for ModDB.
 * [SchematicCli](SchematicCli): A script for analyzing schematics for tapestries.
+* [Libs](Libs): Experimentally working on adding git submodule support to get the .dlls instead.
 
 ## Old files
 Files that are no longer used.
