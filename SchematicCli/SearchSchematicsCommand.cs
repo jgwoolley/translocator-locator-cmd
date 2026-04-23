@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.ComponentModel;
+using System.IO.Compression;
+using System.Security.Cryptography;
 using Newtonsoft.Json;
 using Spectre.Console.Cli;
 using Vintagestory.API.Common;
@@ -11,10 +13,61 @@ namespace Nf3t.VintageStory.SchematicCli;
 
 public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
 {
+    private static string CalculateMd5(string filename)
+    {
+        using var md5 = MD5.Create();
+        using var stream = File.OpenRead(filename);
+        var hash = md5.ComputeHash(stream);
+        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+    }
+
+    private static void ProcessMod(Request request, string modPath)
+    {
+        var md5 = CalculateMd5(modPath);
+
+        using var archive = ZipFile.OpenRead(modPath);
+        // Filter entries that start with the path and end with .json
+        var jsonFiles = archive.Entries.Where(e => 
+            e.FullName.StartsWith("assets/game/worldgen/schematics/", StringComparison.OrdinalIgnoreCase) && 
+            e.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+        );
+
+        foreach (var entry in jsonFiles)
+        {
+            // To read the content of the JSON file:
+            using var stream = entry.Open();
+            using var reader = new StreamReader(stream);
+            var jsonContent = reader.ReadToEnd();
+            ProcessFileContent(entry.FullName, jsonContent, request);
+        }
+    }
+    
     protected override int Execute(CommandContext context, Settings settings, CancellationToken cancellation)
     {
         var request = new Request(settings.Domain, settings.PartialPath, settings.TreeKey, settings.TreeValue);
-        foreach (var path in settings.VintagestoryPaths) Run(path, request);
+        
+        var assetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "vintagestory", "assets");
+        foreach (var modPath in Directory.EnumerateDirectories(assetsPath))
+        {
+            ProcessModPath(modPath, request);
+
+        }
+        
+        var applicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VintagestoryData");
+        var modsPath = Path.Combine(applicationData, "Mods");
+        foreach (var modPath in Directory.EnumerateFiles(modsPath, "*.zip"))
+        {
+            ProcessMod(request, modPath);
+        }
+
+        var modsByServerPath = Path.Combine(applicationData, "ModsByServer");
+        foreach (var serverPath in Directory.EnumerateDirectories(modsByServerPath)) {
+            foreach (var modPath in Directory.EnumerateFiles(serverPath, "*.zip"))
+            {
+                ProcessMod(request, modPath);
+            }
+        }
+        
         return 0;
     }
 
@@ -30,18 +83,26 @@ public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
         if (request.TreeKey != null)
             results = results.Select(result =>
             {
-                if (!data.BlockEntities.TryGetValue(result.Index, out var rawBlockEntity)) return result;
-                var beBytes = Ascii85.Decode(rawBlockEntity);
-                if (beBytes == null) return result;
-                using var ms = new MemoryStream(beBytes);
-                var reader = new BinaryReader(ms);
-                var tree = new TreeAttribute();
-                tree.FromBytes(reader);
+                try
+                {
+                    if (!data.BlockEntities.TryGetValue(result.Index, out var rawBlockEntity)) return result;
+                    var beBytes = Ascii85.Decode(rawBlockEntity);
+                    if (beBytes == null) return result;
+                    using var ms = new MemoryStream(beBytes);
+                    var reader = new BinaryReader(ms);
+                    var tree = new TreeAttribute();
+                    tree.FromBytes(reader);
 
-                var treeValue = tree.GetAsString(request.TreeKey);
-                if (treeValue == null) return result;
+                    var treeValue = tree.GetAsString(request.TreeKey);
+                    if (treeValue == null) return result;
 
-                return result with { TreeKey = request.TreeKey, TreeValue = treeValue };
+                    return result with { TreeKey = request.TreeKey, TreeValue = treeValue };
+                }
+                catch
+                {
+                    return result;
+                }
+                
             }); //.Where(result => request.TreeKey == result.TreeKey && request.TreeValue == result.TreeValue);
 
         return results.ToList();

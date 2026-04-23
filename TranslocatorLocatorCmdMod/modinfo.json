@@ -3,14 +3,14 @@
   "modid": "nf3ttranslocatorfindercmd",
   "name": "GildedChronicles - Translocator Locator (Command)",
   "authors": [
-    "Nf3t"
+    "gildedchronicles"
   ],
   "description": "A client side mod for VintageStory which allows you to find Translocators, and optionally, add them as waypoints. An XRAY for Translocators!",
-  "version": "1.0.13",
+  "version": "2.0.0",
   "side": "Client",
   "requiredOnServer": false,
   "dependencies": {
-    "game": "1.21.0",
-    "survival": "1.21.0"
+    "game": "1.22.0",
+    "survival": "1.22.0"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "content",
+  "modid": "nf3tblueprintcopy",
+  "name": "Copy Better Ruins Schematics",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Allows players to duplicate Better Ruins schematics using parchment or paper.",
+  "version": "1.0.0",
+  "requiredOnClient": false,
+  "dependencies": {
+    "game": "1.22.0",
+    "survival": "1.22.0",
+    "betterruins": "*"
+  }
+}

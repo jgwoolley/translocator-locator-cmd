@@ -3,15 +3,15 @@
   "modid": "nf3tsponge",
   "name": "GildedChronicles - Water Sponge",
   "authors": [
-    "Nf3t"
+    "gildedchronicles"
   ],
   "description": "Adds a sponge that removes source water blocks when you right-click.",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,
   "dependencies": {
-    "game": "1.21.0",
-    "survival": "1.21.0"
+    "game": "1.22.0",
+    "survival": "1.22.0"
   }
 }
