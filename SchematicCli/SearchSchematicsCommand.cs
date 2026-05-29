@@ -27,8 +27,8 @@ public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
 
         using var archive = ZipFile.OpenRead(modPath);
         // Filter entries that start with the path and end with .json
-        var jsonFiles = archive.Entries.Where(e => 
-            e.FullName.StartsWith("assets/game/worldgen/schematics/", StringComparison.OrdinalIgnoreCase) && 
+        var jsonFiles = archive.Entries.Where(e =>
+            e.FullName.StartsWith("assets/game/worldgen/schematics/", StringComparison.OrdinalIgnoreCase) &&
             e.FullName.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
         );
 
@@ -41,33 +41,25 @@ public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
             ProcessFileContent(entry.FullName, jsonContent, request);
         }
     }
-    
+
     protected override int Execute(CommandContext context, Settings settings, CancellationToken cancellation)
     {
         var request = new Request(settings.Domain, settings.PartialPath, settings.TreeKey, settings.TreeValue);
-        
-        var assetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "vintagestory", "assets");
-        foreach (var modPath in Directory.EnumerateDirectories(assetsPath))
-        {
-            ProcessModPath(modPath, request);
 
-        }
-        
-        var applicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "VintagestoryData");
+        var assetsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "vintagestory", "assets");
+        foreach (var modPath in Directory.EnumerateDirectories(assetsPath)) ProcessModPath(modPath, request);
+
+        var applicationData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "VintagestoryData");
         var modsPath = Path.Combine(applicationData, "Mods");
-        foreach (var modPath in Directory.EnumerateFiles(modsPath, "*.zip"))
-        {
-            ProcessMod(request, modPath);
-        }
+        foreach (var modPath in Directory.EnumerateFiles(modsPath, "*.zip")) ProcessMod(request, modPath);
 
         var modsByServerPath = Path.Combine(applicationData, "ModsByServer");
-        foreach (var serverPath in Directory.EnumerateDirectories(modsByServerPath)) {
-            foreach (var modPath in Directory.EnumerateFiles(serverPath, "*.zip"))
-            {
-                ProcessMod(request, modPath);
-            }
-        }
-        
+        foreach (var serverPath in Directory.EnumerateDirectories(modsByServerPath))
+        foreach (var modPath in Directory.EnumerateFiles(serverPath, "*.zip"))
+            ProcessMod(request, modPath);
+
         return 0;
     }
 
@@ -102,7 +94,6 @@ public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
                 {
                     return result;
                 }
-                
             }); //.Where(result => request.TreeKey == result.TreeKey && request.TreeValue == result.TreeValue);
 
         return results.ToList();

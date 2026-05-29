@@ -29,7 +29,13 @@ public static class Program
 public class BuildContext : FrostingContext
 {
     public static readonly string[] ProjectNames =
-        { "TranslocatorLocatorCmdMod", "TranslocatorNavigatorMod", "WaterSpongeMod", "BlueprintCopy" };
+    {
+        "TranslocatorLocatorCmdMod",
+        "TranslocatorNavigatorMod",
+        "WaterSpongeMod",
+        // "BlueprintCopy",
+        "TranslocatorRepairMod"
+    };
 
     public BuildContext(ICakeContext context)
         : base(context)
@@ -78,12 +84,12 @@ public sealed class BuildTask : FrostingTask<BuildContext>
         foreach (var projectName in BuildContext.ProjectNames)
         {
             var csproj = $"../{projectName}/{projectName}.csproj";
-            if (!context.FileExists(csproj)) 
+            if (!context.FileExists(csproj))
             {
                 context.Log.Information($"{projectName} is a content-only mod. Skipping dotnet build.");
                 continue;
             }
-            
+
             var publishDir = $"../{projectName}/bin/{context.BuildConfiguration}/Mods/mod/publish";
 
             // CRITICAL: Clean the internal publish folder to prevent "ghost" DLLs
@@ -127,16 +133,13 @@ public sealed class PackageTask : FrostingTask<BuildContext>
 
             // Extract the Game Version from dependencies
             // Defaults to "unknown" if the 'game' key is missing
-            string vsVersion = "any";
+            var vsVersion = "any";
             if (modInfo.Dependencies != null)
             {
                 var gameMod = modInfo.Dependencies.FirstOrDefault(d => d.ModID == "game");
-                if (gameMod != null)
-                {
-                    vsVersion = gameMod.Version;
-                }
+                if (gameMod != null) vsVersion = gameMod.Version;
             }
-            
+
             context.EnsureDirectoryExists(outputDir);
 
             // COPY BINARIES
@@ -153,15 +156,16 @@ public sealed class PackageTask : FrostingTask<BuildContext>
                 context.CopyFile($"../{projectName}/modicon.png", $"{outputDir}/modicon.png");
 
             var zipFileName = $"../Releases/{modFolderName}_{vsVersion}_{modInfo.Version}.zip";
-            
+
             // ZIP INDIVIDUALLY
             context.Zip(outputDir, zipFileName);
 
-            context.DeleteDirectory(outputDir, new DeleteDirectorySettings {
+            context.DeleteDirectory(outputDir, new DeleteDirectorySettings
+            {
                 Recursive = true,
                 Force = true
             });
-            
+
             context.Log.Information($"Successfully packaged: {modFolderName}");
         }
     }

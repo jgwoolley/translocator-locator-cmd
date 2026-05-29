@@ -1,0 +1,17 @@
+{
+  "type": "code",
+  "modid": "nf3ttranslocatorrepair",
+  "name": "GildedChronicles - Translocator Repair",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Adds the ability to repair an unrepairable translocator.",
+  "version": "1.0.0",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
+  "dependencies": {
+    "game": "1.22.2",
+    "survival": "1.22.2"
+  }
+}

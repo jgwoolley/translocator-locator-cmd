@@ -1,0 +1,10 @@
+[
+  {
+    "file": "game:blocktypes/machine/statictranslocator",
+    "op": "replace",
+    "path": "/classByType",
+    "value": {
+      "*": "BlockRepairableStaticTranslocator"
+    }
+  }
+]
