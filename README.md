@@ -11,6 +11,7 @@ Various mods I have created for VintageStory
 * [Translocator Navigator](./TranslocatorNavigatorMod)
 * [Water Sponge](./WaterSpongeMod)
 * [BlueprintCopyMod](./BlueprintCopyMod)
+* [TranslocatorRepairMod](./TranslocatorRepairMod)
 
 ## Other files
 
