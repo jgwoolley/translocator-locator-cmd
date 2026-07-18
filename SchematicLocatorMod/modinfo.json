@@ -1,0 +1,15 @@
+{
+  "type": "code",
+  "modid": "nf3tschematiclocator",
+  "name": "GildedChronicles - Schematic Locator",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Finds schematics.",
+  "version": "2.0.0",
+  "side": "Server",
+  "dependencies": {
+    "game": "1.22.0",
+    "survival": "1.22.0"
+  }
+}

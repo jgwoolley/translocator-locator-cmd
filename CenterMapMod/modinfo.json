@@ -1,0 +1,15 @@
+{
+  "type": "code",
+  "modid": "nf3tcentermap",
+  "name": "GildedChronicles - Center Map",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Centers map.",
+  "version": "2.0.0",
+  "side": "Client",
+  "dependencies": {
+    "game": "1.22.0",
+    "survival": "1.22.0"
+  }
+}

@@ -12,13 +12,15 @@ Various mods I have created for VintageStory
 * [Water Sponge](./WaterSpongeMod)
 * [BlueprintCopyMod](./BlueprintCopyMod)
 * [TranslocatorRepairMod](./TranslocatorRepairMod)
+* [SchematicLocatorMod](./SchematicLocatorMod): Not published
+* [CenterMapMod](./CenterMapMod): Not published
 
 ## Other files
 
 * [Nf3tVSCommon](Nf3tVSCommon): Contains the common code shared between the mods.
 * [ZZCakeBuild](ZZCakeBuild): Builds the Mods.
 * [CreateImages](CreateImages): These are some scripts that will generate VintageStory modicons as well as Screenshots in the correct resolution for ModDB.
-* [SchematicCli](SchematicCli): A script for analyzing schematics for tapestries.
+* [SchematicCli](SchematicCli): A script for analyzing schematics for tapestries. Being ported into [SchematicLocatorMod](SchematicLocatorMod)
 * [NEW_MODS.md](NEW_MODS.md): Some tips for adding new mods.
 
 ## Old files

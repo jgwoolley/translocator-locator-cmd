@@ -34,7 +34,9 @@ public class BuildContext : FrostingContext
         "TranslocatorNavigatorMod",
         "WaterSpongeMod",
         // "BlueprintCopy",
-        "TranslocatorRepairMod"
+        "TranslocatorRepairMod",
+        // "CenterMapMod",
+        "SchematicLocatorMod",
     };
 
     public BuildContext(ICakeContext context)
