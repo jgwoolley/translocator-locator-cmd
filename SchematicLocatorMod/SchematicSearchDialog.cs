@@ -106,7 +106,28 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
             if (block != null)
             {
-                stack = new ItemStack(block);
+                var dropStack = block.Drops?.FirstOrDefault(d => d.ResolvedItemstack != null)?.ResolvedItemstack;
+                
+                if (dropStack != null)
+                {
+                    stack = dropStack.Clone();
+                    stack.StackSize = 1;
+                }
+                else
+                {
+                    // Special explicit fix for paintings and flat wall decor components
+                    if (assetLoc.Path.StartsWith("painting"))
+                    {
+                        // Find any generic painting item registered in the game database
+                        var paintingItem = capi.World.Items.FirstOrDefault(i => i.Code != null && i.Code.Path.StartsWith("painting"));
+                        if (paintingItem != null)
+                        {
+                            stack = new ItemStack(paintingItem);
+                        }
+                    }
+
+                    stack ??= new ItemStack(block);
+                }
             }
             else
             {

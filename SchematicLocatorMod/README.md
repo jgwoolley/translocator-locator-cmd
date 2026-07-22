@@ -2,7 +2,7 @@
 
 [![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/show/mod/39775)
 
-Mod URL: [https://mods.vintagestory.at/show/mod/39775](https://mods.vintagestory.at/show/mod/39775)
+Mod URL: [https://mods.vintagestory.at/show/mod/60760](https://mods.vintagestory.at/show/mod/39775)
 
 A server side mod that allows you to search for schematics in worldgen by block code and/or properties. Default to "Schematic Locator" open Ctrl + Y.
 
