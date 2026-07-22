@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 
 namespace Nf3t.VintageStory.SchematicLocator;
 
@@ -53,21 +54,33 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         var inputFont = CairoFont.TextInput();
 
         // --- ROW 1: Search Block Prefix & Autocomplete Suggestions ---
-        SingleComposer.AddStaticText("Search Block:", labelFont, ElementBounds.Fixed(0, 5, 120, 20));
+        var searchLblBounds = ElementBounds.Fixed(0, 5, 120, 20);
+        SingleComposer.AddStaticText("Search Block:", labelFont, searchLblBounds);
+        SingleComposer.AddHoverText("The block code prefix to search for (e.g. 'loosegears-1')", labelFont, 250, searchLblBounds);
+        
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 0, 200, 30), OnSearchBlockTextChanged, inputFont, "searchBlockPrefix");
         SingleComposer.AddDynamicText("", labelFont, ElementBounds.Fixed(340, 5, 250, 20), "autocompleteHint");
-        SingleComposer.AddSmallButton("Select", OnSelectAutocompleteClicked, ElementBounds.Fixed(515, 2, 75, 25));
         
         // --- ROW 2: Tree Key ---
-        SingleComposer.AddStaticText("Tree Key:", labelFont, ElementBounds.Fixed(0, 40, 120, 20));
+        var treeKeyLblBounds = ElementBounds.Fixed(0, 40, 120, 20);
+        SingleComposer.AddStaticText("Tree Key:", labelFont, treeKeyLblBounds);
+        SingleComposer.AddHoverText("The block entity attribute tree key to filter by", labelFont, 250, treeKeyLblBounds);
+        
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 35, 200, 30), (text) => _searchRequest.TreeKey = text, inputFont, "treeKey");
+        SingleComposer.AddSmallButton("Select", OnSelectAutocompleteClicked, ElementBounds.Fixed(515, 35, 75, 25)); // Moved to Tree Key Row
 
         // --- ROW 3: Tree Value ---
-        SingleComposer.AddStaticText("Tree Value:", labelFont, ElementBounds.Fixed(0, 75, 120, 20));
+        var treeValLblBounds = ElementBounds.Fixed(0, 75, 120, 20);
+        SingleComposer.AddStaticText("Tree Value:", labelFont, treeValLblBounds);
+        SingleComposer.AddHoverText("The specific value expected for the given Tree Key", labelFont, 250, treeValLblBounds);
+        
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 70, 200, 30), (text) => _searchRequest.TreeValue = text, inputFont, "treeValue");
 
         // --- ROW 4: Domain & Search Button ---
-        SingleComposer.AddStaticText("Schematic Domain:", labelFont, ElementBounds.Fixed(0, 110, 120, 20));
+        var domainLblBounds = ElementBounds.Fixed(0, 110, 120, 20);
+        SingleComposer.AddStaticText("Schematic Domain:", labelFont, domainLblBounds);
+        SingleComposer.AddHoverText("The domain of the schematic (e.g., 'game' or 'yourmod')", labelFont, 250, domainLblBounds);
+        
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 105, 200, 30), (text) => _searchRequest.Domain = text, inputFont, "domain");
         SingleComposer.AddSmallButton("Search", OnSearchClicked, ElementBounds.Fixed(350, 105, 120, 30));
 
@@ -106,11 +119,12 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
             if (stack != null)
             {
-                var dummySlot = new DummySlot(stack);
-                SingleComposer.AddPassiveItemSlot(ElementBounds.Fixed(252, yOffset - 1, 24, 24), null, dummySlot);
+                // Render pure item icon without standard slot background
+                SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(252, yOffset - 1, 24, 24), stack));
             }
 
-            SingleComposer.AddButton(row.MatchedBlock[Math.Max(0, row.MatchedBlock.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(280, yOffset + 2, 225, 20), labelFont, EnumButtonStyle.None);
+            // Pushed start X to 285 and reduced width to 205 to clear the icon safely
+            SingleComposer.AddButton(row.MatchedBlock[Math.Max(0, row.MatchedBlock.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(285, yOffset + 2, 205, 20), labelFont, EnumButtonStyle.None);
             SingleComposer.AddStaticText(row.Count.ToString()[Math.Max(0, row.Count.ToString().Length - 12)..], labelFont, ElementBounds.Fixed(515, yOffset + 2, 75, 20));
             yOffset += 26;
         }
@@ -329,5 +343,33 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         // Reset to page 1 whenever a new search is performed
         _currentPage = 0; 
         SortTable(_currentSort, forceRetainDirection: true);
+    }
+}
+/// <summary>
+/// A lightweight GUI element exclusively for rendering item/block models directly without drawing
+/// the standard inventory slot background box.
+/// </summary>
+public class ItemIconElement(ICoreClientAPI capi, ElementBounds bounds, ItemStack stack) : GuiElement(capi, bounds)
+{
+    private readonly DummySlot _slot = new(stack);
+
+    public override void RenderInteractiveElements(float deltaTime)
+    {
+        // Standard VS Item rendering expects the X/Y coordinates to represent the center.
+        double x = Bounds.renderX + Bounds.InnerWidth / 2.0;
+        double y = Bounds.renderY + Bounds.InnerHeight / 2.0;
+        
+        api.Render.RenderItemstackToGui(
+            inSlot: _slot, 
+            posX: x, 
+            posY: y, 
+            posZ: 100, 
+            size: (float)Bounds.InnerWidth, 
+            color: ColorUtil.WhiteArgb, 
+            dt: deltaTime,
+            shading: true, 
+            rotate: false, 
+            showStackSize: false
+        );
     }
 }

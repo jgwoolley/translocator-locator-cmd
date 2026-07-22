@@ -15,12 +15,5 @@ A server side mod that allows you to search for schematics in worldgen by block 
 
 ## TODO
 
-- Double << and >> for navigation
-- Show Block in Cell
-- Clear on search
-- Select button doesn't work
-- arrow weird
 - packet to get full JSON asset
-- Dummy item stack
-- open gui with key rather than command
 - Search Prefix / Matched Block / Block + Entity Mode
