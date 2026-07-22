@@ -7,7 +7,9 @@
   ],
   "description": "A server side mod that allows you to search for schematics in worldgen by block code and/or properties.",
   "version": "2.0.0",
-  "side": "Server",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
   "dependencies": {
     "game": "1.22.0",
     "survival": "1.22.0"

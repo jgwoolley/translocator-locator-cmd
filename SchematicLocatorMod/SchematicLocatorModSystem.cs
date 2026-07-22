@@ -3,8 +3,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -13,34 +14,63 @@ namespace Nf3t.VintageStory.SchematicLocator;
 
 public class SchematicLocatorModSystem : ModSystem
 {
+    private const string ResultChannel = "nf3tschematiclocatorresult";
+    private const string RequestChannel = "nf3tschematiclocatorrequest";
+
+    public override void StartClientSide(ICoreClientAPI api)
+    {
+        base.StartClientSide(api);
+
+        var requestChannel = api.Network.RegisterChannel(RequestChannel).RegisterMessageType<SchematicSearchRequest>();
+        
+        var dialog = new StringTableDialog(api, requestChannel);
+        
+        api.Network.RegisterChannel(ResultChannel).RegisterMessageType<SchematicSearchResults>().SetMessageHandler<SchematicSearchResults>(packet =>
+        {
+            api.Logger.Debug($"Recieving {packet.Results.Count} result(s)");
+            dialog.Update(packet);
+        });
+        
+        api.ChatCommands.Create("findschematics").HandleWith(c =>
+        {
+            // 3. Toggle it: Close if open, Open if closed
+            if (dialog.IsOpened())
+            {
+                dialog.TryClose();
+            }
+            dialog.TryOpen();
+            
+            return TextCommandResult.Success();
+        });
+    }
+
     public override void StartServerSide(ICoreServerAPI api)
     {
         base.StartServerSide(api);
-
-        api.ChatCommands.Create("findschematics")
-            .WithDescription("Finds structures by block id")
-            .RequiresPrivilege(Privilege.controlserver)
-            .WithArgs(
-                api.ChatCommands.Parsers.Word("searchBlock"),
-                api.ChatCommands.Parsers.OptionalWord("treeValue"),
-                api.ChatCommands.Parsers.OptionalWord("domain"))
-            .HandleWith(args => FindSchematics(api, args));
-    }
-
-    private static TextCommandResult FindSchematics(ICoreServerAPI api, TextCommandCallingArgs args)
-    {
-        var searchBlockPrefix = (string) args[0];
-        if (searchBlockPrefix == null)
+        var resultChannel = api.Network.RegisterChannel(ResultChannel).RegisterMessageType<SchematicSearchResults>();
+        api.Network.RegisterChannel(RequestChannel).RegisterMessageType<SchematicSearchRequest>().SetMessageHandler<SchematicSearchRequest>((
+            fromPlayer, packet) =>
         {
-            return TextCommandResult.Error("[Translocator Locator] Invalid searchBlockPrefix specified");
-        }    
-        var treeKey = (string) args[1];
-        var treeValue = (string?) args[2];
-        var domain = (string?) args[3];
-
-        
-        var assets = api.Assets.GetMany("worldgen/schematics/", domain);
-        var count = 0;
+            var results = FindSchematicsCommand(api, packet);
+            var message = new SchematicSearchResults
+            {
+                Results = results
+            };
+            api.Logger.Debug($"Sending results [{results.Count}] packet: {packet} to {fromPlayer}");
+            resultChannel.SendPacket(message, [fromPlayer]);
+        });
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="api"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    private static List<SchematicSearchResult> FindSchematicsCommand(ICoreServerAPI api, SchematicSearchRequest request)
+    {
+        var assets = api.Assets.GetMany("worldgen/schematics/", string.IsNullOrEmpty(request.Domain) ? null: request.Domain);
+        var results = new List<SchematicSearchResult>();
         var error = string.Empty;
         foreach (var asset in assets)
         {
@@ -51,7 +81,7 @@ public class SchematicLocatorModSystem : ModSystem
                 var paletteIds = new HashSet<int>();
                 foreach (var (paletteId, blockCode) in schematic.BlockCodes)
                 {
-                    if (blockCode.PathStartsWith(searchBlockPrefix))
+                    if (blockCode.PathStartsWith(request.SearchBlockPrefix))
                     {
                         paletteIds.Add(paletteId);
                     }
@@ -59,50 +89,65 @@ public class SchematicLocatorModSystem : ModSystem
 
                 if(paletteIds.Count == 0) continue;
                 
-                if (!string.IsNullOrEmpty(treeKey))
+                var tree = new TreeAttribute();
+                using var ms = new MemoryStream();
+                var reader = new BinaryReader(ms, Encoding.UTF8, leaveOpen: true);
+                for (var positionId = 0; positionId < schematic.BlockIds.Count; positionId++)
                 {
-                    var found = false;
-                    for (var positionId = 0; positionId < schematic.BlockIds.Count; positionId++)
+                    var paletteId = schematic.BlockIds[positionId];
+                    var blockCode = schematic.BlockCodes[paletteId];
+                    if (!paletteIds.Contains(paletteId)) continue;
+                    if (string.IsNullOrEmpty(request.TreeKey))
                     {
-                        var paletteId = schematic.BlockIds[positionId];
-                        if (!paletteIds.Contains(paletteId)) continue;
-                        var packedCoordinate = schematic.Indices[positionId];
-                        if (schematic.BlockEntities.TryGetValue(packedCoordinate, out var rawBlockEntity))
+                        results.Add(new SchematicSearchResult()
                         {
-                            if (rawBlockEntity == null) continue;
-                            var beBytes = Ascii85.Decode(rawBlockEntity);
-                            if (beBytes == null) continue;
-                            using var ms = new MemoryStream(beBytes);
-                            var reader = new BinaryReader(ms);
-                            var tree = new TreeAttribute();
-                            tree.FromBytes(reader);
-
-                            var actualTreeValue = tree.GetAsString(treeKey);
-                            if (actualTreeValue == null) continue;
-                            if (!string.IsNullOrEmpty(treeValue))
-                            {
-                                if (!actualTreeValue.StartsWith(treeValue)) continue;
-
-                            }
-
-                            found = true;
-                            break;
-                        }
+                            AssetLocation = asset.Location,
+                            MatchedBlock = blockCode.Path,
+                            Count = 1,
+                        });
+                        continue;
                     }
                     
-                    if (!found) continue;
+                    var packedCoordinate = schematic.Indices[positionId];
+                    if (schematic.BlockEntities.TryGetValue(packedCoordinate, out var rawBlockEntity))
+                    {
+                        if (rawBlockEntity == null) continue;
+                        var beBytes = Ascii85.Decode(rawBlockEntity);
+                        if (beBytes == null) continue;
+                        
+                        ms.SetLength(0);
+                        ms.Write(beBytes, 0, beBytes.Length);
+                        ms.Position = 0;
+
+                        tree.FromBytes(reader);
+
+                        var actualTreeValue = tree.GetAsString(request.TreeKey);
+                        if (actualTreeValue == null) continue;
+                        if (!string.IsNullOrEmpty(request.TreeValue))
+                        {
+                            if (!actualTreeValue.StartsWith(request.TreeValue)) continue;
+                        }
+
+                        results.Add(new SchematicSearchResult()
+                        {
+                            AssetLocation = asset.Location,
+                            MatchedBlock = blockCode.Path,
+                            Count = 1,
+                        });
+                    }
                 }
-                
-                var message = $"Found schematic {asset} with block {searchBlockPrefix}.";
-                api.SendMessage(args.Caller.Player, GlobalConstants.GeneralChatGroup, message, EnumChatType.Notification);
-                count++;
             }
             catch
             {
                 api.Logger.Error($"Failed to load schematic {asset}: {error}");
             }
         }
-    
-        return TextCommandResult.Success("[Translocator Locator] Found " + count + " structure(s)");
+        
+        return results.GroupBy(result => new { result.AssetLocation, result.MatchedBlock }).Select(group => new SchematicSearchResult
+        {
+            AssetLocation = group.Key.AssetLocation,
+            MatchedBlock = group.Key.MatchedBlock,
+            Count = group.Sum(result => result.Count)
+        }).ToList();
     }
 }
