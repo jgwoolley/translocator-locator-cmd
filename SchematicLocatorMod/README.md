@@ -4,7 +4,12 @@
 
 Mod URL: [https://mods.vintagestory.at/show/mod/60760](https://mods.vintagestory.at/show/mod/39775)
 
-A server side mod that allows you to search for schematics in worldgen by block code and/or properties. Default to "Schematic Locator" open Ctrl + Y.
+You know when you are watching a YouTuber explore a structure you have never seen before? Well now if you can identify a few unique blocks, you can search for a particular structure starting with a specific block!
+
+Default to "Schematic Locator" open Ctrl + Y. Can be changed in settings.
+For blocks like tapestries, and you know anything about the BlockEntity's AttributeTree values, you can further refine your search!
+
+## How parsing is done
 
 | Data Structure    | Key Type              | Value Type            | Purpose                                                  |
 |:------------------|:----------------------|:----------------------|:---------------------------------------------------------|

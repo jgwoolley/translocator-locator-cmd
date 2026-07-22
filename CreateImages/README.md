@@ -15,3 +15,7 @@ When you are completely done, you can remove unused docker images / volumes by r
 ```console
 docker system prune -a --volumes
 ```
+
+## TODO
+
+- Some mods have PNG icons rather than .svg. Remove old svg or ignore.
