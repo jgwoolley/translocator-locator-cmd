@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 
 namespace Nf3t.VintageStory.SchematicLocator;
 
@@ -83,8 +84,33 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
         foreach (var row in pagedResults)
         {
-            SingleComposer.AddButton(row.AssetLocation[Math.Max(0, row.AssetLocation.Length - 25)..], () => OnAssetLocationClicked(row.AssetLocation), ElementBounds.Fixed(0, yOffset, 260, 22), labelFont, EnumButtonStyle.None);            
-            SingleComposer.AddButton(row.MatchedBlock[Math.Max(0, row.MatchedBlock.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(275, yOffset + 2, 225, 20), labelFont, EnumButtonStyle.None);
+            SingleComposer.AddButton(row.AssetLocation[Math.Max(0, row.AssetLocation.Length - 25)..], () => OnAssetLocationClicked(row.AssetLocation), ElementBounds.Fixed(0, yOffset, 250, 22), labelFont, EnumButtonStyle.None);            
+            
+            // Try resolving block or item for the icon
+            var assetLoc = new AssetLocation(row.MatchedBlock);
+            var block = capi.World.GetBlock(assetLoc);
+            ItemStack stack = null;
+
+            if (block != null)
+            {
+                stack = new ItemStack(block);
+            }
+            else
+            {
+                var item = capi.World.GetItem(assetLoc);
+                if (item != null)
+                {
+                    stack = new ItemStack(item);
+                }
+            }
+
+            if (stack != null)
+            {
+                var dummySlot = new DummySlot(stack);
+                SingleComposer.AddPassiveItemSlot(ElementBounds.Fixed(252, yOffset - 1, 24, 24), null, dummySlot);
+            }
+
+            SingleComposer.AddButton(row.MatchedBlock[Math.Max(0, row.MatchedBlock.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(280, yOffset + 2, 225, 20), labelFont, EnumButtonStyle.None);
             SingleComposer.AddStaticText(row.Count.ToString()[Math.Max(0, row.Count.ToString().Length - 12)..], labelFont, ElementBounds.Fixed(515, yOffset + 2, 75, 20));
             yOffset += 26;
         }
@@ -95,20 +121,22 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
         const int paginationY = 425;
 
-        // Previous Button
+        // First and Previous Buttons
         if (_currentPage > 0)
         {
-            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(176, paginationY, 30, 25));
+            SingleComposer.AddSmallButton("<<", OnFirstPage, ElementBounds.Fixed(140, paginationY, 30, 25));
+            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(175, paginationY, 30, 25));
         }
 
-        // Page Tracker Text (shifted right to give breathing room)
+        // Page Tracker Text
         var pageText = $"Page {_currentPage + 1} of {totalPages} ({_searchResults.Count} total)";
-        SingleComposer.AddStaticText(pageText, labelFont, ElementBounds.Fixed(195, paginationY + 3, 200, 20));
+        SingleComposer.AddStaticText(pageText, labelFont, ElementBounds.Fixed(210, paginationY + 3, 200, 20));
 
-        // Next Button (shifted right past the tracker text)
+        // Next and Last Buttons
         if (_currentPage < totalPages - 1)
         {
-            SingleComposer.AddSmallButton(">", OnNextPage, ElementBounds.Fixed(410, paginationY, 30, 25));
+            SingleComposer.AddSmallButton(">", OnNextPage, ElementBounds.Fixed(415, paginationY, 30, 25));
+            SingleComposer.AddSmallButton(">>", OnLastPage, ElementBounds.Fixed(450, paginationY, 30, 25));
         }
 
         // Finish composing the entire window
@@ -153,7 +181,17 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
         return true;
     }
-    
+
+    private bool OnFirstPage()
+    {
+        if (_currentPage > 0)
+        {
+            _currentPage = 0;
+            RecomposeTable();
+        }
+        return true;
+    }
+
     private bool OnPrevPage()
     {
         if (_currentPage > 0)
@@ -170,6 +208,19 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         if (_currentPage < totalPages - 1)
         {
             _currentPage++;
+            RecomposeTable();
+        }
+        return true;
+    }
+
+    private bool OnLastPage()
+    {
+        int totalPages = (int)Math.Ceiling(_searchResults.Count / (double)ItemsPerPage);
+        if (totalPages == 0) totalPages = 1;
+
+        if (_currentPage < totalPages - 1)
+        {
+            _currentPage = totalPages - 1;
             RecomposeTable();
         }
         return true;
