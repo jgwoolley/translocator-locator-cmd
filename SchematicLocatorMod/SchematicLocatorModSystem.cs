@@ -14,41 +14,48 @@ namespace Nf3t.VintageStory.SchematicLocator;
 
 public class SchematicLocatorModSystem : ModSystem
 {
-    private const string ResultChannel = "nf3tschematiclocatorresult";
-    private const string RequestChannel = "nf3tschematiclocatorrequest";
+    public const string Title = "Schematic Locator";
+    public const string NetworkChannel = "nf3tschematiclocator";
+    public const string HotkeyCode = "nf3tschematiclocator";
+    
+    public override void Start(ICoreAPI api)
+    {
+        base.Start(api);
+        var networkChannel = api.Network.RegisterChannel(NetworkChannel);
+        networkChannel.RegisterMessageType<SchematicSearchRequest>();
+        networkChannel.RegisterMessageType<SchematicSearchResults>();
+    }
 
     public override void StartClientSide(ICoreClientAPI api)
     {
         base.StartClientSide(api);
-
-        var requestChannel = api.Network.RegisterChannel(RequestChannel).RegisterMessageType<SchematicSearchRequest>();
         
-        var dialog = new StringTableDialog(api, requestChannel);
+        var dialog = new SchematicSearchDialog(api);
         
-        api.Network.RegisterChannel(ResultChannel).RegisterMessageType<SchematicSearchResults>().SetMessageHandler<SchematicSearchResults>(packet =>
+        var networkChannel = api.Network.GetChannel(NetworkChannel);
+        networkChannel.SetMessageHandler<SchematicSearchResults>(packet =>
         {
-            api.Logger.Debug($"Recieving {packet.Results.Count} result(s)");
+            api.Logger.Debug($"Receiving {packet.Results.Count} result(s)");
             dialog.Update(packet);
         });
         
-        api.ChatCommands.Create("findschematics").HandleWith(c =>
+        api.Input.RegisterHotKey(hotkeyCode: HotkeyCode, name: Title, key: GlKeys.Y, type: HotkeyType.GUIOrOtherControls, shiftPressed: false, ctrlPressed: true, altPressed: false);
+        api.Input.SetHotKeyHandler(HotkeyCode, _ =>
         {
-            // 3. Toggle it: Close if open, Open if closed
             if (dialog.IsOpened())
             {
                 dialog.TryClose();
             }
             dialog.TryOpen();
-            
-            return TextCommandResult.Success();
+            return true;
         });
     }
 
     public override void StartServerSide(ICoreServerAPI api)
     {
         base.StartServerSide(api);
-        var resultChannel = api.Network.RegisterChannel(ResultChannel).RegisterMessageType<SchematicSearchResults>();
-        api.Network.RegisterChannel(RequestChannel).RegisterMessageType<SchematicSearchRequest>().SetMessageHandler<SchematicSearchRequest>((
+        var networkChannel = api.Network.GetChannel(NetworkChannel);
+        networkChannel.SetMessageHandler<SchematicSearchRequest>((
             fromPlayer, packet) =>
         {
             var results = FindSchematicsCommand(api, packet);
@@ -57,7 +64,7 @@ public class SchematicLocatorModSystem : ModSystem
                 Results = results
             };
             api.Logger.Debug($"Sending results [{results.Count}] packet: {packet} to {fromPlayer}");
-            resultChannel.SendPacket(message, [fromPlayer]);
+            networkChannel.SendPacket(message, [fromPlayer]);
         });
     }
     

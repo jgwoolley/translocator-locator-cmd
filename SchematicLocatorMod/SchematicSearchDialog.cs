@@ -5,7 +5,11 @@ using Vintagestory.API.Client;
 
 namespace Nf3t.VintageStory.SchematicLocator;
 
-public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel requestChannel) : GuiDialog(capi)
+/// <summary>
+/// 
+/// </summary>
+/// <param name="capi"></param>
+public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 {
     public override string ToggleKeyCombinationCode => null;
 
@@ -13,9 +17,9 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
     private readonly SchematicSearchRequest _searchRequest = new();
 
     // Table Data & Sorting
-    private readonly SchematicSearchResults _searchResults = new();
-    private string _currentSort = "AssetLocation";
-    private bool _ascendingSort = true;
+    private List<SchematicSearchResult> _searchResults = new();
+    private string _currentSort = "Count";
+    private bool _ascendingSort = false;
 
     // Pagination State
     private int _currentPage = 0;
@@ -40,7 +44,7 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
 
         SingleComposer = capi.Gui.CreateCompo("schematicsearch", dialogBounds)
             .AddShadedDialogBG(bgBounds)
-            .AddDialogTitleBar("Schematic Locator", OnTitleBarClose)
+            .AddDialogTitleBar(SchematicLocatorModSystem.Title, OnTitleBarClose)
             .BeginChildElements(bgBounds)
             .BeginChildElements(contentBounds);
 
@@ -75,7 +79,7 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
         int yOffset = 190;
         
         // Grab only the items for the current page
-        var pagedResults = _searchResults.Results.Skip(_currentPage * ItemsPerPage).Take(ItemsPerPage).ToList();
+        var pagedResults = _searchResults.Skip(_currentPage * ItemsPerPage).Take(ItemsPerPage).ToList();
 
         foreach (var row in pagedResults)
         {
@@ -86,7 +90,7 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
         }
 
         // --- PAGINATION CONTROLS ---
-        var totalPages = (int)Math.Ceiling(_searchResults.Results.Count / (double)ItemsPerPage);
+        var totalPages = (int)Math.Ceiling(_searchResults.Count / (double)ItemsPerPage);
         if (totalPages == 0) totalPages = 1; // Prevent "Page 1 of 0" if empty
 
         const int paginationY = 425;
@@ -94,11 +98,11 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
         // Previous Button
         if (_currentPage > 0)
         {
-            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(180, paginationY, 30, 25));
+            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(176, paginationY, 30, 25));
         }
 
         // Page Tracker Text (shifted right to give breathing room)
-        string pageText = $"Page {_currentPage + 1} of {totalPages} ({_searchResults.Results.Count} total)";
+        var pageText = $"Page {_currentPage + 1} of {totalPages} ({_searchResults.Count} total)";
         SingleComposer.AddStaticText(pageText, labelFont, ElementBounds.Fixed(195, paginationY + 3, 200, 20));
 
         // Next Button (shifted right past the tracker text)
@@ -162,7 +166,7 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
 
     private bool OnNextPage()
     {
-        int totalPages = (int)Math.Ceiling(_searchResults.Results.Count / (double)ItemsPerPage);
+        int totalPages = (int)Math.Ceiling(_searchResults.Count / (double)ItemsPerPage);
         if (_currentPage < totalPages - 1)
         {
             _currentPage++;
@@ -204,7 +208,9 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
     private bool OnSearchClicked()
     {
         capi.Logger.Debug($"Searching for schematic: {_searchRequest}");
-        requestChannel.SendPacket(_searchRequest);
+        _searchResults.Clear();
+        RecomposeTable();
+        capi.Network.GetChannel(SchematicLocatorModSystem.NetworkChannel).SendPacket(_searchRequest);
         return true;
     }
 
@@ -225,21 +231,22 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
 
         if (_currentSort == "AssetLocation")
         {
-            _searchResults.Results = _ascendingSort 
-                ? _searchResults.Results.OrderBy(x => x.AssetLocation).ToList() 
-                : _searchResults.Results.OrderByDescending(x => x.AssetLocation).ToList();
+            _searchResults
+                = _ascendingSort 
+                ? _searchResults.OrderBy(x => x.AssetLocation).ToList() 
+                : _searchResults.OrderByDescending(x => x.AssetLocation).ToList();
         }
         else if (_currentSort == "MatchedBlock")
         {
-            _searchResults.Results = _ascendingSort 
-                ? _searchResults.Results.OrderBy(x => x.MatchedBlock).ToList() 
-                : _searchResults.Results.OrderByDescending(x => x.MatchedBlock).ToList();
+            _searchResults = _ascendingSort 
+                ? _searchResults.OrderBy(x => x.MatchedBlock).ToList() 
+                : _searchResults.OrderByDescending(x => x.MatchedBlock).ToList();
         }
         else if (_currentSort == "Count")
         {
-            _searchResults.Results = _ascendingSort 
-                ? _searchResults.Results.OrderBy(x => x.Count).ToList() 
-                : _searchResults.Results.OrderByDescending(x => x.Count).ToList();
+            _searchResults = _ascendingSort 
+                ? _searchResults.OrderBy(x => x.Count).ToList() 
+                : _searchResults.OrderByDescending(x => x.Count).ToList();
         }
 
         // Jump back to page 1 when the user changes the sort order
@@ -265,8 +272,8 @@ public class StringTableDialog(ICoreClientAPI capi, IClientNetworkChannel reques
 
     public void Update(SchematicSearchResults searchResults)
     {
-        _searchResults.Results.Clear();
-        _searchResults.Results.AddRange(searchResults.Results);
+        _searchResults.Clear();
+        _searchResults.AddRange(searchResults.Results);
         
         // Reset to page 1 whenever a new search is performed
         _currentPage = 0; 
