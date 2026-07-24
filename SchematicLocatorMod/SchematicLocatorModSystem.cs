@@ -63,11 +63,10 @@ public class SchematicLocatorModSystem : ModSystem
             }
 
             var command = $"/we imp {filenameWithoutExt}";
-            message += $"\nTo place it, run: /we start, then /we end, and finally {command}";
-            api.SendChatMessage(message);
+            message += $"\nTo place it, run: /we start, then /we end, and finally {command}.\nThe following command has been put in your clipboard: {command}";
             
             api.Forms.SetClipboardText(command);
-            api.SendChatMessage($"The following command has been put in your clipboard: {command}");
+            api.SendChatMessage(message);
         });
         
         api.Input.RegisterHotKey(hotkeyCode: HotkeyCode, name: Title, key: GlKeys.Y, type: HotkeyType.GUIOrOtherControls, shiftPressed: false, ctrlPressed: true, altPressed: false);

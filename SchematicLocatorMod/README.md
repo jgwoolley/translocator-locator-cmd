@@ -18,9 +18,13 @@ For blocks like tapestries, and you know anything about the BlockEntity's Attrib
 | **Indices**       | `int` (Index $i$)     | `uint` (Packed Coord) | Stores the X/Y/Z coordinate at specific position $i$.    |
 | **BlockEntities** | `uint` (Packed Coord) | `string` (JSON)       | Stores custom data for a block at a specific coordinate. |
 
+## Current changelog
+- Chat wasn't sent due to rate
+
 ## TODO
 
 - Readopt Utils.MatchAssetLocation when it does caching. I'm thinking there should be a search object
 - Search Prefix / Matched Block / Block + Entity Mode
 - Make it so that tapestries render their blockentity type stuff so they show up!
 - Arrow for scrolling through text that has been reduced. Or maybe clicking on "..." swaps whether its the start or end.
+- Flicker through different block types?
