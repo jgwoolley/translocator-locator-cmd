@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -43,14 +44,30 @@ public class SchematicLocatorModSystem : ModSystem
         networkChannel.SetMessageHandler<SchematicContentResult>(packet =>
         {
             api.Logger.Debug("SchematicContentResult (Client): Received Schematic Json: " + packet.AssetLocation);
-            api.Forms.SetClipboardText(packet.Content);
+            
+            var worldEditDir = Path.Combine(GamePaths.DataPath, "WorldEdit");
+            
+            // Make sure the directory exists
+            Directory.CreateDirectory(worldEditDir);
+            
+            var filename = packet.AssetLocation.Split('/').Last();
+            var filenameWithoutExt = Path.GetFileNameWithoutExtension(filename);
+            var filePath = Path.Combine(worldEditDir, filename);
+            File.WriteAllText(filePath, packet.Content);
+            
             var schematic = JsonUtil.FromString<BlockSchematic>(packet.Content);
             var message = "Received Schematic Json: " + packet.AssetLocation.ToString();
             if (schematic != null)
             {
                 message += ": " + schematic.SizeX + "x" + schematic.SizeY + "x" + schematic.SizeZ;
             }
+
+            var command = $"/we imp {filenameWithoutExt}";
+            message += $"\nTo place it, run: /we start, then /we end, and finally {command}";
             api.SendChatMessage(message);
+            
+            api.Forms.SetClipboardText(command);
+            api.SendChatMessage($"The following command has been put in your clipboard: {command}");
         });
         
         api.Input.RegisterHotKey(hotkeyCode: HotkeyCode, name: Title, key: GlKeys.Y, type: HotkeyType.GUIOrOtherControls, shiftPressed: false, ctrlPressed: true, altPressed: false);

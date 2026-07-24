@@ -21,5 +21,6 @@ For blocks like tapestries, and you know anything about the BlockEntity's Attrib
 ## TODO
 
 - Readopt Utils.MatchAssetLocation when it does caching. I'm thinking there should be a search object
-- packet to get full JSON asset & write to Schematics folder, then copy into clipboard command to spawn the structure.
 - Search Prefix / Matched Block / Block + Entity Mode
+- Make it so that tapestries render their blockentity type stuff so they show up!
+- Arrow for scrolling through text that has been reduced. Or maybe clicking on "..." swaps whether its the start or end.
