@@ -41,8 +41,8 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         var bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
         bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-        // Bounds for the whole window (600 width, 460 height)
-        var contentBounds = ElementBounds.Fixed(0, GuiStyle.TitleBarHeight, 600, 460);
+        // Bounds for the whole window (Increased width to 640 to pad the right edge)
+        var contentBounds = ElementBounds.Fixed(0, GuiStyle.TitleBarHeight, 640, 540);
 
         SingleComposer = capi.Gui.CreateCompo("schematicsearch", dialogBounds)
             .AddShadedDialogBG(bgBounds)
@@ -97,7 +97,14 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
         foreach (var row in pagedResults)
         {
-            SingleComposer.AddButton(row.AssetLocation[Math.Max(0, row.AssetLocation.Length - 25)..], () => OnAssetLocationClicked(row.AssetLocation), ElementBounds.Fixed(0, yOffset, 250, 22), labelFont, EnumButtonStyle.None);            
+            // 1. ASSET LOCATION (Truncated with "..." at the start to keep the filename visible)
+            string displayAsset = row.AssetLocation.Length > 27 
+                ? "..." + row.AssetLocation.Substring(row.AssetLocation.Length - 24) 
+                : row.AssetLocation;
+
+            var assetBounds = ElementBounds.Fixed(0, yOffset, 250, 22);
+            SingleComposer.AddButton(displayAsset, () => OnAssetLocationClicked(row.AssetLocation), assetBounds, labelFont, EnumButtonStyle.None);
+            SingleComposer.AddHoverText(row.AssetLocation, labelFont, 300, assetBounds);
             
             var assetLocPath = Utils.NorthifyAssetLocationPath(row.MatchedBlock);
             var assetLoc = new AssetLocation(assetLocPath);
@@ -105,37 +112,50 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
             var stack = new ItemStack(block);
             var blockName = stack.GetName();
             
-            // Render pure item icon without standard slot background
-            SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(252, yOffset - 1, 24, 24), stack));
+            // 2. MATCHED BLOCK NAME (Truncated with "..." at the end to keep the prefix visible)
+            string displayBlock = blockName.Length > 22 
+                ? blockName.Substring(0, 19) + "..." 
+                : blockName;
 
-            // Pushed start X to 285 and reduced width to 205 to clear the icon safely
-            SingleComposer.AddButton(blockName[Math.Max(0, blockName.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(285, yOffset + 2, 205, 20), labelFont, EnumButtonStyle.None);
-            SingleComposer.AddStaticText(row.Count.ToString()[Math.Max(0, row.Count.ToString().Length - 12)..], labelFont, ElementBounds.Fixed(515, yOffset + 2, 75, 20));
-            yOffset += 26;
+            var blockBounds = ElementBounds.Fixed(260, yOffset + 2, 220, 20);
+            SingleComposer.AddButton(displayBlock, () => OnBlockLocationClicked(row.MatchedBlock), blockBounds, labelFont, EnumButtonStyle.None);
+            SingleComposer.AddHoverText(blockName, labelFont, 300, blockBounds); // Added hover text here too!
+
+            // 3. COUNT (Placed at X=490, taking up 60 width)
+            SingleComposer.AddStaticText(row.Count.ToString(), labelFont, ElementBounds.Fixed(490, yOffset + 2, 60, 20));
+            
+            // 4. BLOCK ICON (Moved to the FAR RIGHT)
+            // The content bounds is 600 wide. Placing the icon at 560 tucks it safely 
+            // after the Count text and right before the window edge.
+            // 4. BLOCK ICON (Moved to the FAR RIGHT)
+            SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(560, yOffset - 1, 24, 24), stack));
+
+            // Increase this from 26 to 34 to give the icons more breathing room
+            yOffset += 34; 
         }
 
         // --- PAGINATION CONTROLS ---
         var totalPages = (int)Math.Ceiling(_searchResults.Count / (double)ItemsPerPage);
         if (totalPages == 0) totalPages = 1; // Prevent "Page 1 of 0" if empty
 
-        const int paginationY = 425;
+        const int paginationY = 505; // Pushed down to make room for taller rows
 
-        // First and Previous Buttons
+        // First and Previous Buttons (Shifted X by +20)
         if (_currentPage > 0)
         {
-            SingleComposer.AddSmallButton("<<", OnFirstPage, ElementBounds.Fixed(140, paginationY, 30, 25));
-            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(175, paginationY, 30, 25));
+            SingleComposer.AddSmallButton("<<", OnFirstPage, ElementBounds.Fixed(160, paginationY, 30, 25));
+            SingleComposer.AddSmallButton("<", OnPrevPage, ElementBounds.Fixed(195, paginationY, 30, 25));
         }
 
-        // Page Tracker Text
+        // Page Tracker Text (Shifted X by +20)
         var pageText = $"Page {_currentPage + 1} of {totalPages} ({_searchResults.Count} total)";
-        SingleComposer.AddStaticText(pageText, labelFont, ElementBounds.Fixed(210, paginationY + 3, 200, 20));
+        SingleComposer.AddStaticText(pageText, labelFont, ElementBounds.Fixed(230, paginationY + 3, 200, 20));
 
-        // Next and Last Buttons
+        // Next and Last Buttons (Shifted X by +20)
         if (_currentPage < totalPages - 1)
         {
-            SingleComposer.AddSmallButton(">", OnNextPage, ElementBounds.Fixed(415, paginationY, 30, 25));
-            SingleComposer.AddSmallButton(">>", OnLastPage, ElementBounds.Fixed(450, paginationY, 30, 25));
+            SingleComposer.AddSmallButton(">", OnNextPage, ElementBounds.Fixed(435, paginationY, 30, 25));
+            SingleComposer.AddSmallButton(">>", OnLastPage, ElementBounds.Fixed(470, paginationY, 30, 25));
         }
 
         // Finish composing the entire window
