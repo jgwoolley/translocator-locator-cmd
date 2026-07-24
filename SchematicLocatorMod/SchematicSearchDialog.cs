@@ -99,53 +99,17 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         {
             SingleComposer.AddButton(row.AssetLocation[Math.Max(0, row.AssetLocation.Length - 25)..], () => OnAssetLocationClicked(row.AssetLocation), ElementBounds.Fixed(0, yOffset, 250, 22), labelFont, EnumButtonStyle.None);            
             
-            // Try resolving block or item for the icon
-            var assetLoc = new AssetLocation(row.MatchedBlock);
+            var assetLocPath = Utils.NorthifyAssetLocationPath(row.MatchedBlock);
+            var assetLoc = new AssetLocation(assetLocPath);
             var block = capi.World.GetBlock(assetLoc);
-            ItemStack stack = null;
-
-            if (block != null)
-            {
-                var dropStack = block.Drops?.FirstOrDefault(d => d.ResolvedItemstack != null)?.ResolvedItemstack;
-                
-                if (dropStack != null)
-                {
-                    stack = dropStack.Clone();
-                    stack.StackSize = 1;
-                }
-                else
-                {
-                    // Special explicit fix for paintings and flat wall decor components
-                    if (assetLoc.Path.StartsWith("painting"))
-                    {
-                        // Find any generic painting item registered in the game database
-                        var paintingItem = capi.World.Items.FirstOrDefault(i => i.Code != null && i.Code.Path.StartsWith("painting"));
-                        if (paintingItem != null)
-                        {
-                            stack = new ItemStack(paintingItem);
-                        }
-                    }
-
-                    stack ??= new ItemStack(block);
-                }
-            }
-            else
-            {
-                var item = capi.World.GetItem(assetLoc);
-                if (item != null)
-                {
-                    stack = new ItemStack(item);
-                }
-            }
-
-            if (stack != null)
-            {
-                // Render pure item icon without standard slot background
-                SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(252, yOffset - 1, 24, 24), stack));
-            }
+            var stack = new ItemStack(block);
+            var blockName = stack.GetName();
+            
+            // Render pure item icon without standard slot background
+            SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(252, yOffset - 1, 24, 24), stack));
 
             // Pushed start X to 285 and reduced width to 205 to clear the icon safely
-            SingleComposer.AddButton(row.MatchedBlock[Math.Max(0, row.MatchedBlock.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(285, yOffset + 2, 205, 20), labelFont, EnumButtonStyle.None);
+            SingleComposer.AddButton(blockName[Math.Max(0, blockName.Length - 20)..], () => OnBlockLocationClicked(row.MatchedBlock), ElementBounds.Fixed(285, yOffset + 2, 205, 20), labelFont, EnumButtonStyle.None);
             SingleComposer.AddStaticText(row.Count.ToString()[Math.Max(0, row.Count.ToString().Length - 12)..], labelFont, ElementBounds.Fixed(515, yOffset + 2, 75, 20));
             yOffset += 26;
         }
@@ -193,8 +157,14 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
     
     private bool OnAssetLocationClicked(string assetLocation)
     {
-        capi.Forms.SetClipboardText(assetLocation);
-        capi.TriggerChatMessage($"[Schematic Locator] Copied '{assetLocation}' to clipboard!");
+        var request = new SchematicContentRequest
+        {
+            AssetLocation = assetLocation
+        };
+        var networkChannel = capi.Network.GetChannel(SchematicLocatorModSystem.NetworkChannel);
+        networkChannel.SendPacket(request);
+        capi.Logger.Debug($"SchematicContentRequest (Client): Sent '{request.AssetLocation}' request to server!");
+        
         return true;
     }
 
@@ -273,10 +243,13 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
             hintElement.SetNewText("");
             return;
         }
-
+        
         _autocompleteMatches = capi.World.Blocks
-            .Where(b => b.Code != null && b.Code.Path.StartsWith(text, StringComparison.InvariantCultureIgnoreCase))
+            .Where(b => b.Code != null)
             .Select(b => b.Code.Path)
+            .Distinct()
+            .Where(assetLocation => new AssetLocation(assetLocation).PathStartsWith(text)) // TODO: Readopt Utils.MatchAssetLocation when it does caching
+            .Select(Utils.NormalizeAssetLocationPath)
             .Distinct()
             .Take(3)
             .ToList();
@@ -377,8 +350,8 @@ public class ItemIconElement(ICoreClientAPI capi, ElementBounds bounds, ItemStac
     public override void RenderInteractiveElements(float deltaTime)
     {
         // Standard VS Item rendering expects the X/Y coordinates to represent the center.
-        double x = Bounds.renderX + Bounds.InnerWidth / 2.0;
-        double y = Bounds.renderY + Bounds.InnerHeight / 2.0;
+        var x = Bounds.renderX + Bounds.InnerWidth / 2.0;
+        var y = Bounds.renderY + Bounds.InnerHeight / 2.0;
         
         api.Render.RenderItemstackToGui(
             inSlot: _slot, 

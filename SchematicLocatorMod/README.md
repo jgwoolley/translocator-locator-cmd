@@ -20,5 +20,6 @@ For blocks like tapestries, and you know anything about the BlockEntity's Attrib
 
 ## TODO
 
-- packet to get full JSON asset
+- Readopt Utils.MatchAssetLocation when it does caching. I'm thinking there should be a search object
+- packet to get full JSON asset & write to Schematics folder, then copy into clipboard command to spawn the structure.
 - Search Prefix / Matched Block / Block + Entity Mode

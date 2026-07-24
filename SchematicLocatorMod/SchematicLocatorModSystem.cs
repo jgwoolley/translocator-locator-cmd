@@ -24,6 +24,8 @@ public class SchematicLocatorModSystem : ModSystem
         var networkChannel = api.Network.RegisterChannel(NetworkChannel);
         networkChannel.RegisterMessageType<SchematicSearchRequest>();
         networkChannel.RegisterMessageType<SchematicSearchResults>();
+        networkChannel.RegisterMessageType<SchematicContentRequest>();
+        networkChannel.RegisterMessageType<SchematicContentResult>();
     }
 
     public override void StartClientSide(ICoreClientAPI api)
@@ -35,8 +37,20 @@ public class SchematicLocatorModSystem : ModSystem
         var networkChannel = api.Network.GetChannel(NetworkChannel);
         networkChannel.SetMessageHandler<SchematicSearchResults>(packet =>
         {
-            api.Logger.Debug($"Receiving {packet.Results.Count} result(s)");
+            api.Logger.Debug($"SchematicSearchResults (Client): Receiving {packet.Results.Count} result(s)");
             dialog.Update(packet);
+        });
+        networkChannel.SetMessageHandler<SchematicContentResult>(packet =>
+        {
+            api.Logger.Debug("SchematicContentResult (Client): Received Schematic Json: " + packet.AssetLocation);
+            api.Forms.SetClipboardText(packet.Content);
+            var schematic = JsonUtil.FromString<BlockSchematic>(packet.Content);
+            var message = "Received Schematic Json: " + packet.AssetLocation.ToString();
+            if (schematic != null)
+            {
+                message += ": " + schematic.SizeX + "x" + schematic.SizeY + "x" + schematic.SizeZ;
+            }
+            api.SendChatMessage(message);
         });
         
         api.Input.RegisterHotKey(hotkeyCode: HotkeyCode, name: Title, key: GlKeys.Y, type: HotkeyType.GUIOrOtherControls, shiftPressed: false, ctrlPressed: true, altPressed: false);
@@ -66,6 +80,18 @@ public class SchematicLocatorModSystem : ModSystem
             api.Logger.Debug($"Sending results [{results.Count}] packet: {packet} to {fromPlayer}");
             networkChannel.SendPacket(message, [fromPlayer]);
         });
+        networkChannel.SetMessageHandler<SchematicContentRequest>((fromPlayer, packet) =>
+        {
+            api.Logger.Debug($"SchematicContentRequest (Server): Looking up {packet.AssetLocation}");
+            var schematic = api.Assets.Get<BlockSchematic>(packet.AssetLocation);
+            var response = new SchematicContentResult()
+            {
+                AssetLocation = packet.AssetLocation,
+                Content = schematic.ToJson(),
+            };
+            networkChannel.SendPacket(response, [fromPlayer]);
+            api.Logger.Debug($"SchematicContentRequest (Server): Sent {packet.AssetLocation}");
+        });
     }
     
     /// <summary>
@@ -76,19 +102,17 @@ public class SchematicLocatorModSystem : ModSystem
     /// <returns></returns>
     private static List<SchematicSearchResult> FindSchematicsCommand(ICoreServerAPI api, SchematicSearchRequest request)
     {
-        var assets = api.Assets.GetMany("worldgen/schematics/", string.IsNullOrEmpty(request.Domain) ? null: request.Domain);
+        var assets = api.Assets.GetMany<BlockSchematic>(api.Logger, "worldgen/schematics/", string.IsNullOrEmpty(request.Domain) ? null: request.Domain);
         var results = new List<SchematicSearchResult>();
         var error = string.Empty;
-        foreach (var asset in assets)
+        foreach (var (asset, schematic) in assets)
         {
             try
             {
-                var schematic = asset.ToObject<BlockSchematic>();
-
                 var paletteIds = new HashSet<int>();
                 foreach (var (paletteId, blockCode) in schematic.BlockCodes)
                 {
-                    if (blockCode.PathStartsWith(request.SearchBlockPrefix))
+                    if (Utils.MatchAssetLocation(api, blockCode, request.SearchBlockPrefix))
                     {
                         paletteIds.Add(paletteId);
                     }
@@ -108,7 +132,7 @@ public class SchematicLocatorModSystem : ModSystem
                     {
                         results.Add(new SchematicSearchResult()
                         {
-                            AssetLocation = asset.Location,
+                            AssetLocation = asset,
                             MatchedBlock = blockCode.Path,
                             Count = 1,
                         });
@@ -137,7 +161,7 @@ public class SchematicLocatorModSystem : ModSystem
 
                         results.Add(new SchematicSearchResult()
                         {
-                            AssetLocation = asset.Location,
+                            AssetLocation = asset,
                             MatchedBlock = blockCode.Path,
                             Count = 1,
                         });
