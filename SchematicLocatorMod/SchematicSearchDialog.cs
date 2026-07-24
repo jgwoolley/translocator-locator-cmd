@@ -25,7 +25,6 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
 
     // Pagination State
     private int _currentPage = 0;
-    private List<string> _autocompleteMatches = [];
     private const int ItemsPerPage = 9;
 
     public override void OnGuiOpened()
@@ -53,22 +52,26 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         var labelFont = CairoFont.WhiteSmallText();
         var inputFont = CairoFont.TextInput();
 
-        // --- ROW 1: Search Block Prefix & Autocomplete Suggestions ---
+        // --- ROW 1: Search Block Prefix & I'm Feeling Lucky ---
         var searchLblBounds = ElementBounds.Fixed(0, 5, 120, 20);
         SingleComposer.AddStaticText("Search Block:", labelFont, searchLblBounds);
         SingleComposer.AddHoverText("The block code prefix to search for (e.g. 'loosegears-1')", labelFont, 250, searchLblBounds);
         
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 0, 200, 30), OnSearchBlockTextChanged, inputFont, "searchBlockPrefix");
-        SingleComposer.AddDynamicText("", labelFont, ElementBounds.Fixed(340, 5, 250, 20), "autocompleteHint");
+
+        // The new I'm Feeling Lucky button
+        var luckyBounds = ElementBounds.Fixed(340, 0, 150, 30);
+        SingleComposer.AddSmallButton("I'm Feeling Lucky", OnFeelingLuckyClicked, luckyBounds);
+        SingleComposer.AddHoverText("Populates the block field with the first match", labelFont, 250, luckyBounds);
         
         // --- ROW 2: Tree Key ---
         var treeKeyLblBounds = ElementBounds.Fixed(0, 40, 120, 20);
         SingleComposer.AddStaticText("Tree Key:", labelFont, treeKeyLblBounds);
         SingleComposer.AddHoverText("The block entity attribute tree key to filter by", labelFont, 250, treeKeyLblBounds);
         
+        // YOU ARE MISSING THIS LINE:
         SingleComposer.AddTextInput(ElementBounds.Fixed(130, 35, 200, 30), (text) => _searchRequest.TreeKey = text, inputFont, "treeKey");
-        SingleComposer.AddSmallButton("Select", OnSelectAutocompleteClicked, ElementBounds.Fixed(515, 35, 75, 25)); // Moved to Tree Key Row
-
+        
         // --- ROW 3: Tree Value ---
         var treeValLblBounds = ElementBounds.Fixed(0, 75, 120, 20);
         SingleComposer.AddStaticText("Tree Value:", labelFont, treeValLblBounds);
@@ -187,26 +190,7 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         
         return true;
     }
-
-    private bool OnSelectAutocompleteClicked()
-    {
-        // Safely check for null and empty
-        if (_autocompleteMatches == null || _autocompleteMatches.Count == 0)
-            return true;
-
-        // Update the state
-        _searchRequest.SearchBlockPrefix = _autocompleteMatches[0];
-
-        // Recompose the UI to force the text input to redraw without keyboard focus
-        RecomposeTable();
-
-        // RecomposeTable triggers OnSearchBlockTextChanged which sets the hint to "Matches: ...", 
-        // so we overwrite it back to "Selected" immediately after recomposing.
-        SingleComposer.GetDynamicText("autocompleteHint")?.SetNewText("Selected: " + _searchRequest.SearchBlockPrefix);
-
-        return true;
-    }
-
+    
     private bool OnFirstPage()
     {
         if (_currentPage > 0)
@@ -251,37 +235,31 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
         return true;
     }
 
+    private bool OnFeelingLuckyClicked()
+    {
+        var text = _searchRequest.SearchBlockPrefix;
+
+        // Skip the search if the text is empty or too short
+        if (string.IsNullOrWhiteSpace(text) || text.Length < 2)
+            return true;
+
+        // Perform the search query on demand
+        var match = capi.World.Blocks 
+            .FirstOrDefault(b => b.Code != null && Utils.MatchAssetLocation(capi, b.Code, text));
+
+        // If we found something, apply it and refresh the window
+        if (match == null) return true;
+        
+        // Extract the string path from the AssetLocation object
+        _searchRequest.SearchBlockPrefix = Utils.NormalizeAssetLocationPath(match.Code.Path); 
+        RecomposeTable();
+
+        return true;
+    }
+    
     private void OnSearchBlockTextChanged(string text)
     {
         _searchRequest.SearchBlockPrefix = text;
-
-        var hintElement = SingleComposer.GetDynamicText("autocompleteHint");
-        if (hintElement == null) return;
-
-        if (string.IsNullOrWhiteSpace(text) || text.Length < 2)
-        {
-            hintElement.SetNewText("");
-            return;
-        }
-        
-        _autocompleteMatches = capi.World.Blocks
-            .Where(b => b.Code != null)
-            .Select(b => b.Code.Path)
-            .Distinct()
-            .Where(assetLocation => new AssetLocation(assetLocation).PathStartsWith(text)) // TODO: Readopt Utils.MatchAssetLocation when it does caching
-            .Select(Utils.NormalizeAssetLocationPath)
-            .Distinct()
-            .Take(3)
-            .ToList();
-
-        if (_autocompleteMatches.Count > 0)
-        {
-            hintElement.SetNewText($"Matches: {_autocompleteMatches[0]}");
-        }
-        else
-        {
-            hintElement.SetNewText("No matches found.");
-        }
     }
 
     private bool OnSearchClicked()
