@@ -1,7 +1,7 @@
 # Nf3t - Center Map (Not published)
 
-[![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/show/mod/39775)
+[![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/show/mod/63336)
 
-Mod URL: [https://mods.vintagestory.at/show/mod/39775](https://mods.vintagestory.at/show/mod/39775)
+Mod URL: [https://mods.vintagestory.at/show/mod/63336](https://mods.vintagestory.at/show/mod/63336)
 
-A client side mod that calculates the shortest path between your current position and a target, factoring in translocator jumps as "shortcuts."
+Adds a command to center the map at a specific coordinate.
