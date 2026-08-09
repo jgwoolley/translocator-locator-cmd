@@ -1,6 +1,6 @@
 # Nf3t - Schematic Locator (Not published)
 
-[![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/show/mod/39775)
+[![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/schematicsearch)
 
 Mod URL: [https://mods.vintagestory.at/show/mod/60760](https://mods.vintagestory.at/show/mod/39775)
 
