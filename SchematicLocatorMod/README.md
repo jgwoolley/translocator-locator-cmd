@@ -2,7 +2,7 @@
 
 [![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/schematicsearch)
 
-Mod URL: [https://mods.vintagestory.at/show/mod/60760](https://mods.vintagestory.at/show/mod/39775)
+Mod URL: [https://mods.vintagestory.at/schematicsearch](https://mods.vintagestory.at/schematicsearch)
 
 You know when you are watching a YouTuber explore a structure you have never seen before? Well now if you can identify a few unique blocks, you can search for a particular structure starting with a specific block!
 
