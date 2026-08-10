@@ -83,7 +83,10 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
 
     private static void CreateCommand(ICoreClientAPI api, Context context, Nf3tConfig config, LocatorCommand command)
     {
-        System.Func<BlockSelector, bool> predicate = s => s.Keywords.Contains(command.Keyword);
+        System.Func<BlockSelector, bool> predicate = s =>
+            s?.Keywords != null &&
+            !string.IsNullOrEmpty(command.Keyword) &&
+            s.Keywords.Contains(command.Keyword);
 
         api.ChatCommands.Create(command.Name)
             .WithDescription(command.Description)
@@ -94,7 +97,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
             .HandleWith(args =>
             {
                 var addWaypoints = true.Equals(args[0]);
-                var radius = (int)args[1];
+                var radius = args[1] is int parsedRadius ? parsedRadius : config.DefaultSearchRadius;
 
                 var filteredSelectors = config.Selectors
                     .Where(predicate)
@@ -103,12 +106,16 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                 Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock =
                     (_, _, results, block, pos) =>
                     {
+                        var blockPath = block?.Code?.Path;
+                        if (string.IsNullOrEmpty(blockPath)) return true;
+
                         foreach (var selector in filteredSelectors)
-                            if (block.Code.Path.StartsWith(selector.StartsWith))
+                            if (!string.IsNullOrEmpty(selector?.StartsWith) &&
+                                blockPath.StartsWith(selector.StartsWith))
                             {
                                 var blockName = GetWaypointName(block, api.World, pos);
-                                var wayPoint = new WayPoint(block.Code.Path, pos.Copy(), blockName, selector.Icon,
-                                    selector.Color);
+                                var wayPoint = new WayPoint(blockPath, pos.Copy(), blockName,
+                                    selector.Icon ?? "circle", selector.Color ?? "white");
                                 results.Add(wayPoint);
                                 return true;
                             }
@@ -127,13 +134,14 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         Func<BlockPos, BlockPos, List<WayPoint>, Block, BlockPos, bool> onBlock =
             (mapMiddlePos, playerPos, results, block, pos) =>
             {
-                if (!block.Code.Path.StartsWith("statictranslocator")) return true;
+                var blockPath = block?.Code?.Path;
+                if (string.IsNullOrEmpty(blockPath) || !blockPath.StartsWith("statictranslocator")) return true;
 
                 var isRepaired = false;
 
-                if (block.Code.Path.StartsWith("statictranslocator-broken"))
+                if (blockPath.StartsWith("statictranslocator-broken"))
                     isRepaired = false;
-                else if (block.Code.Path.StartsWith("statictranslocator-normal")) isRepaired = true;
+                else if (blockPath.StartsWith("statictranslocator-normal")) isRepaired = true;
 
                 BlockPos? destination = null;
 
@@ -150,16 +158,16 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                     }
                 }
 
-                api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", block.Code.Path, pos);
+                api.Logger.Debug("[Translocator Locator] Found translocator block: {0} at {1}", blockPath, pos);
 
-                var sourceWayPoint = new WayPoint(block.Code.Path, pos.Copy(), GetWaypointName(block, api.World, pos),
+                var sourceWayPoint = new WayPoint(blockPath, pos.Copy(), GetWaypointName(block, api.World, pos),
                     "spiral", isRepaired ? "green" : "red");
                 results.Add(sourceWayPoint);
 
                 if (destination != null)
                 {
                     // TODO: Technically this codepath is incorrect as it is the source's path
-                    var destinationWayPoint = new WayPoint(block.Code.Path, destination.Copy(),
+                    var destinationWayPoint = new WayPoint(blockPath, destination.Copy(),
                         GetWaypointName(block, api.World, destination),
                         "spiral", "green");
                     results.Add(destinationWayPoint);
@@ -188,13 +196,16 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         if (api.World?.Player?.Entity == null) return TextCommandResult.Error("Player not found.");
 
         var playerPos = api.World.Player.Entity.Pos.AsBlockPos;
-        var mapMiddlePos = api.World.DefaultSpawnPosition.AsBlockPos;
+        var mapMiddlePos = api.World.DefaultSpawnPosition?.AsBlockPos ?? playerPos;
         var results = new List<WayPoint>();
 
         // TODO: possibly make the Y always 0 - MAX HEIGHT?
         api.World.BlockAccessor.SearchBlocks(playerPos.AddCopy(-radius, -radius, -radius),
             playerPos.AddCopy(radius, radius, radius), (block, pos) =>
-                onBlock(mapMiddlePos, playerPos, results, block, pos));
+            {
+                if (block == null) return true;
+                return onBlock(mapMiddlePos, playerPos, results, block, pos);
+            });
 
         IEnumerable<WayPoint> query = results;
 
@@ -271,7 +282,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
         catch (Exception e)
         {
             world.Logger.Error(e);
-            return block.Code.Path;
+            return block.Code?.Path ?? block.Code?.ToString() ?? "unknown-block";
         }
     }
 }
