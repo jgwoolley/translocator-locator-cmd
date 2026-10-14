@@ -39,6 +39,50 @@ public class SaveData
             WayPointsPerSavegame[savegameIdentifier] = new HashSet<WayPoint>(waypoints);
     }
 
+    /// <summary>
+    /// Merges what is currently on disk into this instance, so that saving does not discard changes
+    /// another mod (sharing the same file) wrote since this one loaded it.
+    /// Translocators are always unioned. The path and waypoints are only kept from memory when this
+    /// instance changed them; otherwise the on-disk value is newer than ours.
+    /// </summary>
+    public void Merge(SerializedSaveData disk, bool keepMemoryPaths, bool keepMemoryWayPoints)
+    {
+        foreach (var (savegameIdentifier, serializedEntries) in disk.TranslocatorsPerSavegame)
+        {
+            if (!TranslocatorsPerSavegame.TryGetValue(savegameIdentifier, out var entries))
+            {
+                entries = new Dictionary<SimplePos, SimplePos?>();
+                TranslocatorsPerSavegame[savegameIdentifier] = entries;
+            }
+
+            foreach (var entry in serializedEntries)
+                // Never downgrade a known destination to "unknown".
+                if (!entries.TryGetValue(entry.Position, out var existing) ||
+                    (existing == null && entry.TargetLocation != null))
+                    entries[entry.Position] = entry.TargetLocation;
+        }
+
+        foreach (var (savegameIdentifier, defaultSpawnPosition) in disk.DefaultSpawnPositionPerSavegame)
+            DefaultSpawnPositionPerSavegame.TryAdd(savegameIdentifier, defaultSpawnPosition);
+
+        foreach (var (savegameIdentifier, path) in disk.LastTranslocatorPathPerSavegame)
+            if (!keepMemoryPaths || !LastTranslocatorPathPerSavegame.ContainsKey(savegameIdentifier))
+                LastTranslocatorPathPerSavegame[savegameIdentifier] = path;
+
+        foreach (var (savegameIdentifier, waypoints) in disk.WayPointsPerSavegame)
+        {
+            // Mutate in place: callers may hold a reference to the existing set.
+            if (!WayPointsPerSavegame.TryGetValue(savegameIdentifier, out var existing) || existing == null)
+            {
+                WayPointsPerSavegame[savegameIdentifier] = new HashSet<WayPoint>(waypoints);
+                continue;
+            }
+
+            if (!keepMemoryWayPoints) existing.Clear();
+            existing.UnionWith(waypoints);
+        }
+    }
+
     public SerializedSaveData Save()
     {
         SerializedSaveData serializedSaveData = new();

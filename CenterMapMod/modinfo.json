@@ -5,11 +5,13 @@
   "authors": [
     "gildedchronicles"
   ],
-  "description": "Centers map.",
-  "version": "2.0.0",
-  "side": "Client",
+  "description": "Centers the map on coordinates with a temporary marker. With the mod on the server too, players can share locations as clickable chat links.",
+  "version": "1.0.0",
+  "side": "Universal",
+  "requiredOnClient": false,
+  "requiredOnServer": false,
   "dependencies": {
-    "game": "1.22.0",
-    "survival": "1.22.0"
+    "game": "1.22.7",
+    "survival": "1.22.7"
   }
 }

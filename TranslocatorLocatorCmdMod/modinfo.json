@@ -6,11 +6,11 @@
     "gildedchronicles"
   ],
   "description": "A client side mod for VintageStory which allows you to find Translocators, and optionally, add them as waypoints. An XRAY for Translocators!",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "side": "Client",
   "requiredOnServer": false,
   "dependencies": {
-    "game": "1.22.0",
-    "survival": "1.22.0"
+    "game": "1.22.7",
+    "survival": "1.22.7"
   }
 }

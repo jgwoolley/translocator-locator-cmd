@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 
 using Vintagestory.API.Common;
 
@@ -9,6 +9,6 @@ public class TranslocatorRepairModSystem : ModSystem
     public override void Start(ICoreAPI api)
     {
         base.Start(api);
-        api.RegisterBlockClass("BlockRepairableStaticTranslocator", typeof(BlockRepairableStaticTranslocator));
+        api.RegisterBlockBehaviorClass("TranslocatorRepair", typeof(BlockBehaviorTranslocatorRepair));
     }
 }

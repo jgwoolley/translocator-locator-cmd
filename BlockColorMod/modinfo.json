@@ -1,0 +1,15 @@
+{
+  "type": "code",
+  "modid": "nf3tblockcolor",
+  "name": "GildedChronicles - Block Colors",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Client side. Generates an average color for every block from its texture and writes them to a JSON file.",
+  "version": "1.0.0",
+  "side": "Client",
+  "requiredOnServer": false,
+  "dependencies": {
+    "game": "1.22.7"
+  }
+}

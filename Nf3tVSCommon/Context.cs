@@ -33,6 +33,17 @@ public class Context
     public SaveData SaveData { get; }
     private string SaveFilePath { get; }
     public bool IsDirty { get; set; }
+    private bool PathsChanged { get; set; }
+    private bool WayPointsChanged { get; set; }
+
+    // Several mods share one save file, and each holds its own in-memory copy.
+    private static readonly object SaveLock = new();
+
+    public void MarkWayPointsDirty()
+    {
+        WayPointsChanged = true;
+        IsDirty = true;
+    }
     public SimplePos DefaultSpawnPosition { get; }
     private Dictionary<SimplePos, SimplePos?> Translocators { get; }
     private TranslocatorPathResult? TranslocatorPathResult { get; set; }
@@ -44,16 +55,22 @@ public class Context
 
     private void Load(string path)
     {
+        var serializedSaveData = ReadFromDisk(path);
+        if (serializedSaveData != null) SaveData.Load(serializedSaveData);
+    }
+
+    private SerializedSaveData? ReadFromDisk(string path)
+    {
         try
         {
-            if (!File.Exists(path)) return;
+            if (!File.Exists(path)) return null;
             var json = File.ReadAllText(path);
-            var serializedSaveData = JsonConvert.DeserializeObject<SerializedSaveData>(json);
-            if (serializedSaveData != null) SaveData.Load(serializedSaveData);
+            return JsonConvert.DeserializeObject<SerializedSaveData>(json);
         }
         catch (Exception e)
         {
             ClientApi.Logger.Error(e);
+            return null;
         }
     }
 
@@ -63,15 +80,29 @@ public class Context
 
         try
         {
-            var directoryPath = Path.GetDirectoryName(SaveFilePath);
-            if (directoryPath != null) Directory.CreateDirectory(directoryPath);
-            var serializedSaveData = SaveData.Save();
+            lock (SaveLock)
+            {
+                // Pick up anything another mod wrote since we loaded, so we don't overwrite it.
+                var onDisk = ReadFromDisk(SaveFilePath);
+                if (onDisk != null) SaveData.Merge(onDisk, PathsChanged, WayPointsChanged);
 
-            var json = JsonConvert.SerializeObject(serializedSaveData, Formatting.Indented);
-            File.WriteAllText(SaveFilePath, json);
-            IsDirty = false;
-            var totalWaypoints = serializedSaveData.TranslocatorsPerSavegame.Values.Sum(dict => dict.Count);
-            ClientApi.Logger.Debug($"[Translocator Locator] {totalWaypoints} Waypoint(s) saved to disk.");
+                var directoryPath = Path.GetDirectoryName(SaveFilePath);
+                if (directoryPath != null) Directory.CreateDirectory(directoryPath);
+                var serializedSaveData = SaveData.Save();
+
+                var json = JsonConvert.SerializeObject(serializedSaveData, Formatting.Indented);
+
+                // Write-then-move so a crash can't leave a half-written file for the other mod to read.
+                var tempPath = SaveFilePath + ".tmp";
+                File.WriteAllText(tempPath, json);
+                File.Move(tempPath, SaveFilePath, true);
+
+                IsDirty = false;
+                PathsChanged = false;
+                WayPointsChanged = false;
+                var totalWaypoints = serializedSaveData.TranslocatorsPerSavegame.Values.Sum(dict => dict.Count);
+                ClientApi.Logger.Debug($"[Translocator Locator] {totalWaypoints} Waypoint(s) saved to disk.");
+            }
         }
         catch (Exception e)
         {
@@ -99,6 +130,7 @@ public class Context
         var result = new TranslocatorPathResult(Translocators, startPos, goalPos);
         SaveData.LastTranslocatorPathPerSavegame[ClientApi.World.SavegameIdentifier] =
             new TranslocatorPath(startPos, goalPos);
+        PathsChanged = true;
         IsDirty = true;
         TranslocatorPathResult = result;
         return result;

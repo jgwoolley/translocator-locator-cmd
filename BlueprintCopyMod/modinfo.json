@@ -9,8 +9,8 @@
   "version": "1.0.0",
   "requiredOnClient": false,
   "dependencies": {
-    "game": "1.22.0",
-    "survival": "1.22.0",
+    "game": "1.22.7",
+    "survival": "1.22.7",
     "betterruins": "*"
   }
 }

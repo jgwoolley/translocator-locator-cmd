@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
@@ -22,6 +22,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterMapMod", "CenterMapMod\CenterMapMod.csproj", "{FE8E869D-562F-4A33-97F3-73B588146A16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchematicLocatorMod", "SchematicLocatorMod\SchematicLocatorMod.csproj", "{FE8E869D-562F-4A33-97F3-73B588146A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructureLogMod", "StructureLogMod\StructureLogMod.csproj", "{FE8E869D-562F-4A33-97F3-73B588146A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapestryRepairMod", "TapestryRepairMod\TapestryRepairMod.csproj", "{FE8E869D-562F-4A33-97F3-73B588146A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockColorMod", "BlockColorMod\BlockColorMod.csproj", "{FE8E869D-562F-4A33-97F3-73B588146A16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

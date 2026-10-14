@@ -1,6 +1,6 @@
-# Nf3t - Schematic Locator (Not published)
+# Nf3t - Schematic Search (Draft)
 
-[![A sereph in front of a Translocator](Screenshots/Main.png)](https://mods.vintagestory.at/schematicsearch)
+[![A sereph in front of a Translocator](Screenshots/Screenshot01.png)](https://mods.vintagestory.at/schematicsearch)
 
 Mod URL: [https://mods.vintagestory.at/schematicsearch](https://mods.vintagestory.at/schematicsearch)
 
@@ -19,7 +19,8 @@ For blocks like tapestries, and you know anything about the BlockEntity's Attrib
 | **BlockEntities** | `uint` (Packed Coord) | `string` (JSON)       | Stores custom data for a block at a specific coordinate. |
 
 ## Current changelog
-- Chat wasn't sent due to rate
+
+- Chat wasn't sent due to rate limiting
 
 ## TODO
 

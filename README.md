@@ -12,6 +12,9 @@ Various mods I have created for VintageStory
 * [Water Sponge](./WaterSpongeMod)
 * [BlueprintCopyMod](./BlueprintCopyMod)
 * [TranslocatorRepairMod](./TranslocatorRepairMod)
+* [StructureLogMod](./StructureLogMod): Server-only; logs newly generated structures
+* [TapestryRepairMod](./TapestryRepairMod): Repair ruined tapestries with flax twine
+* [BlockColorMod](./BlockColorMod): Writes an average color for every block to a JSON file
 * [SchematicLocatorMod](./SchematicLocatorMod): Not published
 * [CenterMapMod](./CenterMapMod): Not published
 

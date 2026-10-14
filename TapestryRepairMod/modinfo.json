@@ -1,0 +1,17 @@
+{
+  "type": "code",
+  "modid": "nf3ttapestryrepair",
+  "name": "GildedChronicles - Tapestry Repair",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Adds the ability to repair a ruined (rotten) tapestry using flax twine.",
+  "version": "1.0.1",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
+  "dependencies": {
+    "game": "1.22.7",
+    "survival": "1.22.7"
+  }
+}

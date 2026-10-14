@@ -129,7 +129,7 @@ public class TranslocatorNavigatorModSystem : ModSystem
 
         if (result.IsFounded())
         {
-            var steps = string.Join(" \u21D2 ",
+            var steps = string.Join(" to ",
                 result.Path.Select(p => p.ToRelativeString(context.DefaultSpawnPosition)));
 
             return TextCommandResult.Success(

@@ -35,8 +35,11 @@ public class BuildContext : FrostingContext
         "WaterSpongeMod",
         // "BlueprintCopy",
         "TranslocatorRepairMod",
-        // "CenterMapMod",
+        "CenterMapMod",
         "SchematicLocatorMod",
+        "StructureLogMod",
+        "TapestryRepairMod",
+        "BlockColorMod",
     };
 
     public BuildContext(ICakeContext context)
@@ -81,7 +84,17 @@ public sealed class BuildTask : FrostingTask<BuildContext>
     public override void Run(BuildContext context)
     {
         var homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        var toolPath = Path.Combine(homePath, ".dotnet", "dotnet");
+        // Prefer the per-user install, then fall back to whichever dotnet is available (e.g. /usr/share/dotnet).
+        var toolPath = new[]
+            {
+                Path.Combine(homePath, ".dotnet", "dotnet"),
+                Environment.GetEnvironmentVariable("DOTNET_HOST_PATH"),
+                Path.Combine(Environment.GetEnvironmentVariable("DOTNET_ROOT") ?? "", "dotnet"),
+                "/usr/share/dotnet/dotnet",
+                "/usr/local/bin/dotnet"
+            }
+            .FirstOrDefault(path => !string.IsNullOrEmpty(path) && File.Exists(path))
+            ?? throw new Exception("Could not locate the dotnet executable.");
 
         foreach (var projectName in BuildContext.ProjectNames)
         {

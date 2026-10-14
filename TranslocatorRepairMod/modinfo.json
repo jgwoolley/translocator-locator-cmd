@@ -6,12 +6,12 @@
     "gildedchronicles"
   ],
   "description": "Adds the ability to repair an unrepairable translocator.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,
   "dependencies": {
-    "game": "1.22.2",
-    "survival": "1.22.2"
+    "game": "1.22.7",
+    "survival": "1.22.7"
   }
 }

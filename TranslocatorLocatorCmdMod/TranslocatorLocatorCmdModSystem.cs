@@ -257,7 +257,7 @@ public class TranslocatorLocatorCmdModSystem : ModSystem
                 checkWayPoints.UnionWith(sortedResults);
                 try
                 {
-                    context.IsDirty = true;
+                    context.MarkWayPointsDirty();
                     context.Save();
                     return TextCommandResult.Success($"Found {sortedResults.Count} waypoints within {radius} blocks.");
                 }
