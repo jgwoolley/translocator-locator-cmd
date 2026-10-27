@@ -40,6 +40,7 @@ public class BuildContext : FrostingContext
         "StructureLogMod",
         "TapestryRepairMod",
         "BlockColorMod",
+        "StatueMod",
     };
 
     public BuildContext(ICakeContext context)

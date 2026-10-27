@@ -1,0 +1,113 @@
+[
+  {
+    "ingredientPattern": "SS,SS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:stonebricks-*",
+        "name": "rock"
+      }
+    },
+    "width": 2,
+    "height": 2,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-small-{rock}"
+    }
+  },
+  {
+    "ingredientPattern": "SS,SS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:rockpolished-*",
+        "name": "rock",
+        "allowedVariants": [
+          "whitemarble",
+          "redmarble",
+          "greenmarble"
+        ]
+      }
+    },
+    "width": 2,
+    "height": 2,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-small-{rock}"
+    }
+  },
+  {
+    "ingredientPattern": "SSS,SSS,SSS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:stonebricks-*",
+        "name": "rock"
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-large-{rock}"
+    }
+  },
+  {
+    "ingredientPattern": "SSS,SSS,SSS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:rockpolished-*",
+        "name": "rock",
+        "allowedVariants": [
+          "whitemarble",
+          "redmarble",
+          "greenmarble"
+        ]
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-large-{rock}"
+    }
+  },
+  {
+    "ingredientPattern": "SS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:stonebricks-*",
+        "name": "rock"
+      }
+    },
+    "width": 2,
+    "height": 1,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-bust-{rock}"
+    }
+  },
+  {
+    "ingredientPattern": "SS",
+    "ingredients": {
+      "S": {
+        "type": "block",
+        "code": "game:rockpolished-*",
+        "name": "rock",
+        "allowedVariants": [
+          "whitemarble",
+          "redmarble",
+          "greenmarble"
+        ]
+      }
+    },
+    "width": 2,
+    "height": 1,
+    "output": {
+      "type": "block",
+      "code": "nf3tstatue:statue-bust-{rock}"
+    }
+  }
+]

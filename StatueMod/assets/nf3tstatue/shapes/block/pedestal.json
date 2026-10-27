@@ -1,0 +1,20 @@
+{
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": { "stone": "block/stone/rock/granite1" },
+  "elements": [
+    {
+      "name": "Pedestal",
+      "from": [ 2, 0, 2 ],
+      "to": [ 14, 2, 14 ],
+      "faces": {
+        "north": { "texture": "#stone", "uv": [ 2, 14, 14, 16 ] },
+        "east": { "texture": "#stone", "uv": [ 2, 14, 14, 16 ] },
+        "south": { "texture": "#stone", "uv": [ 2, 14, 14, 16 ] },
+        "west": { "texture": "#stone", "uv": [ 2, 14, 14, 16 ] },
+        "up": { "texture": "#stone", "uv": [ 2, 2, 14, 14 ] },
+        "down": { "texture": "#stone", "uv": [ 2, 2, 14, 14 ] }
+      }
+    }
+  ]
+}

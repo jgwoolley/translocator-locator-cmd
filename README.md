@@ -15,6 +15,7 @@ Various mods I have created for VintageStory
 * [StructureLogMod](./StructureLogMod): Server-only; logs newly generated structures
 * [TapestryRepairMod](./TapestryRepairMod): Repair ruined tapestries with flax twine
 * [BlockColorMod](./BlockColorMod): Writes an average color for every block to a JSON file
+* [StatueMod](./StatueMod): Stone statues of a player in an emote pose
 * [SchematicLocatorMod](./SchematicLocatorMod): Not published
 * [CenterMapMod](./CenterMapMod): Not published
 
@@ -37,3 +38,8 @@ Files that are no longer used.
         * [run.sh](run.sh): Builds the projects?
         * [clean.sh](clean.sh): Runs project cleanup commands.
         * [extract.sh](extract.sh): Downloads VintageStory server, which it turns out, is not good enough to get the development environment setup.
+
+## Mod page tracking
+
+`ModPages/` mirrors the mod database pages (description, links, tags, release changelogs) so they can be
+versioned. `dotnet run --project ModDbCli -- diff` reports any difference from the live site; see `ModPages/README.md`.
