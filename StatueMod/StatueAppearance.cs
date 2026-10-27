@@ -21,6 +21,23 @@ public class StatueAppearance
     public ItemStack[] Armor = [];
 
     /// <summary>The items held in the hands, shown in the same stone as the rest of the statue.</summary>
+    public const string NoMount = "";
+    public const string ElkCow = "elkcow";
+    public const string ElkBull = "elkbull";
+
+    /// <summary>How the elk stands: one of <see cref="StatuePoses.ElkPoses"/>. Only used when there is an elk.</summary>
+    public string ElkPose = StatuePoses.ElkStand;
+
+    /// <summary>The frame of the elk's stride (-1 picks the best one). Only used when the elk moves.</summary>
+    public int ElkFrame = -1;
+
+    /// <summary>What the player rides: <see cref="NoMount"/>, <see cref="ElkCow"/> or <see cref="ElkBull"/>.</summary>
+    public string Mount = NoMount;
+
+    /// <summary>Only the three known mounts are accepted, and a bust (head only) cannot ride.</summary>
+    public static bool IsValidMount(string mount, bool bust) =>
+        mount is NoMount || (!bust && mount is ElkCow or ElkBull);
+
     public ItemStack? RightHand;
     public ItemStack? LeftHand;
 
@@ -81,6 +98,9 @@ public class StatueAppearance
         tree.SetBool("showLook", ShowLook);
         tree.SetBool("showClothing", ShowClothing);
         tree.SetBool("showArmor", ShowArmor);
+        tree.SetString("mount", Mount);
+        tree.SetString("elkPose", ElkPose);
+        tree.SetInt("elkFrame", ElkFrame);
         tree.SetString("skinShapes", string.Join(';', SkinShapes));
         WriteStacks(tree, "clothing", Clothing);
         WriteStacks(tree, "armor", Armor);
@@ -95,6 +115,9 @@ public class StatueAppearance
             ShowLook = tree.GetBool("showLook", true),
             ShowClothing = tree.GetBool("showClothing", true),
             ShowArmor = tree.GetBool("showArmor", true),
+            Mount = tree.GetString("mount", NoMount),
+            ElkPose = tree.GetString("elkPose", StatuePoses.ElkStand),
+            ElkFrame = tree.GetInt("elkFrame", -1),
             SkinShapes = skin == "" ? [] : skin.Split(';'),
             Clothing = ReadStacks(tree, "clothing", world),
             Armor = ReadStacks(tree, "armor", world),

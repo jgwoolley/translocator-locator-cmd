@@ -27,6 +27,24 @@ public static class StatuePose
         return candidates.MaxBy(k => Magnitude(k, bones));
     }
 
+    /// <summary>A copy of the keyframe that only moves <paramref name="bones"/>.</summary>
+    public static AnimationKeyFrame Only(AnimationKeyFrame keyFrame, ISet<string> bones) => new()
+    {
+        Frame = keyFrame.Frame,
+        Elements = keyFrame.Elements.Where(e => bones.Contains(e.Key)).ToDictionary(e => e.Key, e => e.Value),
+    };
+
+    /// <summary>
+    /// The first pose with the bones of the second one swapped in: for those bones the second pose is used whole, so
+    /// nothing of the first is left on them.
+    /// </summary>
+    public static AnimationKeyFrame Replace(AnimationKeyFrame pose, AnimationKeyFrame over)
+    {
+        var elements = new Dictionary<string, AnimationKeyFrameElement>(pose.Elements);
+        foreach (var (name, element) in over.Elements) elements[name] = element;
+        return new AnimationKeyFrame { Frame = pose.Frame, Elements = elements };
+    }
+
     /// <summary>The frame number of <see cref="PickPeakKeyFrame"/>.</summary>
     public static int PeakFrame(Animation animation, ISet<string>? bones = null) =>
         PickPeakKeyFrame(animation, bones)?.Frame ?? 0;
@@ -121,7 +139,8 @@ public static class StatuePose
 
     /// <summary>
     /// Where a hand holds things: the transform of the named anchor element in model space (all its parents
-    /// included, as posed), followed by the offset and rotation of the attachment point on it.
+    /// included, as posed), followed by the offset and rotation of the attachment point on it, applied as the game
+    /// does it: the item is turned about its own middle.
     /// </summary>
     public static float[]? AnchorMatrix(Shape shape, string anchorName, string pointCode)
     {
@@ -134,6 +153,54 @@ public static class StatuePose
         return null;
     }
 
+    /// <summary>
+    /// Where a held item goes, exactly as the game builds it for an item in a hand (ItemFishingPole's
+    /// LoadHeldItemModelMatrix): the posed hand element, then the item's hand transform with the hand's attachment point
+    /// folded in. Scale comes before the translation, so a transform's translation is in scaled units, and the attachment
+    /// point's rotation adds to the transform's own rotation.
+    /// </summary>
+    public static float[]? HeldItemMatrix(Shape shape, string anchorName, string pointCode, ModelTransform transform)
+    {
+        var hand = AnchorMatrix(shape, anchorName, "no attachment point"); // the element's own pose, without the point
+        if (hand == null) return null;
+
+        var point = FindPoint(shape, anchorName, pointCode);
+        var origin = transform.Origin;
+        var scale = transform.ScaleXYZ;
+        var translation = transform.Translation;
+        var rotation = transform.Rotation;
+
+        var matrix = (float[])hand.Clone();
+        Mat4f.Translate(matrix, matrix, origin.X, origin.Y, origin.Z);
+        Mat4f.Scale(matrix, matrix, scale.X, scale.Y, scale.Z);
+        Mat4f.Translate(matrix, matrix,
+            (float)((point?.PosX ?? 0) / 16 + translation.X),
+            (float)((point?.PosY ?? 0) / 16 + translation.Y),
+            (float)((point?.PosZ ?? 0) / 16 + translation.Z));
+        Mat4f.RotateX(matrix, matrix, (float)(((point?.RotationX ?? 0) + rotation.X) * GameMath.DEG2RAD));
+        Mat4f.RotateY(matrix, matrix, (float)(((point?.RotationY ?? 0) + rotation.Y) * GameMath.DEG2RAD));
+        Mat4f.RotateZ(matrix, matrix, (float)(((point?.RotationZ ?? 0) + rotation.Z) * GameMath.DEG2RAD));
+        Mat4f.Translate(matrix, matrix, -origin.X, -origin.Y, -origin.Z);
+        return matrix;
+    }
+
+    private static AttachmentPoint? FindPoint(Shape shape, string anchorName, string pointCode)
+    {
+        AttachmentPoint? found = null;
+        foreach (var root in shape.Elements) found ??= FindPoint(root, anchorName, pointCode);
+        return found;
+    }
+
+    private static AttachmentPoint? FindPoint(ShapeElement element, string anchorName, string pointCode)
+    {
+        if (element.Name == anchorName) return element.AttachmentPoints?.FirstOrDefault(p => p.Code == pointCode);
+        if (element.Children == null) return null;
+
+        AttachmentPoint? found = null;
+        foreach (var child in element.Children) found ??= FindPoint(child, anchorName, pointCode);
+        return found;
+    }
+
     private static float[]? FindAnchor(ShapeElement element, string anchorName, string pointCode, float[] parent)
     {
         var world = Mat4f.Mul(Mat4f.Create(), parent, element.GetLocalTransformMatrix(0));
@@ -143,10 +210,14 @@ public static class StatuePose
             var point = element.AttachmentPoints?.FirstOrDefault(p => p.Code == pointCode);
             if (point != null)
             {
+                // The game's own order (AttachmentPointAndPose.Mul): move to the point, then turn about the middle of
+                // the attached thing (a unit cube), not about its corner.
                 Mat4f.Translate(world, world, (float)point.PosX / 16, (float)point.PosY / 16, (float)point.PosZ / 16);
+                Mat4f.Translate(world, world, -0.5f, -0.5f, -0.5f);
                 Mat4f.RotateX(world, world, (float)(point.RotationX * GameMath.DEG2RAD));
                 Mat4f.RotateY(world, world, (float)(point.RotationY * GameMath.DEG2RAD));
                 Mat4f.RotateZ(world, world, (float)(point.RotationZ * GameMath.DEG2RAD));
+                Mat4f.Translate(world, world, 0.5f, 0.5f, 0.5f);
             }
 
             return world;

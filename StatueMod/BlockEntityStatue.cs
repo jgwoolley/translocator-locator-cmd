@@ -16,6 +16,10 @@ public class BlockEntityStatue : BlockEntity
     public const float LargeScale = 1.75f;
     /// <summary>The head is only about 8 model pixels wide, so the bust is drawn bigger than life.</summary>
     public const float BustScale = 1.25f;
+    /// <summary>A rider on an elk is about 2.6 blocks tall at scale 1, so the scales are lower than for a standing statue.</summary>
+    public const float RideSmallScale = 0.38f;
+    public const float RideLargeScale = 1.3f;
+    public const string NoEmote = StatuePoses.Standing;
     public const string AttributesKey = "nf3tstatue";
 
     public string PlayerName = "";
@@ -86,19 +90,25 @@ public class BlockEntityStatue : BlockEntity
         if (!IsConfigured || Api is not ICoreClientAPI capi) return false;
 
         mesh ??= StatueMesh.Build(capi, tessThreadTesselator, Block, Emote, Frame, Appearance,
-            Block.Variant["size"] == "bust", ScaleOf(Block), MeshAngleY);
+            Block.Variant["size"] == "bust", ScaleOf(Block, IsRiding), MeshAngleY);
         if (mesh != null) mesher.AddMeshData(mesh);
 
-        // The pedestal comes from the block's own shape.
-        return false;
+        // A rider brings its own, larger platform. Otherwise the pedestal comes from the block's own shape.
+        return mesh != null && IsRiding;
     }
 
-    private static float ScaleOf(Block block) => block.Variant["size"] switch
+    /// <summary>Whether the statue is showing a riding pose (a bust never rides).</summary>
+    private bool IsRiding => Block.Variant["size"] != "bust" && Appearance.Mount != StatueAppearance.NoMount;
+
+    private static float ScaleOf(Block block, bool riding)
     {
-        "large" => LargeScale,
-        "bust" => BustScale,
-        _ => SmallScale,
-    };
+        return block.Variant["size"] switch
+        {
+            "large" => riding ? RideLargeScale : LargeScale,
+            "bust" => BustScale,
+            _ => riding ? RideSmallScale : SmallScale,
+        };
+    }
 
     public void OpenDialog()
     {
@@ -114,7 +124,7 @@ public class BlockEntityStatue : BlockEntity
     }
 
     public static byte[] EncodeEdit(string playerName, string emote, int frame, bool look, bool clothing, bool armor,
-        StatueAppearance.HandMode rightHand, StatueAppearance.HandMode leftHand, float angleY)
+        StatueAppearance.HandMode rightHand, StatueAppearance.HandMode leftHand, float angleY, string mount, string elkPose, int elkFrame)
     {
         using var stream = new MemoryStream();
         using (var writer = new BinaryWriter(stream))
@@ -128,6 +138,9 @@ public class BlockEntityStatue : BlockEntity
             writer.Write((byte)rightHand);
             writer.Write((byte)leftHand);
             writer.Write(angleY);
+            writer.Write(mount);
+            writer.Write(elkPose);
+            writer.Write(elkFrame);
         }
 
         return stream.ToArray();
@@ -140,10 +153,11 @@ public class BlockEntityStatue : BlockEntity
         if (!sapi.World.Claims.TryAccess(fromPlayer, Pos, EnumBlockAccessFlags.BuildOrBreak)) return;
 
         string playerName, emote;
-        int frame;
+        int frame, elkFrame;
         bool look, clothing, armor;
         StatueAppearance.HandMode rightHand, leftHand;
         float angleY;
+        string mount, elkPose;
         using (var reader = new BinaryReader(new MemoryStream(data)))
         {
             playerName = reader.ReadString().Trim();
@@ -155,21 +169,31 @@ public class BlockEntityStatue : BlockEntity
             rightHand = (StatueAppearance.HandMode)reader.ReadByte();
             leftHand = (StatueAppearance.HandMode)reader.ReadByte();
             angleY = reader.ReadSingle();
+            mount = reader.ReadString();
+            elkPose = reader.ReadString();
+            elkFrame = reader.ReadInt32();
         }
 
         if (float.IsFinite(angleY)) MeshAngleY = angleY;
 
-        if (!System.Array.Exists(EmotesOf(sapi), e => e == emote)) return;
+        var bustBlock = Block.Variant["size"] == "bust";
+        if (!StatuePoses.IsKnown(emote) && !System.Array.Exists(EmotesOf(sapi), e => e == emote)) return;
+        if (!StatuePoses.IsKnownElkPose(elkPose)) return;
+        if (!StatueAppearance.IsValidMount(mount, bustBlock)) return;
 
         var subject = StatueSkin.FindByName(sapi, playerName);
         PlayerName = subject?.PlayerName ?? playerName;
         Emote = emote;
         // Always keep a real frame number, so the statue shows the frame that was saved.
-        Frame = StatueMesh.ResolveFrame(sapi, emote, frame, Block.Variant["size"] == "bust");
+        Frame = StatueMesh.ResolveFrame(sapi, emote, frame, bustBlock);
         var previous = Appearance;
         Appearance = subject == null
             ? new StatueAppearance { ShowLook = look, ShowClothing = clothing, ShowArmor = armor }
             : StatueAppearance.Capture(subject, look, clothing, armor);
+
+        Appearance.Mount = mount;
+        Appearance.ElkPose = elkPose;
+        Appearance.ElkFrame = StatueMesh.ResolveGaitFrame(sapi, elkPose, elkFrame);
 
         // The held items are copies of what the editing player holds: nothing is taken from them.
         var hands = fromPlayer.InventoryManager;

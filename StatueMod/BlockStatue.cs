@@ -22,7 +22,7 @@ public class BlockStatue : Block
             var dx = byPlayer.Entity.Pos.X - (blockSel.Position.X + blockSel.HitPosition.X);
             var dz = byPlayer.Entity.Pos.Z - (blockSel.Position.Z + blockSel.HitPosition.Z);
             var step = GameMath.PIHALF / 4;
-            statue.MeshAngleY = (float)System.Math.Round(System.Math.Atan2(dx, dz) / step) * step;
+            statue.MeshAngleY = (float)System.Math.Round(StatueFacing.Toward(dx, dz) / step) * step;
         }
 
         return true;
@@ -30,7 +30,9 @@ public class BlockStatue : Block
 
     // Lang entries cannot see the rock variant, so the name is built here from the game's own rock names.
     private string DisplayName() =>
-        Lang.Get("nf3tstatue:name-" + Variant["size"], Lang.Get("rock-" + Variant["rock"]));
+        Lang.Get("nf3tstatue:name-" + Variant["size"], Variant["metal"] is { } metal
+            ? Lang.Get("nf3tstatue:metal-" + metal)
+            : Lang.Get("rock-" + Variant["rock"]));
 
     public override string GetHeldItemName(ItemStack itemStack) => DisplayName();
 
@@ -55,7 +57,7 @@ public class BlockStatue : Block
         var frame = tree.GetInt("frame", -1);
         var angle = tree.GetFloat("previewAngle");
         var appearance = StatueAppearance.Read(tree, capi.World);
-        var key = string.Join('|', Code, emote, frame, angle, string.Join(';', appearance.SkinShapes),
+        var key = string.Join('|', Code, emote, frame, angle, appearance.Mount, appearance.ElkPose, string.Join(';', appearance.SkinShapes),
             string.Join(';', appearance.Clothing.Select(s => s.Collectible.Code)),
             string.Join(';', appearance.Armor.Select(s => s.Collectible.Code)),
             appearance.RightHand?.Collectible.Code, appearance.LeftHand?.Collectible.Code);
@@ -68,8 +70,9 @@ public class BlockStatue : Block
             var bust = Variant["size"] == "bust";
             // Inventory icons are one block wide, so a large statue is drawn at the small size.
             var mesh = StatueMesh.Build(capi, capi.Tesselator, this, emote, frame, appearance, bust,
-                Variant["size"] == "bust" ? BlockEntityStatue.BustScale : BlockEntityStatue.SmallScale, angle);
-            if (mesh != null)
+                Variant["size"] == "bust" ? BlockEntityStatue.BustScale
+                    : appearance.Mount != StatueAppearance.NoMount ? BlockEntityStatue.RideSmallScale : BlockEntityStatue.SmallScale, angle);
+            if (mesh != null && appearance.Mount == StatueAppearance.NoMount)
             {
                 capi.Tesselator.TesselateBlock(this, out var pedestal);
                 mesh.AddMeshData(pedestal);
