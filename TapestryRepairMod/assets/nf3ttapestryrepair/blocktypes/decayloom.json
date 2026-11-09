@@ -1,0 +1,154 @@
+{
+	"code": "decayloom",
+	"class": "BlockDecayLoom",
+	"entityClass": "DecayLoom",
+	"variantgroups": [
+		{
+			"code": "side",
+			"loadFromProperties": "abstract/horizontalorientation"
+		}
+	],
+	"behaviors": [
+		{
+			"name": "Multiblock",
+			"properties": {
+				"sizex": 1,
+				"sizey": 2,
+				"sizez": 1,
+				"cposition": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				}
+			}
+		},
+		{
+			"name": "HorizontalOrientable",
+			"properties": {
+				"dropBlockFace": "north"
+			}
+		}
+	],
+	"creativeinventory": {
+		"general": [
+			"*-north"
+		],
+		"decorative": [
+			"*-north"
+		]
+	},
+	"shapebytype": {
+		"*-north": {
+			"base": "nf3ttapestryrepair:block/decayloom",
+			"rotateY": 0
+		},
+		"*-east": {
+			"base": "nf3ttapestryrepair:block/decayloom",
+			"rotateY": 270
+		},
+		"*-south": {
+			"base": "nf3ttapestryrepair:block/decayloom",
+			"rotateY": 180
+		},
+		"*-west": {
+			"base": "nf3ttapestryrepair:block/decayloom",
+			"rotateY": 90
+		}
+	},
+	"attributes": {
+		"handbook": {
+			"groupBy": [
+				"decayloom-*"
+			],
+			"extraSections": [
+				{
+					"title": "nf3ttapestryrepair:handbook-decayloom-title",
+					"text": "nf3ttapestryrepair:handbook-decayloom-text"
+				}
+			]
+		}
+	},
+	"drawtype": "json",
+	"blockmaterial": "Metal",
+	"faceCullMode": "NeverCull",
+	"replaceable": 160,
+	"resistance": 3,
+	"lightAbsorption": 0,
+	"sidesolid": {
+		"all": false
+	},
+	"sideopaque": {
+		"all": false
+	},
+	"sideao": {
+		"all": false
+	},
+	"emitSideAo": {
+		"all": false
+	},
+	"lightHsv": [
+		0,
+		0,
+		0
+	],
+	"selectionbox": {
+		"x1": 0.03,
+		"y1": 0,
+		"z1": 0.03,
+		"x2": 0.97,
+		"y2": 1.5,
+		"z2": 0.97
+	},
+	"collisionbox": {
+		"x1": 0.03,
+		"y1": 0,
+		"z1": 0.03,
+		"x2": 0.97,
+		"y2": 1.5,
+		"z2": 0.97
+	},
+	"sounds": {
+		"place": "game:block/planks",
+		"hit": "game:block/planks",
+		"break": "game:block/planks",
+		"walk": "game:walk/wood"
+	},
+	"heldTpIdleAnimation": "holdbothhandslarge",
+	"heldRightReadyAnimation": "heldblockready",
+	"heldTpUseAnimation": "twohandplaceblock",
+	"materialDensity": 900,
+	"guiTransform": {
+		"rotation": {
+			"x": -22,
+			"y": -45,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.6,
+			"z": 0.5
+		},
+		"scale": 0.85
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.2,
+			"y": -0.5,
+			"z": -0.9
+		},
+		"rotation": {
+			"x": 0,
+			"y": -35,
+			"z": -5
+		},
+		"scale": 0.5
+	},
+	"groundTransform": {
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 2.4
+	}
+}

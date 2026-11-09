@@ -1,0 +1,21 @@
+{
+  "modid": "nf3ttranslocatorrepair",
+  "moddbId": 9184,
+  "urlalias": null,
+  "name": "GildedChronicles - Translocator Repair",
+  "side": "both",
+  "type": "mod",
+  "homepageurl": "",
+  "sourcecodeurl": "https://github.com/jgwoolley/translocator-locator-cmd",
+  "trailervideourl": "https://www.youtube-nocookie.com/watch?v=XJdHktSkpNs",
+  "issuetrackerurl": "",
+  "wikiurl": "",
+  "tags": [
+    "Transportation"
+  ],
+  "logo": "logo.png",
+  "screenshots": [
+    "Main.png",
+    "Screenshot01.jpg"
+  ]
+}

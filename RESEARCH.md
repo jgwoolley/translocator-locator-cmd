@@ -3,7 +3,7 @@
 Findings and suggestions for four open questions. Nothing here has been implemented.
 
 **How to read this.** Sources are the game C# in `/home/ubuntu/workspace/vintage-story-wiki`
-(`vsapi`, `vsessentialsmod`, `vssurvivalmod`) and the shipped assets in `vs_server/assets`.
+(`vsapi`, `vsessentialsmod`, `vssurvivalmod`) and the shipped assets in `vintagestory/assets`.
 `VintagestoryLib.dll` (the mod loader, the server chat pipeline) is closed source and not in the
 wiki checkout. Anything that depends on it is marked **UNVERIFIED**, with a cheap way to check it.
 

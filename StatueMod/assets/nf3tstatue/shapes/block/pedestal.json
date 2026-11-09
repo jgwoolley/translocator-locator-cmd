@@ -1,7 +1,7 @@
 {
   "textureWidth": 16,
   "textureHeight": 16,
-  "textures": { "stone": "block/stone/rock/granite1" },
+  "textures": { "stone": "game:block/stone/rock/granite1" },
   "elements": [
     {
       "name": "Pedestal",

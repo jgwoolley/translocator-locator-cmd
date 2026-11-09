@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
-        <VINTAGE_STORY>$(MSBuildProjectDirectory)/../vs_server</VINTAGE_STORY>
+        <VINTAGE_STORY>$(MSBuildProjectDirectory)/../vintagestory</VINTAGE_STORY>
         <RootNamespace>Nf3t.VintageStory.Statue.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>

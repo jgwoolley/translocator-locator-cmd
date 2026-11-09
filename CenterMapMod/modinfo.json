@@ -6,7 +6,7 @@
     "gildedchronicles"
   ],
   "description": "Centers the map on coordinates with a temporary marker. With the mod on the server too, players can share locations as clickable chat links.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "side": "Universal",
   "requiredOnClient": false,
   "requiredOnServer": false,

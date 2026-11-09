@@ -1,0 +1,90 @@
+{
+	"code": "temporalsewingkit",
+	"class": "ItemTemporalSewingKit",
+	"maxstacksize": 1,
+	"durability": 3,
+	"shape": {
+		"base": "nf3ttapestryrepair:item/temporalsewingkit"
+	},
+	"creativeinventory": {
+		"general": [
+			"*"
+		],
+		"items": [
+			"*"
+		]
+	},
+	"materialDensity": 600,
+	"attributes": {
+		"displaycaseable": true,
+		"shelvable": true,
+		"handbook": {
+			"extraSections": [
+				{
+					"title": "nf3ttapestryrepair:handbook-kit-title",
+					"text": "nf3ttapestryrepair:handbook-kit-text"
+				}
+			]
+		}
+	},
+	"guiTransform": {
+		"rotation": {
+			"x": -168,
+			"y": 86,
+			"z": -31
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 3.26
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.4,
+			"y": -0.9,
+			"z": -0.75
+		},
+		"rotation": {
+			"x": -3,
+			"y": 34,
+			"z": -66
+		},
+		"scale": 0.49
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.25,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 2.19
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.125,
+					"z2": 1
+				}
+			}
+		}
+	]
+}

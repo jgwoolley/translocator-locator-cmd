@@ -1,0 +1,8 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["/moddb/*/page.json"],
+      "url": "./moddb/page.schema.json"
+    }
+  ]
+}

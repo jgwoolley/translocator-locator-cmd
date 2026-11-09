@@ -1,0 +1,17 @@
+[
+	{
+		"ingredientPattern": "AGB,FCF,DPD",
+		"ingredients": {
+			"A": { "type": "item", "code": "game:jonasframes-spring01" },
+			"G": { "type": "item", "code": "game:gear-temporal" },
+			"B": { "type": "item", "code": "game:jonasparts-cylinder01" },
+			"F": { "type": "item", "code": "game:rod-cupronickel" },
+			"C": { "type": "item", "code": "game:jonasframes-gears01" },
+			"D": { "type": "item", "code": "game:metalplate-lead" },
+			"P": { "type": "block", "code": "game:metal-parts" }
+		},
+		"width": 3,
+		"height": 3,
+		"output": { "type": "block", "code": "nf3ttapestryrepair:temporalloom-north", "quantity": 1 }
+	}
+]

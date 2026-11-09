@@ -1,0 +1,6 @@
+<p>Server-side only mod that writes a line to the server log whenever world generation creates a new structure, with its code, group and bounding box:</p>
+<pre>[StructureLog] Generated structure 'code' (group: g) at (x1, y1, z1) to (x2, y2, z2)</pre>
+<p><strong>Filtering</strong> is stored in <code>ModConfig/nf3tstructurelog.json</code>. In <code>Denylist</code> mode (default) everything is logged except matching structures; in <code>Allowlist</code> mode only matching structures are logged. Patterns are case-insensitive wildcards (<code>*</code>) that must match the whole structure code or its group, so use <code>*ruin*</code> rather than <code>ruin</code>.</p>
+<p>Admins (the <code>controlserver</code> privilege) can change the filter in game, and changes apply immediately:</p>
+<ul>
+<li><code>/structurelog list</code>, <code>mode allowlist|denylist</code>, <code>add</code>, <code>remove</code>, <code>set</code>, <code>clear</code></li></ul>

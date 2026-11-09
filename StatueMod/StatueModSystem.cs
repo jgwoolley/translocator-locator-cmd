@@ -8,7 +8,10 @@ public class StatueModSystem : ModSystem
     {
         base.Start(api);
         api.RegisterBlockClass("BlockStatue", typeof(BlockStatue));
+        api.RegisterBlockClass("BlockStatueBlank", typeof(BlockStatueBlank));
+        api.RegisterBlockClass("BlockStatueMold", typeof(BlockStatueMold));
         api.RegisterBlockEntityClass("BlockEntityStatue", typeof(BlockEntityStatue));
+        api.RegisterBlockEntityClass("BlockEntityStatueMold", typeof(BlockEntityStatueMold));
     }
 
     public override void Dispose()

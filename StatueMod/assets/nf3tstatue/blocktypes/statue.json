@@ -3,41 +3,171 @@
   "class": "BlockStatue",
   "entityClass": "BlockEntityStatue",
   "variantgroups": [
-    { "code": "size", "states": [ "small", "large", "bust" ] },
-    { "code": "rock", "states": [ "suevite", "travertine", "whitemarble", "redmarble", "greenmarble" ], "loadFromProperties": "game:block/rock" }
+    {
+      "code": "size",
+      "states": [
+        "small",
+        "large",
+        "bust"
+      ]
+    },
+    {
+      "code": "rock",
+      "states": [
+        "suevite",
+        "travertine",
+        "whitemarble",
+        "redmarble",
+        "greenmarble"
+      ],
+      "loadFromProperties": "game:block/rock"
+    }
   ],
   "attributes": {
-    "handbook": { "groupBy": [ "statue-{size}-*" ] }
+    "handbook": {
+      "groupBy": [
+        "statue-{size}-*"
+      ]
+    }
   },
-  "shape": { "base": "nf3tstatue:block/pedestal" },
   "drawtype": "JSON",
   "blockmaterial": "Stone",
-  "creativeinventory": { "general": [ "*" ], "construction": [ "*" ] },
   "textures": {
-    "stone": { "base": "game:block/stone/rock/{rock}1" }
+    "stone": {
+      "base": "game:block/stone/rock/{rock}1"
+    },
+    "clay": {
+      "base": "game:block/clay/fireclay"
+    }
   },
-  "sidesolid": { "all": false },
-  "sideopaque": { "all": false },
-  "emitsideao": { "all": false },
+  "sidesolid": {
+    "all": false
+  },
+  "sideopaque": {
+    "all": false
+  },
+  "emitsideao": {
+    "all": false
+  },
   "lightAbsorption": 0,
   "replaceable": 200,
   "resistance": 4,
-  "collisionbox": { "x1": 0.125, "y1": 0, "z1": 0.125, "x2": 0.875, "y2": 1, "z2": 0.875 },
-  "selectionbox": { "x1": 0.125, "y1": 0, "z1": 0.125, "x2": 0.875, "y2": 1, "z2": 0.875 },
   "sounds": {
     "place": "game:block/stone",
     "walk": "game:walk/stone",
     "byTool": {
-      "Pickaxe": { "hit": "game:block/rock-hit-pickaxe", "break": "game:block/rock-break-pickaxe" }
+      "Pickaxe": {
+        "hit": "game:block/rock-hit-pickaxe",
+        "break": "game:block/rock-break-pickaxe"
+      }
     }
   },
-  "drops": [ { "type": "block", "code": "statue-{size}-{rock}", "quantity": { "avg": 1 } } ],
+  "drops": [
+    {
+      "type": "block",
+      "code": "statue-{size}-{rock}",
+      "quantity": {
+        "avg": 1
+      }
+    }
+  ],
   "heldTpIdleAnimation": "holdbothhandslarge",
   "heldRightReadyAnimation": "heldblockready",
   "heldTpUseAnimation": "twohandplaceblock",
   "tpHandTransform": {
-    "translation": { "x": -1.23, "y": -0.91, "z": -0.8 },
-    "rotation": { "x": -2, "y": 25, "z": -78 },
+    "translation": {
+      "x": -1.23,
+      "y": -0.91,
+      "z": -0.8
+    },
+    "rotation": {
+      "x": -2,
+      "y": 25,
+      "z": -78
+    },
     "scale": 0.4
+  },
+  "shapeByType": {
+    "statue-large-*": {
+      "base": "nf3tstatue:block/pedestal-large"
+    },
+    "*": {
+      "base": "nf3tstatue:block/pedestal"
+    }
+  },
+  "behaviorsByType": {
+    "statue-large-*": [
+      {
+        "name": "Multiblock",
+        "properties": {
+          "sizex": 3,
+          "sizey": 4,
+          "sizez": 3,
+          "cposition": {
+            "x": 1,
+            "y": 0,
+            "z": 1
+          },
+          "offsetHitboxes": true
+        }
+      }
+    ],
+    "*": []
+  },
+  "faceCullModeByType": {
+    "statue-large-*": "NeverCull",
+    "*": "Default"
+  },
+  "collisionboxesByType": {
+    "statue-large-*": [
+      {
+        "x1": -0.875,
+        "y1": 0,
+        "z1": -0.875,
+        "x2": 1.875,
+        "y2": 0.1875,
+        "z2": 1.875
+      },
+      {
+        "x1": 0.25,
+        "y1": 0,
+        "z1": 0.25,
+        "x2": 0.75,
+        "y2": 3.5,
+        "z2": 0.75
+      }
+    ],
+    "*": [
+      {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+      }
+    ]
+  },
+  "selectionboxesByType": {
+    "statue-large-*": [
+      {
+        "x1": -0.875,
+        "y1": 0,
+        "z1": -0.875,
+        "x2": 1.875,
+        "y2": 3.5,
+        "z2": 1.875
+      }
+    ],
+    "*": [
+      {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+      }
+    ]
   }
 }

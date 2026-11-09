@@ -5,8 +5,8 @@
   "authors": [
     "gildedchronicles"
   ],
-  "description": "Adds the ability to repair a ruined (rotten) tapestry using flax twine.",
-  "version": "1.0.1",
+  "description": "Adds the temporal loom, a gear-powered Jonas device that weaves flax twine into temporal fiber, which is crafted into temporal sewing kits that repair ruined (rotten) tapestries.",
+  "version": "1.1.0",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,

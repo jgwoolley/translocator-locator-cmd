@@ -1,0 +1,25 @@
+{
+  "modid": "nf3ttranslocatorfindercmd",
+  "moddbId": 6661,
+  "urlalias": null,
+  "name": "Nf3t - Translocator Locator (Command)",
+  "side": "client",
+  "type": "mod",
+  "homepageurl": "",
+  "sourcecodeurl": "https://github.com/jgwoolley/translocator-locator-cmd",
+  "trailervideourl": "https://www.youtube-nocookie.com/watch?v=SvAupuPLwZA",
+  "issuetrackerurl": "",
+  "wikiurl": "",
+  "tags": [
+    "Cheat",
+    "Utility"
+  ],
+  "logo": "logo.png",
+  "screenshots": [
+    "Main.jpg",
+    "Screenshot01.jpg",
+    "Screenshot02.jpg",
+    "Screenshot03.jpg",
+    "Screenshot04.jpg"
+  ]
+}

@@ -46,6 +46,7 @@ public class Context
     }
     public SimplePos DefaultSpawnPosition { get; }
     private Dictionary<SimplePos, SimplePos?> Translocators { get; }
+    public IReadOnlyDictionary<SimplePos, SimplePos?> KnownTranslocators => Translocators;
     private TranslocatorPathResult? TranslocatorPathResult { get; set; }
 
     public void Load()
@@ -121,11 +122,13 @@ public class Context
         }
     }
 
+    /// <param name="refresh">Recalculate even when the start and goal match the last path, e.g. to pick up
+    /// translocators recorded since.</param>
     public TranslocatorPathResult CalculatePath(SimplePos startPos,
-        SimplePos goalPos)
+        SimplePos goalPos, bool refresh = false)
     {
         SaveData.LastTranslocatorPathPerSavegame.TryGetValue(ClientApi.World.SavegameIdentifier, out var existing);
-        if (TranslocatorPathResult != null && existing.StartPos == startPos && existing.GoalPos == goalPos)
+        if (!refresh && TranslocatorPathResult != null && existing.StartPos == startPos && existing.GoalPos == goalPos)
             return TranslocatorPathResult;
         var result = new TranslocatorPathResult(Translocators, startPos, goalPos);
         SaveData.LastTranslocatorPathPerSavegame[ClientApi.World.SavegameIdentifier] =

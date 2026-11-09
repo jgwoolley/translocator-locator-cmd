@@ -1,0 +1,372 @@
+{
+  "$schema": "./vs-manifest.schema.json",
+  "mods": [],
+  "screenshots": [
+    {
+      "name": "findercmd-main",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json",
+      "output": "TranslocatorLocatorCmdMod/Screenshots/Main.png",
+      "title": "Translocator Locator",
+      "subtitle": "by Nf3t",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "findercmd-logo",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json",
+      "preset": "moddb-logo-wide",
+      "output": "TranslocatorLocatorCmdMod/Screenshots/Logo.png",
+      "background": "#f5f1e8"
+    },
+    {
+      "name": "findercmd-icon",
+      "preset": "modicon",
+      "output": "TranslocatorLocatorCmdMod/modicon.png",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json"
+    },
+    {
+      "name": "navigator-main",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json",
+      "output": "TranslocatorNavigatorMod/Screenshots/Main.png",
+      "title": "Translocator Navigator",
+      "subtitle": "by Nf3t",
+      "view": "south",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "navigator-logo",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json",
+      "preset": "moddb-logo-wide",
+      "output": "TranslocatorNavigatorMod/Screenshots/Logo.png",
+      "view": "south",
+      "background": "#f5f1e8"
+    },
+    {
+      "name": "navigator-icon",
+      "preset": "modicon",
+      "output": "TranslocatorNavigatorMod/modicon.png",
+      "model": "survival:shapes/block/machine/statictranslocator/normal.json",
+      "view": "south"
+    },
+    {
+      "name": "repair-main",
+      "output": "TranslocatorRepairMod/Screenshots/Main.png",
+      "title": "Translocator Repair",
+      "subtitle": "by Nf3t",
+      "size": 1920,
+      "height": 1080,
+      "scene": [
+        {
+          "model": "survival:shapes/block/machine/statictranslocator/broken.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "player": {
+            "wear": [
+              "armor-head-antique-forlorn-pristine",
+              "armor-body-antique-forlorn-pristine",
+              "armor-legs-antique-forlorn-pristine"
+            ],
+            "hold": "rod-cupronickel",
+            "holdScale": 1.8,
+            "animation": "insertgear",
+            "frame": 30,
+            "hair": "../../../../block/transparent"
+          },
+          "at": [
+            1.5,
+            0,
+            0.6
+          ],
+          "facing": "west"
+        }
+      ],
+      "view": [
+        -1,
+        0.5,
+        1.4
+      ]
+    },
+    {
+      "name": "repair-logo",
+      "preset": "moddb-logo-wide",
+      "output": "TranslocatorRepairMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "scene": [
+        {
+          "model": "survival:shapes/block/machine/statictranslocator/broken.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "player": {
+            "wear": [
+              "armor-head-antique-forlorn-pristine",
+              "armor-body-antique-forlorn-pristine",
+              "armor-legs-antique-forlorn-pristine"
+            ],
+            "hold": "rod-cupronickel",
+            "holdScale": 1.8,
+            "animation": "insertgear",
+            "frame": 30,
+            "hair": "../../../../block/transparent"
+          },
+          "at": [
+            1.5,
+            0,
+            0.6
+          ],
+          "facing": "west"
+        }
+      ],
+      "view": [
+        -1,
+        0.5,
+        1.4
+      ]
+    },
+    {
+      "name": "repair-icon",
+      "preset": "modicon",
+      "output": "TranslocatorRepairMod/modicon.png",
+      "model": "survival:shapes/block/machine/statictranslocator/broken.json"
+    },
+    {
+      "name": "sponge-main",
+      "model": "WaterSpongeMod/assets/nf3tsponge/shapes/item/sponge.json",
+      "output": "WaterSpongeMod/Screenshots/Main.png",
+      "title": "Water Sponge",
+      "subtitle": "by Nf3t",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "sponge-logo",
+      "model": "WaterSpongeMod/assets/nf3tsponge/shapes/item/sponge.json",
+      "preset": "moddb-logo-wide",
+      "output": "WaterSpongeMod/Screenshots/Logo.png",
+      "background": "#f5f1e8"
+    },
+    {
+      "name": "sponge-icon",
+      "model": "WaterSpongeMod/assets/nf3tsponge/shapes/item/sponge.json",
+      "preset": "modicon",
+      "output": "WaterSpongeMod/modicon.png"
+    },
+    {
+      "name": "blockcolor-icon",
+      "preset": "modicon",
+      "output": "BlockColorMod/modicon.png",
+      "schematic": "BlockColorMod/Screenshots/modicon-blocks.json"
+    },
+    {
+      "name": "structurelog-icon",
+      "preset": "modicon",
+      "output": "StructureLogMod/modicon.png",
+      "model": "survival:shapes/block/clutter/lecturn-book-open.json"
+    },
+    {
+      "name": "tapestryrepair-icon",
+      "preset": "modicon",
+      "output": "TapestryRepairMod/modicon.png",
+      "model": "TapestryRepairMod/assets/nf3ttapestryrepair/shapes/block/temporalloom.json"
+    },
+    {
+      "name": "blockcolor-main",
+      "schematic": "BlockColorMod/Screenshots/modicon-blocks.json",
+      "output": "BlockColorMod/Screenshots/Main.png",
+      "title": "Block Colors",
+      "subtitle": "by GildedChronicles",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "statue-main",
+      "output": "StatueMod/Screenshots/Main.png",
+      "title": "Player Statues",
+      "scene": [
+        {
+          "model": "StatueMod/Screenshots/statue-whitemarble-pedestal.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "model": "StatueMod/Screenshots/statue-whitemarble.json",
+          "at": [
+            0.25,
+            0.125,
+            -0.25
+          ],
+          "scale": 0.5,
+          "animation": "cheer",
+          "frame": 20,
+          "rotationY": 90
+        }
+      ],
+      "view": [
+        1,
+        0.4,
+        1.4
+      ],
+      "subtitle": "by GildedChronicles",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "structurelog-main",
+      "schematic": "survival:worldgen/schematics/underground/small/s-shelter7.json",
+      "output": "StructureLogMod/Screenshots/Main.png",
+      "title": "Structure Log",
+      "subtitle": "by GildedChronicles",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "tapestryrepair-main",
+      "output": "TapestryRepairMod/Screenshots/Main.png",
+      "title": "Tapestry Repair",
+      "scene": [
+        {
+          "model": "TapestryRepairMod/assets/nf3ttapestryrepair/shapes/block/temporalloom.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "model": "TapestryRepairMod/assets/nf3ttapestryrepair/shapes/block/decayloom.json",
+          "at": [
+            2,
+            0,
+            0
+          ]
+        }
+      ],
+      "subtitle": "by GildedChronicles",
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "blockcolor-logo",
+      "preset": "moddb-logo-wide",
+      "output": "BlockColorMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "schematic": "BlockColorMod/Screenshots/modicon-blocks.json"
+    },
+    {
+      "name": "structurelog-logo",
+      "preset": "moddb-logo-wide",
+      "output": "StructureLogMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "schematic": "survival:worldgen/schematics/underground/small/s-shelter7.json"
+    },
+    {
+      "name": "tapestryrepair-logo",
+      "preset": "moddb-logo-wide",
+      "output": "TapestryRepairMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "scene": [
+        {
+          "model": "TapestryRepairMod/assets/nf3ttapestryrepair/shapes/block/temporalloom.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "model": "TapestryRepairMod/assets/nf3ttapestryrepair/shapes/block/decayloom.json",
+          "at": [
+            2,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "centermap-icon",
+      "preset": "modicon",
+      "output": "CenterMapMod/modicon.png",
+      "model": "survival:shapes/item/utility/map.json"
+    },
+    {
+      "name": "centermap-main",
+      "output": "CenterMapMod/Screenshots/Main.png",
+      "title": "Center Map",
+      "subtitle": "by GildedChronicles",
+      "scene": [
+        {
+          "player": {
+            "wear": [
+              "armor-head-antique-forlorn-pristine",
+              "armor-body-antique-forlorn-pristine",
+              "armor-legs-antique-forlorn-pristine"
+            ],
+            "hair": "../../../../block/transparent",
+            "hold": "locatormap-treasures",
+            "holdScale": 1.8,
+            "animation": "holdbothhands"
+          },
+          "at": [
+            0,
+            0,
+            0
+          ],
+          "facing": "south"
+        }
+      ],
+      "view": [
+        1,
+        0.4,
+        1.4
+      ],
+      "size": 1920,
+      "height": 1080
+    },
+    {
+      "name": "centermap-logo",
+      "preset": "moddb-logo-wide",
+      "output": "CenterMapMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "scene": [
+        {
+          "player": {
+            "wear": [
+              "armor-head-antique-forlorn-pristine",
+              "armor-body-antique-forlorn-pristine",
+              "armor-legs-antique-forlorn-pristine"
+            ],
+            "hair": "../../../../block/transparent",
+            "hold": "locatormap-treasures",
+            "holdScale": 1.8,
+            "animation": "holdbothhands"
+          },
+          "at": [
+            0,
+            0,
+            0
+          ],
+          "facing": "south"
+        }
+      ],
+      "view": [
+        1,
+        0.4,
+        1.4
+      ]
+    }
+  ]
+}

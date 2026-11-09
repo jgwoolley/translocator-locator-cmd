@@ -1,0 +1,6013 @@
+{
+	"editor": {
+		"collapsedPaths": ",Root/twinespool12,Root/twinespool13,Root/twinespool14,Root/twinespool15,Root/twinespool16,Root/twinespool17,Root/origin2/stick2,Root/origin3/stick3,Root/twinespool9,Root/twinespool8,Root/twinespool7,Root/origin2/stick2/twinespool3/twine3,Root/origin4,Root/twinespool1,Root/origin2/stick2/twinespool3,Root/twinespool6,Root/twinespool5,Root/twinespool4,Root/twinespool10,Root/twinespool3,Root/twinespool11",
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {},
+	"textures": {
+		"linen": "nf3ttapestryrepair:item/decayedfiber",
+		"kapok": "game:block/metal/sheet/blackbronze1"
+	},
+	"elements": [
+		{
+			"name": "twinespool1",
+			"from": [
+				6.5,
+				0.0,
+				4.4
+			],
+			"to": [
+				9.5,
+				3.0,
+				8.4
+			],
+			"rotationOrigin": [
+				8.0,
+				1.5,
+				5.9
+			],
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						3.5,
+						5.5,
+						6.5,
+						8.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						1.5,
+						12.0,
+						5.5,
+						15.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						7.0,
+						3.5,
+						10.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						6.0,
+						4.5,
+						9.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						8.5,
+						8.5,
+						11.5,
+						12.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						12.0,
+						5.0,
+						15.0,
+						9.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								14.5,
+								0.5,
+								15.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								4.5,
+								11.5,
+								5.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								6.5,
+								10.0,
+								7.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								9.0,
+								9.5,
+								10.0,
+								10.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								9.0,
+								1.0,
+								9.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine2",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										9.0,
+										7.5,
+										9.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										5.5,
+										13.0,
+										7.5,
+										13.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										10.0,
+										13.5,
+										10.5,
+										14.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										1.0,
+										4.0,
+										3.0,
+										4.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										13.5,
+										12.0,
+										15.5,
+										12.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine1",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								9.0,
+								3.5,
+								11.0,
+								5.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								6.0,
+								15.5,
+								8.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								11.0,
+								2.0,
+								13.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								8.0,
+								15.5,
+								10.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								7.0,
+								7.5,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								1.0,
+								11.5,
+								9.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								13.5,
+								10.5,
+								14.5,
+								11.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								10.0,
+								13.5,
+								11.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								4.5,
+								3.5,
+								5.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								11.5,
+								12.0,
+								12.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								9.5,
+								0.5,
+								10.5,
+								12.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								6.0,
+								0.0,
+								7.0,
+								12.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool2",
+			"from": [
+				9.7,
+				0.0,
+				4.6
+			],
+			"to": [
+				12.7,
+				3.0,
+				8.6
+			],
+			"rotationOrigin": [
+				11.2,
+				1.5,
+				6.1
+			],
+			"rotationY": 1.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						12.0,
+						11.0,
+						15.0,
+						14.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						2.5,
+						3.0,
+						6.5,
+						6.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						7.5,
+						4.5,
+						10.5,
+						7.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						12.0,
+						13.5,
+						15.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						4.5,
+						3.5,
+						8.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						3.0,
+						10.0,
+						6.0,
+						14.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine3",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								10.0,
+								4.5,
+								10.5,
+								5.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								9.5,
+								7.5,
+								10.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								3.5,
+								4.5,
+								4.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								12.5,
+								14.5,
+								13.5,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								11.5,
+								6.5,
+								12.5,
+								7.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine4",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										11.0,
+										0.5,
+										11.5,
+										1.0
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										3.5,
+										9.0,
+										5.5,
+										9.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										4.0,
+										3.5,
+										4.5,
+										4.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										9.5,
+										3.0,
+										11.5,
+										3.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										7.5,
+										4.0,
+										9.5,
+										4.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine55",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								11.0,
+								14.0,
+								13.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								7.5,
+								9.0,
+								9.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								9.0,
+								8.5,
+								11.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								7.0,
+								3.5,
+								15.0,
+								5.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								0.0,
+								5.5,
+								8.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								4.0,
+								12.5,
+								12.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick2",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								9.5,
+								4.0,
+								10.5,
+								5.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								14.5,
+								12.0,
+								15.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								8.5,
+								12.5,
+								9.5,
+								13.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								0.5,
+								10.0,
+								12.5,
+								11.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								12.5,
+								1.0,
+								13.5,
+								13.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								2.5,
+								2.5,
+								14.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool3",
+			"from": [
+				3.4,
+				0.0,
+				4.1
+			],
+			"to": [
+				6.4,
+				3.0,
+				8.1
+			],
+			"rotationOrigin": [
+				4.9,
+				1.5,
+				5.6
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						6.5,
+						14.5,
+						9.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						12.5,
+						4.5,
+						15.5
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						2.5,
+						5.0,
+						5.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						6.5,
+						1.0,
+						10.5,
+						4.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						1.0,
+						14.5,
+						5.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						11.0,
+						2.0,
+						14.0,
+						6.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine5",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								11.0,
+								3.5,
+								11.5,
+								4.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								12.0,
+								5.0,
+								12.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								7.0,
+								6.5,
+								7.5,
+								7.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								14.5,
+								2.0,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								15.0,
+								5.5,
+								15.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine6",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										13.0,
+										6.0,
+										13.5,
+										6.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										8.5,
+										8.0,
+										10.5,
+										8.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										14.0,
+										15.0,
+										14.5,
+										15.5
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										12.5,
+										8.0,
+										14.5,
+										8.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										8.5,
+										0.5,
+										10.5,
+										1.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twinespool62",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								13.5,
+								2.5,
+								15.5,
+								4.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								8.0,
+								10.0,
+								10.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								4.0,
+								14.0,
+								6.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								11.5,
+								9.5,
+								13.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								2.5,
+								5.5,
+								10.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								0.5,
+								11.5,
+								8.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick3",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								8.0,
+								2.5,
+								9.0,
+								3.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								11.0,
+								15.0,
+								12.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								3.0,
+								1.0,
+								4.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								8.0,
+								13.5,
+								9.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								4.0,
+								3.0,
+								5.0,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								3.0,
+								5.5,
+								15.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool4",
+			"from": [
+				4.9,
+				3.0,
+				4.6
+			],
+			"to": [
+				7.9,
+				6.0,
+				8.6
+			],
+			"rotationOrigin": [
+				6.4,
+				4.5,
+				6.1
+			],
+			"rotationY": 1.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						1.0,
+						14.5,
+						4.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						10.0,
+						9.0,
+						14.0,
+						12.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						7.5,
+						1.5,
+						10.5,
+						4.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						3.0,
+						8.0,
+						7.0,
+						11.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						10.5,
+						7.5,
+						14.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						3.5,
+						11.5,
+						6.5,
+						15.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine7",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								13.5,
+								13.0,
+								14.0,
+								13.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								10.0,
+								1.5,
+								11.0,
+								2.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								11.0,
+								4.5,
+								11.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								14.5,
+								1.0,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								6.5,
+								11.5,
+								7.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine8",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										12.0,
+										1.0,
+										12.5,
+										1.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										10.0,
+										12.0,
+										12.0,
+										12.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										11.5,
+										15.0,
+										12.0,
+										15.5
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										3.5,
+										9.0,
+										5.5,
+										9.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										6.5,
+										7.0,
+										8.5,
+										7.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twinespool83",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								6.0,
+								9.5,
+								8.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								6.0,
+								13.0,
+								8.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								11.5,
+								10.0,
+								13.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								7.0,
+								11.5,
+								9.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								1.5,
+								14.0,
+								9.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								1.0,
+								7.5,
+								9.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick4",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								10.5,
+								13.5,
+								11.5,
+								14.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								5.0,
+								15.0,
+								6.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								7.5,
+								3.0,
+								8.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								8.0,
+								15.0,
+								9.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								13.0,
+								0.5,
+								14.0,
+								12.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								11.0,
+								0.5,
+								12.0,
+								12.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool5",
+			"from": [
+				8.2,
+				3.0,
+				4.6
+			],
+			"to": [
+				11.2,
+				6.0,
+				8.6
+			],
+			"rotationOrigin": [
+				9.7,
+				4.5,
+				6.1
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						1.0,
+						12.0,
+						4.0,
+						15.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						12.0,
+						4.5,
+						15.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						6.0,
+						12.5,
+						9.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						9.0,
+						7.0,
+						13.0,
+						10.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						12.0,
+						5.0,
+						15.0,
+						9.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						2.5,
+						3.5,
+						6.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine9",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								8.5,
+								13.5,
+								9.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								13.5,
+								3.0,
+								14.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								14.5,
+								5.5,
+								15.0,
+								6.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								3.0,
+								7.0,
+								3.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								14.0,
+								3.5,
+								14.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine10",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										14.5,
+										4.0,
+										15.0,
+										4.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										13.5,
+										2.0,
+										15.5,
+										2.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										12.5,
+										7.5,
+										13.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										11.0,
+										3.0,
+										13.0,
+										3.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										10.5,
+										12.5,
+										12.5,
+										13.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine167",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								9.5,
+								6.0,
+								11.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								7.0,
+								8.5,
+								15.0,
+								10.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								2.0,
+								5.0,
+								4.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								8.0,
+								9.0,
+								10.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								4.0,
+								9.5,
+								12.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								7.0,
+								5.0,
+								15.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick5",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								4.5,
+								2.0,
+								5.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								0.5,
+								1.0,
+								12.5,
+								2.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								12.0,
+								5.0,
+								13.0,
+								6.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								10.5,
+								13.5,
+								11.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								1.5,
+								5.5,
+								13.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								14.5,
+								0.0,
+								15.5,
+								12.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool6",
+			"from": [
+				6.4,
+				6.0,
+				4.6
+			],
+			"to": [
+				9.4,
+				9.0,
+				8.6
+			],
+			"rotationOrigin": [
+				7.9,
+				7.5,
+				6.1
+			],
+			"rotationY": 1.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						11.0,
+						6.0,
+						14.0,
+						9.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						0.0,
+						11.0,
+						4.0,
+						14.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						9.0,
+						9.5,
+						12.0,
+						12.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						6.5,
+						15.5,
+						9.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						8.5,
+						7.5,
+						12.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						9.5,
+						5.0,
+						13.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine11",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								11.0,
+								8.5,
+								11.5,
+								9.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								2.5,
+								6.0,
+								3.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								3.0,
+								3.0,
+								3.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								7.0,
+								2.0,
+								7.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								11.0,
+								3.5,
+								12.0,
+								4.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine12",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										10.0,
+										8.0,
+										10.5,
+										8.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										3.0,
+										3.0,
+										5.0,
+										3.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										1.5,
+										4.5,
+										2.0,
+										5.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										11.0,
+										0.5,
+										13.0,
+										1.0
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										13.5,
+										2.0,
+										15.5,
+										2.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine73",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								9.0,
+								6.0,
+								11.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								8.5,
+								10.0,
+								10.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								9.0,
+								12.5,
+								11.0,
+								14.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								8.0,
+								8.0,
+								10.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								3.0,
+								3.0,
+								11.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								2.5,
+								15.0,
+								10.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick6",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								7.5,
+								8.0,
+								8.5,
+								9.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								3.5,
+								2.0,
+								15.5,
+								3.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								14.0,
+								12.5,
+								15.0,
+								13.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								6.5,
+								14.0,
+								7.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								14.0,
+								3.0,
+								15.0,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								5.5,
+								0.0,
+								6.5,
+								12.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool7",
+			"from": [
+				0.1,
+				0.0,
+				4.1
+			],
+			"to": [
+				3.1,
+				3.0,
+				8.1
+			],
+			"rotationOrigin": [
+				1.6,
+				1.5,
+				5.6
+			],
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						4.0,
+						5.5,
+						7.0,
+						8.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						3.0,
+						8.0,
+						7.0,
+						11.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						12.0,
+						3.0,
+						15.0,
+						6.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						6.0,
+						8.0,
+						10.0,
+						11.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						0.0,
+						8.0,
+						3.0,
+						12.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						11.0,
+						8.5,
+						14.0,
+						12.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine13",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								6.0,
+								3.5,
+								6.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								8.0,
+								6.0,
+								8.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								10.5,
+								3.0,
+								11.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								13.5,
+								1.5,
+								14.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								3.0,
+								3.5,
+								3.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine14",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										1.0,
+										11.0,
+										1.5,
+										11.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										7.5,
+										10.5,
+										9.5,
+										11.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										2.5,
+										7.5,
+										3.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										2.0,
+										1.0,
+										4.0,
+										1.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										7.5,
+										0.5,
+										9.5,
+										1.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine54",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								3.5,
+								5.5,
+								5.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								1.0,
+								14.5,
+								3.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								13.0,
+								8.0,
+								15.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								1.0,
+								12.5,
+								3.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								5.5,
+								10.0,
+								13.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								4.5,
+								11.5,
+								12.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick7",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								13.0,
+								5.5,
+								14.0,
+								6.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								10.5,
+								14.5,
+								11.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								1.5,
+								2.5,
+								2.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								3.5,
+								13.0,
+								4.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								9.5,
+								0.5,
+								10.5,
+								12.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								12.5,
+								3.0,
+								13.5,
+								15.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool8",
+			"from": [
+				1.8,
+				3.0,
+				3.9
+			],
+			"to": [
+				4.8,
+				6.0,
+				7.9
+			],
+			"rotationOrigin": [
+				3.3,
+				4.5,
+				5.4
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						2.0,
+						7.5,
+						5.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						8.5,
+						5.5,
+						12.5,
+						8.5
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						10.5,
+						14.5,
+						13.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						4.0,
+						0.0,
+						8.0,
+						3.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						8.5,
+						14.5,
+						12.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						5.5,
+						1.0,
+						8.5,
+						5.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine15",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								14.0,
+								8.0,
+								14.5,
+								8.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								2.0,
+								1.0,
+								2.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								6.0,
+								4.0,
+								6.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								14.5,
+								3.0,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								15.0,
+								14.0,
+								15.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine16",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										2.0,
+										7.5,
+										2.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										0.5,
+										9.0,
+										2.5,
+										9.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										2.5,
+										7.5,
+										3.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										5.0,
+										3.0,
+										7.0,
+										3.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										13.0,
+										9.5,
+										15.0,
+										10.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twines45",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								5.5,
+								12.5,
+								7.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								8.0,
+								12.5,
+								10.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								5.0,
+								8.0,
+								7.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								9.0,
+								11.5,
+								11.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								7.0,
+								1.5,
+								9.0,
+								9.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								5.0,
+								5.5,
+								13.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick8",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								3.5,
+								10.0,
+								4.5,
+								11.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								4.5,
+								14.5,
+								5.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								9.5,
+								4.0,
+								10.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								5.5,
+								12.0,
+								6.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								10.5,
+								2.0,
+								11.5,
+								14.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								6.5,
+								2.5,
+								7.5,
+								14.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool9",
+			"from": [
+				3.3,
+				6.0,
+				4.3
+			],
+			"to": [
+				6.3,
+				9.0,
+				8.3
+			],
+			"rotationOrigin": [
+				4.8,
+				7.5,
+				5.8
+			],
+			"rotationY": 1.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						7.5,
+						5.0,
+						10.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						4.5,
+						15.5,
+						7.5
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						7.0,
+						12.5,
+						10.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						10.0,
+						1.5,
+						14.0,
+						4.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						2.5,
+						7.5,
+						6.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						6.0,
+						11.5,
+						9.0,
+						15.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine17",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								4.5,
+								10.0,
+								5.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								5.0,
+								13.0,
+								5.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								15.0,
+								10.0,
+								15.5,
+								10.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								11.5,
+								2.5,
+								12.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								1.5,
+								7.0,
+								2.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine18",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										1.0,
+										3.0,
+										1.5,
+										3.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										2.5,
+										3.0,
+										4.5,
+										3.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										1.5,
+										10.5,
+										2.0,
+										11.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										9.5,
+										15.0,
+										11.5,
+										15.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										0.0,
+										4.0,
+										2.0,
+										4.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine43",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								2.0,
+								9.5,
+								4.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								13.0,
+								8.5,
+								15.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								8.5,
+								5.0,
+								10.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								2.5,
+								15.5,
+								4.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								3.0,
+								5.0,
+								11.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								6.0,
+								12.5,
+								14.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick9",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								14.0,
+								0.5,
+								15.0,
+								1.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								0.0,
+								14.5,
+								1.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								7.5,
+								9.0,
+								8.5,
+								10.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								3.5,
+								10.0,
+								15.5,
+								11.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								1.0,
+								5.5,
+								13.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								9.5,
+								2.5,
+								10.5,
+								14.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool10",
+			"from": [
+				4.8,
+				9.0,
+				3.9
+			],
+			"to": [
+				7.8,
+				12.0,
+				7.9
+			],
+			"rotationOrigin": [
+				6.3,
+				10.5,
+				5.4
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						2.5,
+						10.0,
+						5.5,
+						13.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						8.5,
+						9.0,
+						12.5,
+						12.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						7.5,
+						12.0,
+						10.5,
+						15.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						9.5,
+						15.5,
+						12.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						2.0,
+						5.0,
+						6.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						1.0,
+						12.5,
+						5.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine19",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								15.0,
+								2.0,
+								15.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								14.0,
+								5.0,
+								15.0,
+								5.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								1.0,
+								12.5,
+								1.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								13.5,
+								0.0,
+								14.5,
+								0.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								15.0,
+								4.5,
+								15.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine20",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										9.0,
+										4.0,
+										9.5,
+										4.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										4.0,
+										2.0,
+										6.0,
+										2.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										0.5,
+										1.5,
+										1.0,
+										2.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										1.0,
+										5.0,
+										3.0,
+										5.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										12.0,
+										7.0,
+										14.0,
+										7.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine37",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								11.5,
+								7.5,
+								13.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								10.5,
+								13.0,
+								12.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								11.5,
+								2.5,
+								13.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								3.0,
+								8.0,
+								5.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								7.5,
+								8.5,
+								15.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								7.5,
+								4.5,
+								15.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick10",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								7.0,
+								11.5,
+								8.0,
+								12.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								3.5,
+								5.5,
+								15.5,
+								6.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								14.0,
+								1.0,
+								15.0,
+								2.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								1.0,
+								13.5,
+								2.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								3.0,
+								2.5,
+								15.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								4.0,
+								2.5,
+								5.0,
+								14.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool11",
+			"from": [
+				13.0,
+				0.0,
+				4.6
+			],
+			"to": [
+				16.0,
+				3.0,
+				8.6
+			],
+			"rotationOrigin": [
+				14.5,
+				1.5,
+				6.1
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						1.0,
+						0.5,
+						4.0,
+						3.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						5.5,
+						13.5,
+						8.5
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						12.0,
+						9.0,
+						15.0,
+						12.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						1.0,
+						0.5,
+						5.0,
+						3.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						7.5,
+						4.0,
+						10.5,
+						8.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						1.0,
+						5.0,
+						4.0,
+						9.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine21",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								0.0,
+								8.5,
+								0.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								8.5,
+								2.5,
+								9.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								13.5,
+								1.5,
+								14.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								11.5,
+								8.0,
+								12.5,
+								8.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								9.0,
+								15.0,
+								10.0,
+								15.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine22",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										14.5,
+										0.5,
+										15.0,
+										1.0
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										9.0,
+										14.5,
+										11.0,
+										15.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										5.5,
+										9.0,
+										6.0,
+										9.5
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										13.0,
+										3.5,
+										15.0,
+										4.0
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										10.5,
+										3.0,
+										12.5,
+										3.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine41",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								3.0,
+								10.0,
+								5.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								2.5,
+								11.5,
+								4.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								2.5,
+								9.5,
+								4.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								3.0,
+								12.5,
+								5.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								3.5,
+								2.5,
+								11.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								8.5,
+								2.5,
+								10.5,
+								10.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick11",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								6.5,
+								2.5,
+								7.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								0.5,
+								13.0,
+								1.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								4.5,
+								5.5,
+								5.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								2.5,
+								12.0,
+								3.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								14.5,
+								2.0,
+								15.5,
+								14.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								11.5,
+								0.5,
+								12.5,
+								12.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool12",
+			"from": [
+				11.4,
+				3.0,
+				5.0
+			],
+			"to": [
+				14.4,
+				6.0,
+				9.0
+			],
+			"rotationOrigin": [
+				12.9,
+				4.5,
+				6.5
+			],
+			"rotationY": 4.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						10.0,
+						4.5,
+						13.0,
+						7.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						8.0,
+						5.0,
+						12.0,
+						8.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						2.5,
+						5.0,
+						5.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						1.5,
+						10.0,
+						5.5,
+						13.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						6.0,
+						7.5,
+						10.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						8.0,
+						7.5,
+						11.0,
+						11.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine23",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								3.0,
+								4.0,
+								3.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								14.0,
+								0.5,
+								15.0,
+								1.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								12.0,
+								6.0,
+								12.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								9.0,
+								12.0,
+								10.0,
+								12.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								5.0,
+								14.0,
+								5.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine24",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										10.5,
+										6.5,
+										11.0,
+										7.0
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										8.0,
+										12.0,
+										10.0,
+										12.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										10.0,
+										15.0,
+										10.5,
+										15.5
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										8.5,
+										10.0,
+										10.5,
+										10.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										6.5,
+										9.5,
+										8.5,
+										10.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twines46",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								12.5,
+								3.5,
+								14.5,
+								5.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								8.5,
+								14.5,
+								10.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								13.0,
+								11.5,
+								15.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								3.0,
+								12.0,
+								5.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								1.5,
+								7.0,
+								9.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								2.5,
+								11.5,
+								10.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick12",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								2.0,
+								5.5,
+								3.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								3.0,
+								14.0,
+								4.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								12.5,
+								11.5,
+								13.5,
+								12.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								11.5,
+								14.0,
+								12.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								8.0,
+								2.5,
+								9.0,
+								14.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								10.5,
+								0.5,
+								11.5,
+								12.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool13",
+			"from": [
+				9.8,
+				6.0,
+				4.4
+			],
+			"to": [
+				12.8,
+				9.0,
+				8.4
+			],
+			"rotationOrigin": [
+				11.3,
+				7.5,
+				5.9
+			],
+			"rotationY": 1.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						10.0,
+						4.0,
+						13.0,
+						7.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						10.0,
+						8.5,
+						13.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						0.5,
+						4.5,
+						3.5,
+						7.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						10.5,
+						13.5,
+						13.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						7.0,
+						2.5,
+						10.0,
+						6.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						9.5,
+						3.5,
+						12.5,
+						7.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine25",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								10.0,
+								2.5,
+								10.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								4.5,
+								2.0,
+								5.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								14.5,
+								0.0,
+								15.0,
+								0.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								0.5,
+								9.0,
+								1.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								3.0,
+								6.5,
+								3.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine26",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										2.5,
+										15.0,
+										3.0,
+										15.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										5.0,
+										6.5,
+										7.0,
+										7.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										13.0,
+										1.5,
+										13.5,
+										2.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										6.5,
+										10.0,
+										8.5,
+										10.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										6.0,
+										6.5,
+										8.0,
+										7.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine47",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								13.5,
+								0.5,
+								15.5,
+								2.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								9.0,
+								12.0,
+								11.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								7.0,
+								14.0,
+								9.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								6.0,
+								12.5,
+								8.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								4.5,
+								5.0,
+								12.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								1.0,
+								15.0,
+								9.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick13",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								12.5,
+								6.5,
+								13.5,
+								7.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								4.5,
+								15.0,
+								5.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								14.5,
+								1.0,
+								15.5,
+								2.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								11.5,
+								13.0,
+								12.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								2.5,
+								3.5,
+								14.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								14.0,
+								1.0,
+								15.0,
+								13.0
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool14",
+			"from": [
+				8.1,
+				9.0,
+				3.7
+			],
+			"to": [
+				11.1,
+				12.0,
+				7.7
+			],
+			"rotationOrigin": [
+				9.6,
+				10.5,
+				5.2
+			],
+			"rotationY": -2.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						6.5,
+						11.0,
+						9.5,
+						14.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						3.5,
+						11.0,
+						7.5,
+						14.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						6.5,
+						12.5,
+						9.5,
+						15.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						1.5,
+						8.0,
+						5.5,
+						11.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						11.0,
+						6.5,
+						14.0,
+						10.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						10.0,
+						11.5,
+						13.0,
+						15.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine27",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								1.0,
+								4.5,
+								1.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								6.5,
+								1.5,
+								7.5,
+								2.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								13.0,
+								8.0,
+								13.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								8.5,
+								1.5,
+								9.5,
+								2.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								12.5,
+								3.5,
+								13.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine28",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										0.5,
+										0.5,
+										1.0,
+										1.0
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										12.5,
+										9.5,
+										14.5,
+										10.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										11.0,
+										6.5,
+										11.5,
+										7.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										1.5,
+										0.0,
+										3.5,
+										0.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										12.0,
+										7.5,
+										14.0,
+										8.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twinespool49",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								7.5,
+								10.0,
+								9.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								0.0,
+								12.0,
+								2.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								3.5,
+								5.0,
+								5.5
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								1.0,
+								12.0,
+								3.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								10.5,
+								3.0,
+								12.5,
+								11.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								1.0,
+								6.0,
+								9.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick14",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								8.0,
+								2.0,
+								9.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								12.0,
+								14.0,
+								13.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								5.0,
+								8.0,
+								6.0,
+								9.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								3.0,
+								13.5,
+								4.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								10.0,
+								3.5,
+								11.0,
+								15.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								8.5,
+								3.5,
+								9.5,
+								15.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool15",
+			"from": [
+				6.6,
+				12.0,
+				3.7
+			],
+			"to": [
+				9.6,
+				15.0,
+				7.7
+			],
+			"rotationOrigin": [
+				8.1,
+				13.5,
+				5.2
+			],
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						6.5,
+						7.5,
+						9.5
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						6.0,
+						3.0,
+						10.0,
+						6.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						3.0,
+						5.0,
+						6.0,
+						8.0
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						7.5,
+						2.5,
+						11.5,
+						5.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						4.5,
+						4.0,
+						7.5,
+						8.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						8.0,
+						3.0,
+						11.0,
+						7.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine29",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								2.5,
+								0.5,
+								3.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								12.0,
+								13.5,
+								13.0,
+								14.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								13.0,
+								6.5,
+								13.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								4.5,
+								9.0,
+								5.5,
+								9.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								7.5,
+								1.5,
+								8.5,
+								2.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine30",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										13.0,
+										15.0,
+										13.5,
+										15.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										6.5,
+										5.5,
+										8.5,
+										6.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										10.5,
+										0.5,
+										11.0,
+										1.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										5.0,
+										8.0,
+										7.0,
+										8.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										4.0,
+										11.5,
+										6.0,
+										12.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twine52",
+					"from": [
+						0.5,
+						0.5,
+						-2.0
+					],
+					"to": [
+						2.5,
+						2.5,
+						6.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-1.0
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								13.0,
+								5.5,
+								15.0,
+								7.5
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								11.0,
+								8.5,
+								13.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								11.5,
+								4.0,
+								13.5,
+								6.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								11.0,
+								9.5,
+								13.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								6.5,
+								3.5,
+								14.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								5.0,
+								7.0,
+								7.0,
+								15.0
+							]
+						}
+					}
+				},
+				{
+					"name": "stick15",
+					"from": [
+						1.0,
+						1.0,
+						-4.0
+					],
+					"to": [
+						2.0,
+						2.0,
+						8.0
+					],
+					"rotationOrigin": [
+						1.5,
+						1.5,
+						-3.5
+					],
+					"rotationZ": 45.0,
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								7.0,
+								4.0,
+								8.0
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								4.0,
+								12.0,
+								5.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								2.5,
+								7.0,
+								3.5,
+								8.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								1.0,
+								5.0,
+								13.0,
+								6.0
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								0.0,
+								1.0,
+								12.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								9.0,
+								0.5,
+								10.0,
+								12.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool16",
+			"from": [
+				8.0,
+				0.0,
+				12.8
+			],
+			"to": [
+				12.0,
+				3.0,
+				15.8
+			],
+			"rotationOrigin": [
+				9.5,
+				1.5,
+				14.3
+			],
+			"rotationY": 10.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						2.0,
+						0.0,
+						6.0,
+						3.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						0.0,
+						6.0,
+						3.0,
+						9.0
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						8.0,
+						4.5,
+						12.0,
+						7.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						3.5,
+						5.5,
+						6.5,
+						8.5
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						6.0,
+						5.0,
+						10.0,
+						8.0
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						6.5,
+						1.0,
+						10.5,
+						4.0
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine31",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								11.5,
+								14.5,
+								12.0,
+								15.0
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								0.5,
+								2.5,
+								1.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								11.0,
+								7.5,
+								11.5,
+								8.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								9.5,
+								15.0,
+								10.5,
+								15.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								2.5,
+								5.0,
+								3.0
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine32",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										9.0,
+										13.0,
+										9.5,
+										13.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										1.5,
+										6.5,
+										3.5,
+										7.0
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										4.0,
+										4.5,
+										4.5,
+										5.0
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										12.0,
+										2.0,
+										14.0,
+										2.5
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										3.0,
+										4.0,
+										5.0,
+										4.5
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twinespool58",
+					"from": [
+						-2.0,
+						0.5,
+						0.5
+					],
+					"to": [
+						6.0,
+						2.5,
+						2.5
+					],
+					"rotationOrigin": [
+						-1.0,
+						1.5,
+						1.5
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								3.0,
+								1.0,
+								11.0,
+								3.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								10.0,
+								10.5,
+								12.0,
+								12.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								13.0,
+								13.5,
+								15.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								4.5,
+								8.0,
+								6.5
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								3.5,
+								11.0,
+								11.5,
+								13.0
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								6.0,
+								5.5,
+								14.0,
+								7.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick16",
+					"from": [
+						-4.0,
+						1.0,
+						1.0
+					],
+					"to": [
+						8.0,
+						2.0,
+						2.0
+					],
+					"rotationOrigin": [
+						-3.5,
+						1.5,
+						1.5
+					],
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								2.0,
+								11.5,
+								14.0,
+								12.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								5.0,
+								11.5,
+								6.0,
+								12.5
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								0.5,
+								12.0,
+								1.5
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								4.5,
+								14.5,
+								5.5,
+								15.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								0.5,
+								4.0,
+								12.5,
+								5.0
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								2.5,
+								13.5,
+								3.5
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "twinespool17",
+			"from": [
+				4.0,
+				1.9,
+				12.0
+			],
+			"to": [
+				8.0,
+				4.9,
+				15.0
+			],
+			"rotationOrigin": [
+				5.5,
+				3.4,
+				13.5
+			],
+			"rotationY": -10.0,
+			"rotationZ": 33.0,
+			"faces": {
+				"north": {
+					"texture": "#linen",
+					"uv": [
+						1.5,
+						4.0,
+						5.5,
+						7.0
+					]
+				},
+				"east": {
+					"texture": "#linen",
+					"uv": [
+						6.5,
+						8.5,
+						9.5,
+						11.5
+					]
+				},
+				"south": {
+					"texture": "#linen",
+					"uv": [
+						3.5,
+						5.5,
+						7.5,
+						8.5
+					]
+				},
+				"west": {
+					"texture": "#linen",
+					"uv": [
+						5.5,
+						2.0,
+						8.5,
+						5.0
+					]
+				},
+				"up": {
+					"texture": "#linen",
+					"uv": [
+						11.5,
+						8.5,
+						15.5,
+						11.5
+					]
+				},
+				"down": {
+					"texture": "#linen",
+					"uv": [
+						9.0,
+						8.5,
+						13.0,
+						11.5
+					]
+				}
+			},
+			"children": [
+				{
+					"name": "twine33",
+					"from": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"to": [
+						1.5,
+						0.6,
+						1.0
+					],
+					"rotationOrigin": [
+						0.5,
+						0.1,
+						0.5
+					],
+					"faces": {
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								2.0,
+								12.0,
+								2.5,
+								12.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								1.5,
+								3.5,
+								2.5,
+								4.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								0.5,
+								8.5,
+								1.0,
+								9.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								1.0,
+								13.0,
+								2.0,
+								13.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								2.5,
+								5.0,
+								3.5,
+								5.5
+							]
+						}
+					},
+					"children": [
+						{
+							"name": "twine34",
+							"from": [
+								0.0,
+								0.0,
+								0.0
+							],
+							"to": [
+								2.0,
+								0.5,
+								0.5
+							],
+							"faces": {
+								"east": {
+									"texture": "#linen",
+									"uv": [
+										7.0,
+										10.0,
+										7.5,
+										10.5
+									]
+								},
+								"south": {
+									"texture": "#linen",
+									"uv": [
+										13.5,
+										14.0,
+										15.5,
+										14.5
+									]
+								},
+								"west": {
+									"texture": "#linen",
+									"uv": [
+										11.5,
+										14.0,
+										12.0,
+										14.5
+									]
+								},
+								"up": {
+									"texture": "#linen",
+									"uv": [
+										6.0,
+										6.5,
+										8.0,
+										7.0
+									]
+								},
+								"down": {
+									"texture": "#linen",
+									"uv": [
+										6.5,
+										0.5,
+										8.5,
+										1.0
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "twinespool60",
+					"from": [
+						-2.0,
+						0.5,
+						0.5
+					],
+					"to": [
+						6.0,
+						2.5,
+						2.5
+					],
+					"rotationOrigin": [
+						-1.0,
+						1.5,
+						1.5
+					],
+					"faces": {
+						"north": {
+							"texture": "#linen",
+							"uv": [
+								5.5,
+								9.0,
+								13.5,
+								11.0
+							]
+						},
+						"east": {
+							"texture": "#linen",
+							"uv": [
+								8.0,
+								0.5,
+								10.0,
+								2.5
+							]
+						},
+						"south": {
+							"texture": "#linen",
+							"uv": [
+								7.0,
+								7.0,
+								15.0,
+								9.0
+							]
+						},
+						"west": {
+							"texture": "#linen",
+							"uv": [
+								0.0,
+								8.0,
+								2.0,
+								10.0
+							]
+						},
+						"up": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								8.5,
+								12.0,
+								10.5
+							]
+						},
+						"down": {
+							"texture": "#linen",
+							"uv": [
+								4.0,
+								3.5,
+								12.0,
+								5.5
+							]
+						}
+					}
+				},
+				{
+					"name": "stick17",
+					"from": [
+						-4.0,
+						1.0,
+						1.0
+					],
+					"to": [
+						8.0,
+						2.0,
+						2.0
+					],
+					"rotationOrigin": [
+						-3.5,
+						1.5,
+						1.5
+					],
+					"faces": {
+						"north": {
+							"texture": "#kapok",
+							"uv": [
+								1.5,
+								0.5,
+								13.5,
+								1.5
+							]
+						},
+						"east": {
+							"texture": "#kapok",
+							"uv": [
+								12.0,
+								11.0,
+								13.0,
+								12.0
+							]
+						},
+						"south": {
+							"texture": "#kapok",
+							"uv": [
+								0.0,
+								13.0,
+								12.0,
+								14.0
+							]
+						},
+						"west": {
+							"texture": "#kapok",
+							"uv": [
+								4.0,
+								1.5,
+								5.0,
+								2.5
+							]
+						},
+						"up": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								2.5,
+								15.0,
+								3.5
+							]
+						},
+						"down": {
+							"texture": "#kapok",
+							"uv": [
+								3.0,
+								9.5,
+								15.0,
+								10.5
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

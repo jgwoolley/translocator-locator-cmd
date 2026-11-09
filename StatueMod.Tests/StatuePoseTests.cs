@@ -9,7 +9,7 @@ namespace Nf3t.VintageStory.Statue.Tests;
 public class StatuePoseTests
 {
     private static string SeraphPath =>
-        Path.Combine(AppContext.BaseDirectory, "../../../../vs_server/assets/game/shapes/entity/humanoid/seraph-faceless.json");
+        Path.Combine(AppContext.BaseDirectory, "../../../../vintagestory/assets/game/shapes/entity/humanoid/seraph-faceless.json");
 
     private static Shape LoadSeraph()
     {
@@ -179,7 +179,7 @@ public class StatuePoseTests
     }
 
     private static string ElkPath =>
-        Path.Combine(AppContext.BaseDirectory, "../../../../vs_server/assets/survival/shapes/entity/animal/mammal/hooved/deer/elk/female.json");
+        Path.Combine(AppContext.BaseDirectory, "../../../../vintagestory/assets/survival/shapes/entity/animal/mammal/hooved/deer/elk/female.json");
 
     private static Shape LoadElk()
     {

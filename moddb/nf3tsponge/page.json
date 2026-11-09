@@ -1,0 +1,22 @@
+{
+  "modid": "nf3tsponge",
+  "moddbId": 8193,
+  "urlalias": null,
+  "name": "Nf3t - Water Sponge",
+  "side": "both",
+  "type": "mod",
+  "homepageurl": "",
+  "sourcecodeurl": "https://github.com/jgwoolley/translocator-locator-cmd",
+  "trailervideourl": "",
+  "issuetrackerurl": "",
+  "wikiurl": "",
+  "tags": [
+    "Building",
+    "QoL",
+    "Tools"
+  ],
+  "logo": "logo.png",
+  "screenshots": [
+    "Main.png"
+  ]
+}

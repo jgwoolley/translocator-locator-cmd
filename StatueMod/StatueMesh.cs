@@ -112,10 +112,12 @@ public static class StatueMesh
             : Math.Clamp(frame, 0, Math.Max(0, GaitFrameCount(api, elkPose) - 1));
 
     public static MeshData? Build(ICoreClientAPI capi, ITesselatorAPI tesselator, Block block, string emote, int frame,
-        StatueAppearance appearance, bool bust, float scale, float angleY)
+        StatueAppearance appearance, bool bust, float scale, float angleY, bool icon = false)
     {
         var seraph = Seraph(capi);
         if (seraph == null) return null;
+
+        if (StatueTypes.SpecialOf(appearance.Type) is { } special) return BuildSpecial(capi, tesselator, block, special, appearance, angleY, icon);
 
         var shape = LightClone(seraph);
         var mount = bust ? StatueAppearance.NoMount : appearance.Mount;
@@ -179,10 +181,10 @@ public static class StatueMesh
         var center = new Vec3f(0.5f, 0, 0.5f);
         if (bust || mount != StatueAppearance.NoMount) CenterOnPedestal(mesh);
         mesh.Scale(center, scale, scale, scale);
-        mesh.Translate(0, PedestalHeight, 0);
+        if (!appearance.NoPedestal) mesh.Translate(0, PedestalHeight, 0);
 
         // A mount is much wider than the block's own pedestal, so it stands on a slab sized to its feet.
-        if (mount != StatueAppearance.NoMount)
+        if (mount != StatueAppearance.NoMount && !appearance.NoPedestal)
         {
             var platform = PlatformUnder(capi, tesselator, block, mesh);
             if (platform != null) mesh.AddMeshData(platform);
@@ -192,6 +194,96 @@ public static class StatueMesh
 
         mesh.Rotate(center, 0, angleY, 0);
         return mesh;
+    }
+
+    /// <summary>
+    /// A special statue (the robot): its fixed shape, without the pedestal slab it has of its own, scaled to fill the block
+    /// and standing on the block's pedestal (or the ground), carved from the same stone. An icon is always drawn at the
+    /// small size, since it is one block wide.
+    /// </summary>
+    private static MeshData? BuildSpecial(ICoreClientAPI capi, ITesselatorAPI tesselator, Block block, StatueTypes.Special special,
+        StatueAppearance appearance, float angleY, bool icon)
+    {
+        if (Cached(capi, special.ShapePath) is not { } data) return null;
+
+        var shape = LightClone(data);
+        shape.Elements = shape.Elements.Where(e => e.Name != StatueTypes.PedestalElement).ToArray();
+        StatuePose.UseSingleTile(shape);
+        tesselator.TesselateShape(new TesselationMetaData
+        {
+            TypeForLogging = "statue-special",
+            TexSource = new StoneTextureSource(capi, block),
+        }, shape, out var mesh);
+
+        // The slab was 2 pixels thick, so the feet are 2 pixels up.
+        mesh.Translate(0, -PedestalHeight, 0);
+        var center = new Vec3f(0.5f, 0, 0.5f);
+        var scale = StatueTypes.ScaleFor(special, icon ? "small" : block.Variant["size"]);
+        mesh.Scale(center, scale, scale, scale);
+        if (!appearance.NoPedestal) mesh.Translate(0, PedestalHeight, 0);
+
+        if (StatueMaterial.IsShiny(block.Variant["metal"])) MakeReflective(mesh);
+
+        // The shape's front is south (+Z), and a statue facing west at angle 0 is turned a quarter back from that.
+        mesh.Rotate(center, 0, angleY - GameMath.PIHALF, 0);
+        return mesh;
+    }
+
+    /// <summary>
+    /// Fire clay packed around the statue for a mold: a block of clay around the figure that rises as clay is added
+    /// (<paramref name="fraction"/> of the way up the figure) until the statue is buried.
+    /// </summary>
+    public static MeshData? ClayFill(ICoreClientAPI capi, ITesselatorAPI tesselator, Block block, MeshData statue, float fraction)
+    {
+        if (statue.VerticesCount == 0) return null;
+
+        float minX = float.MaxValue, minY = float.MaxValue, minZ = float.MaxValue, maxX = float.MinValue, maxY = float.MinValue, maxZ = float.MinValue;
+        for (var i = 0; i < statue.VerticesCount; i++)
+        {
+            minX = Math.Min(minX, statue.xyz[i * 3]);
+            maxX = Math.Max(maxX, statue.xyz[i * 3]);
+            minY = Math.Min(minY, statue.xyz[i * 3 + 1]);
+            maxY = Math.Max(maxY, statue.xyz[i * 3 + 1]);
+            minZ = Math.Min(minZ, statue.xyz[i * 3 + 2]);
+            maxZ = Math.Max(maxZ, statue.xyz[i * 3 + 2]);
+        }
+
+        return ClayBox(capi, tesselator, block, minX, minY, minZ, maxX, maxY, maxZ, fraction);
+    }
+
+    /// <summary>The clay block of <see cref="ClayFill"/> around a box (in block fractions), filled up to <paramref name="fraction"/>.</summary>
+    public static MeshData? ClayBox(ICoreClientAPI capi, ITesselatorAPI tesselator, Block block, float minX, float minY, float minZ,
+        float maxX, float maxY, float maxZ, float fraction)
+    {
+        const float margin = 1.5f / 16;
+        var top = minY + (maxY - minY + margin) * Math.Clamp(fraction, 0, 1);
+        var face = new { texture = "#clay", uv = new[] { 0, 0, 16, 16 } };
+        var json = JsonConvert.SerializeObject(new
+        {
+            textureWidth = 16,
+            textureHeight = 16,
+            textures = new Dictionary<string, string> { ["clay"] = "block/clay/fireclay" },
+            elements = new[]
+            {
+                new
+                {
+                    name = "Clay",
+                    from = new[] { (minX - margin) * 16, minY * 16, (minZ - margin) * 16 },
+                    to = new[] { (maxX + margin) * 16, Math.Max(top, minY + 1 / 16f) * 16, (maxZ + margin) * 16 },
+                    faces = new { north = face, east = face, south = face, west = face, up = face, down = face },
+                },
+            },
+        });
+
+        var shape = JsonConvert.DeserializeObject<Shape>(json)!;
+        shape.ResolveReferences(capi.Logger, "nf3tstatue-clay");
+        StatuePose.UseSingleTile(shape);
+        tesselator.TesselateShape(new TesselationMetaData
+        {
+            TypeForLogging = "statue-clay",
+            TexSource = new ClayTextureSource(capi, block),
+        }, shape, out var clay);
+        return clay;
     }
 
     /// <summary>Flags every vertex as reflective, which is what makes the game's metal blocks shine.</summary>
@@ -245,15 +337,20 @@ public static class StatueMesh
         if (elk == null) return rider;
 
         var shape = LightClone(elk);
+        var antlers = mount == StatueAppearance.ElkBull ? appearance.Antlers : 0;
         if (mount == StatueAppearance.ElkBull)
         {
-            // Which antlers a bull has depends on the statue, so different statues are not all alike.
-            var antlers = 1 + StableHash(string.Join(';', appearance.SkinShapes)) % 8;
             AddElkPart(capi, shape, "malefringe");
-            AddElkPart(capi, shape, $"antlers0{antlers}");
+            if (antlers > 0) AddElkPart(capi, shape, $"antlers0{antlers}");
         }
 
-        PoseElk(elk, shape, mount == StatueAppearance.ElkBull, elkPose, gaitFrame);
+        for (var i = 0; i < StatueTack.PieceCount; i++)
+        {
+            var type = appearance.Tack[i];
+            if (type != StatueTack.None) AddElkPart(capi, shape, StatueTack.ShapePath((StatueTack.Piece)i, type), "tack" + i + "-");
+        }
+
+        PoseElk(elk, shape, antlers > 0, elkPose, gaitFrame);
         StatuePose.UseSingleTile(shape);
         tesselator.TesselateShape(new TesselationMetaData
         {
@@ -289,9 +386,13 @@ public static class StatueMesh
         StatuePose.Apply(shape, StatuePose.PoseAt(animation, at));
     }
 
-    private static void AddElkPart(ICoreClientAPI capi, Shape elk, string name)
+    private static void AddElkPart(ICoreClientAPI capi, Shape elk, string name) =>
+        AddElkPart(capi, elk, ElkBullPartsPath + name + ".json", "elkpart-");
+
+    /// <summary>Steps a shape (antlers, tack) onto the elk, so it follows the elk's bones when the elk is posed.</summary>
+    private static void AddElkPart(ICoreClientAPI capi, Shape elk, string path, string prefix)
     {
-        var location = new AssetLocation(ElkBullPartsPath + name + ".json");
+        var location = new AssetLocation(path);
         var part = Shape.TryGet(capi, location);
         if (part == null)
         {
@@ -299,12 +400,9 @@ public static class StatueMesh
             return;
         }
 
-        part.SubclassForStepParenting("elkpart-");
+        part.SubclassForStepParenting(prefix);
         elk.StepParentShape(part, location.ToShortString(), ElkShape, capi.Logger, (_, _) => { });
     }
-
-    /// <summary>string.GetHashCode differs between runs; this does not.</summary>
-    private static int StableHash(string text) => text.Aggregate(17, (hash, c) => unchecked(hash * 31 + c)) & int.MaxValue;
 
     /// <summary>
     /// Puts an item in a hand, in stone. Its own shape is meshed, then moved to the hand the way the game holds it in
@@ -414,5 +512,15 @@ public static class StatueMesh
         public Size2i AtlasSize => capi.BlockTextureAtlas.Size;
 
         public TextureAtlasPosition this[string textureCode] => blockSource["stone"]!;
+    }
+
+    /// <summary>Gives every texture code the fire clay texture, which the statue's block type lists as "clay".</summary>
+    private class ClayTextureSource(ICoreClientAPI capi, Block block) : ITexPositionSource
+    {
+        private readonly ITexPositionSource blockSource = capi.Tesselator.GetTextureSource(block);
+
+        public Size2i AtlasSize => capi.BlockTextureAtlas.Size;
+
+        public TextureAtlasPosition this[string textureCode] => blockSource["clay"]!;
     }
 }

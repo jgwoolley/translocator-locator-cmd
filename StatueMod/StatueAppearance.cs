@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Common;
@@ -38,31 +39,59 @@ public class StatueAppearance
     public static bool IsValidMount(string mount, bool bust) =>
         mount is NoMount || (!bust && mount is ElkCow or ElkBull);
 
+    /// <summary>The bull's antlers: 0 for none, then 1 (smallest) to <see cref="MaxAntlers"/> (biggest), as in the elk models.</summary>
+    public const int MaxAntlers = 8;
+
+    public const int DefaultAntlers = 4;
+
+    public int Antlers = DefaultAntlers;
+
+    /// <summary>Whether the statue stands without the stone pedestal (or, with an elk, the platform) under it.</summary>
+    public bool NoPedestal;
+
+    /// <summary>What the statue shows: <see cref="StatueTypes.Player"/>, or a special statue such as the robot.</summary>
+    public string Type = StatueTypes.Player;
+
+    /// <summary>The size of the antlers an elk wears, from the code of its antler item (<c>antler-elk-05</c> is 5), or 0.</summary>
+    public static int AntlersFromItemCode(string? path) =>
+        path != null && path.StartsWith("antler-") && int.TryParse(path[(path.LastIndexOf('-') + 1)..], out var size)
+        && size is >= 1 and <= MaxAntlers ? size : 0;
+
+    /// <summary>The tack on the mount, indexed by <see cref="StatueTack.Piece"/>.</summary>
+    public string[] Tack = StatueTack.Empty();
+
     public ItemStack? RightHand;
     public ItemStack? LeftHand;
 
-    /// <summary>What a hand does when the statue is saved. The item is only copied, never taken from the player.</summary>
-    public enum HandMode
+    /// <summary>Which hotbar slot a hand takes its item from. <see cref="HandEmpty"/> leaves the hand empty.</summary>
+    public const int HandEmpty = -1;
+
+    /// <summary>The hand takes the item of the statue that was copied (see <c>EditRequest.CopySlot</c>).</summary>
+    public const int HandFromCopy = -2;
+
+    /// <summary>A copy of one item from a hotbar slot: nothing is taken from the player.</summary>
+    public static ItemStack? PickHotbar(IPlayer player, int slot)
     {
-        Keep = 0,
-        CopyHeld = 1,
-        Empty = 2,
+        var hotbar = player.InventoryManager?.GetHotbarInventory();
+        if (hotbar == null || slot < 0 || slot >= hotbar.Count) return null;
+
+        var held = hotbar[slot]?.Itemstack?.Clone();
+        if (held != null) held.StackSize = 1;
+        return held;
     }
 
-    public static ItemStack? PickHand(HandMode mode, ItemStack? current, ItemSlot? heldSlot)
+    /// <summary>The same look, with only the layers that are asked for.</summary>
+    public StatueAppearance WithLayers(bool look, bool clothing, bool armor) => new()
     {
-        switch (mode)
-        {
-            case HandMode.CopyHeld:
-                var held = heldSlot?.Itemstack?.Clone();
-                if (held != null) held.StackSize = 1;
-                return held;
-            case HandMode.Empty:
-                return null;
-            default:
-                return current;
-        }
-    }
+        ShowLook = look,
+        ShowClothing = clothing,
+        ShowArmor = armor,
+        SkinShapes = look ? SkinShapes : [],
+        Clothing = clothing ? Clothing : [],
+        Armor = armor ? Armor : [],
+        NoPedestal = NoPedestal,
+        Type = Type,
+    };
 
     /// <summary>Copies the requested layers from a player who is online.</summary>
     public static StatueAppearance Capture(IPlayer player, bool look, bool clothing, bool armor)
@@ -101,6 +130,10 @@ public class StatueAppearance
         tree.SetString("mount", Mount);
         tree.SetString("elkPose", ElkPose);
         tree.SetInt("elkFrame", ElkFrame);
+        tree.SetString("tack", string.Join(';', Tack));
+        tree.SetInt("antlers", Antlers);
+        tree.SetBool("noPedestal", NoPedestal);
+        tree.SetString("statueType", Type);
         tree.SetString("skinShapes", string.Join(';', SkinShapes));
         WriteStacks(tree, "clothing", Clothing);
         WriteStacks(tree, "armor", Armor);
@@ -118,12 +151,29 @@ public class StatueAppearance
             Mount = tree.GetString("mount", NoMount),
             ElkPose = tree.GetString("elkPose", StatuePoses.ElkStand),
             ElkFrame = tree.GetInt("elkFrame", -1),
+            Tack = ReadTack(tree.GetString("tack", "")),
+            NoPedestal = tree.GetBool("noPedestal", false),
+            Type = StatueTypes.IsKnown(tree.GetString("statueType", StatueTypes.Player)) ? tree.GetString("statueType", StatueTypes.Player) : StatueTypes.Player,
+            Antlers = Math.Clamp(tree.GetInt("antlers", DefaultAntlers), 0, MaxAntlers),
             SkinShapes = skin == "" ? [] : skin.Split(';'),
             Clothing = ReadStacks(tree, "clothing", world),
             Armor = ReadStacks(tree, "armor", world),
             RightHand = ReadHand(tree, "hands0", world),
             LeftHand = ReadHand(tree, "hands1", world),
         };
+    }
+
+    /// <summary>Unknown names are dropped, so a damaged or modified save cannot ask for a shape that does not exist.</summary>
+    private static string[] ReadTack(string text)
+    {
+        var parts = text.Split(';');
+        var tack = StatueTack.Empty();
+        for (var i = 0; i < StatueTack.PieceCount && i < parts.Length; i++)
+        {
+            if (StatueTack.IsValid((StatueTack.Piece)i, parts[i])) tack[i] = parts[i];
+        }
+
+        return tack;
     }
 
     private static void WriteStacks(ITreeAttribute tree, string key, ItemStack?[] stacks)

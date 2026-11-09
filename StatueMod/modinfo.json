@@ -1,12 +1,12 @@
 {
   "type": "code",
   "modid": "nf3tstatue",
-  "name": "GildedChronicles - Statues",
+  "name": "GildedChronicles - Player Statues",
   "authors": [
     "gildedchronicles"
   ],
   "description": "Craft a stone statue, then pick a player and an emote: the statue is rendered as that player, frozen in the emote's pose.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "side": "Universal",
   "requiredOnClient": true,
   "requiredOnServer": true,

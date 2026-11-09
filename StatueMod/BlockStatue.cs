@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
@@ -28,11 +29,11 @@ public class BlockStatue : Block
         return true;
     }
 
+    /// <summary>The lang key of the statue's name; the material is filled in by <see cref="StatueMaterial.NameOf"/>.</summary>
+    protected virtual string NameKey => "nf3tstatue:name-" + Variant["size"];
+
     // Lang entries cannot see the rock variant, so the name is built here from the game's own rock names.
-    private string DisplayName() =>
-        Lang.Get("nf3tstatue:name-" + Variant["size"], Variant["metal"] is { } metal
-            ? Lang.Get("nf3tstatue:metal-" + metal)
-            : Lang.Get("rock-" + Variant["rock"]));
+    private string DisplayName() => StatueMaterial.NameOf(this, NameKey);
 
     public override string GetHeldItemName(ItemStack itemStack) => DisplayName();
 
@@ -52,12 +53,13 @@ public class BlockStatue : Block
         if (itemstack.Attributes[BlockEntityStatue.AttributesKey] is not ITreeAttribute tree) return;
 
         var emote = tree.GetString("emote", "");
-        if (emote == "") return;
+        var type = tree.GetString("statueType", StatueTypes.Player);
+        if (emote == "" && type == StatueTypes.Player) return;
 
         var frame = tree.GetInt("frame", -1);
         var angle = tree.GetFloat("previewAngle");
         var appearance = StatueAppearance.Read(tree, capi.World);
-        var key = string.Join('|', Code, emote, frame, angle, appearance.Mount, appearance.ElkPose, string.Join(';', appearance.SkinShapes),
+        var key = string.Join('|', Code, type, emote, frame, angle, appearance.Mount, appearance.ElkPose, string.Join(';', appearance.Tack), appearance.Antlers, appearance.NoPedestal, string.Join(';', appearance.SkinShapes),
             string.Join(';', appearance.Clothing.Select(s => s.Collectible.Code)),
             string.Join(';', appearance.Armor.Select(s => s.Collectible.Code)),
             appearance.RightHand?.Collectible.Code, appearance.LeftHand?.Collectible.Code);
@@ -68,14 +70,25 @@ public class BlockStatue : Block
             if (meshRefs.Count >= MaxMeshRefs) DisposeMeshRefs(capi);
 
             var bust = Variant["size"] == "bust";
-            // Inventory icons are one block wide, so a large statue is drawn at the small size.
+            var mounted = appearance.Mount != StatueAppearance.NoMount;
+            // Inventory icons (and the dialog preview) are one block wide. A large statue standing on its own wide
+            // plinth is built as it stands in the world and then shrunk as a whole, so figure and plinth keep their
+            // proportions; drawing the figure at the small size on the full-size 3x3 plinth made the plinth dwarf it.
+            var shrinkLarge = Variant["size"] == "large" && !mounted && !appearance.NoPedestal;
             var mesh = StatueMesh.Build(capi, capi.Tesselator, this, emote, frame, appearance, bust,
-                Variant["size"] == "bust" ? BlockEntityStatue.BustScale
-                    : appearance.Mount != StatueAppearance.NoMount ? BlockEntityStatue.RideSmallScale : BlockEntityStatue.SmallScale, angle);
-            if (mesh != null && appearance.Mount == StatueAppearance.NoMount)
+                bust ? BlockEntityStatue.BustScale
+                    : shrinkLarge ? BlockEntityStatue.LargeScale
+                    : mounted ? BlockEntityStatue.RideSmallScale : BlockEntityStatue.SmallScale, angle, icon: !shrinkLarge);
+            if (mesh != null && !mounted && !appearance.NoPedestal)
             {
                 capi.Tesselator.TesselateBlock(this, out var pedestal);
                 mesh.AddMeshData(pedestal);
+            }
+
+            if (mesh != null && shrinkLarge)
+            {
+                const float k = BlockEntityStatue.SmallScale / BlockEntityStatue.LargeScale;
+                mesh.Scale(new Vec3f(0.5f, 0, 0.5f), k, k, k);
             }
 
             meshRef = meshRefs[key] = mesh == null ? null : capi.Render.UploadMultiTextureMesh(mesh);
@@ -99,14 +112,35 @@ public class BlockStatue : Block
         meshRefs.Clear();
     }
 
+    /// <summary>
+    /// A finished stone statue is also the bed of a mold: pack fire clay around it, one piece at a time, and when it is
+    /// full take the mold from it. Anything else is left to the game.
+    /// </summary>
     public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
     {
-        if (world.Side != EnumAppSide.Client) return true;
-        if (!world.Claims.TryAccess(byPlayer, blockSel.Position, EnumBlockAccessFlags.BuildOrBreak))
-            return base.OnBlockInteractStart(world, byPlayer, blockSel);
+        if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityStatue { IsConfigured: true } statue
+            && statue.OnMoldInteract(byPlayer))
+            return true;
 
-        (world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityStatue)?.OpenDialog();
-        return true;
+        return base.OnBlockInteractStart(world, byPlayer, blockSel);
+    }
+
+    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection,
+        IPlayer forPlayer)
+    {
+        if (Variant["rock"] == null || world.BlockAccessor.GetBlockEntity(selection.Position) is not BlockEntityStatue { IsConfigured: true } statue)
+            return base.GetPlacedBlockInteractionHelp(world, selection, forPlayer);
+
+        var full = statue.ClayLevel >= StatueMolding.ClayNeeded(Variant["size"]);
+        return
+        [
+            new WorldInteraction
+            {
+                ActionLangCode = full ? "nf3tstatue:help-take-mold" : "nf3tstatue:help-clay",
+                MouseButton = EnumMouseButton.Right,
+                Itemstacks = full ? null : [new ItemStack(world.GetItem(new AssetLocation("game:clay-fire")), 1)],
+            },
+        ];
     }
 
     public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer,
@@ -122,18 +156,5 @@ public class BlockStatue : Block
         var stack = new ItemStack(this);
         (world.BlockAccessor.GetBlockEntity(pos) as BlockEntityStatue)?.WriteToStack(stack);
         return stack;
-    }
-
-    public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection,
-        IPlayer forPlayer)
-    {
-        return
-        [
-            new WorldInteraction
-            {
-                ActionLangCode = "nf3tstatue:help-edit",
-                MouseButton = EnumMouseButton.Right,
-            },
-        ];
     }
 }

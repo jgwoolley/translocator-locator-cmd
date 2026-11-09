@@ -1,0 +1,22 @@
+[
+	{
+		"ingredientPattern": "F,S",
+		"ingredients": {
+			"F": {
+				"type": "item",
+				"code": "nf3ttapestryrepair:decayedfiber"
+			},
+			"S": {
+				"type": "item",
+				"code": "game:stick"
+			}
+		},
+		"width": 1,
+		"height": 2,
+		"output": {
+			"type": "item",
+			"code": "nf3ttapestryrepair:temporaldecaykit",
+			"quantity": 1
+		}
+	}
+]

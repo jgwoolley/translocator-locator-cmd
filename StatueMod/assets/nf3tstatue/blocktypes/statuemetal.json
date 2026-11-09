@@ -1,0 +1,212 @@
+{
+  "code": "statuemetal",
+  "class": "BlockStatue",
+  "entityClass": "BlockEntityStatue",
+  "variantgroups": [
+    {
+      "code": "size",
+      "states": [
+        "small",
+        "large",
+        "bust"
+      ]
+    },
+    {
+      "code": "metal",
+      "states": [
+        "bismuth",
+        "bismuthbronze",
+        "blackbronze",
+        "brass",
+        "copper",
+        "cupronickel",
+        "electrum",
+        "gold",
+        "iron",
+        "lead",
+        "meteoriciron",
+        "molybdochalkos",
+        "silver",
+        "steel",
+        "tinbronze"
+      ]
+    }
+  ],
+  "attributes": {
+    "handbook": {
+      "groupBy": [
+        "statuemetal-{size}-*"
+      ]
+    }
+  },
+  "drawtype": "JSON",
+  "blockmaterial": "Metal",
+  "vertexFlagsByType": {
+    "statuemetal-*-iron": {
+      "reflective": false
+    },
+    "statuemetal-*-lead": {
+      "reflective": false
+    },
+    "statuemetal-*": {
+      "reflective": true
+    }
+  },
+  "sidesolid": {
+    "all": false
+  },
+  "sideopaque": {
+    "all": false
+  },
+  "emitsideao": {
+    "all": false
+  },
+  "lightAbsorption": 0,
+  "replaceable": 200,
+  "resistance": 4,
+  "sounds": {
+    "place": "game:block/chute",
+    "walk": "game:walk/stone",
+    "byTool": {
+      "Pickaxe": {
+        "hit": "game:block/rock-hit-pickaxe",
+        "break": "game:block/rock-break-pickaxe"
+      }
+    }
+  },
+  "drops": [
+    {
+      "type": "block",
+      "code": "statuemetal-{size}-{metal}",
+      "quantity": {
+        "avg": 1
+      }
+    }
+  ],
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready",
+  "heldTpUseAnimation": "twohandplaceblock",
+  "tpHandTransform": {
+    "translation": {
+      "x": -1.23,
+      "y": -0.91,
+      "z": -0.8
+    },
+    "rotation": {
+      "x": -2,
+      "y": 25,
+      "z": -78
+    },
+    "scale": 0.4
+  },
+  "texturesByType": {
+    "statuemetal-*-gold": {
+      "stone": {
+        "base": "game:block/metal/plate/gold"
+      }
+    },
+    "statuemetal-*-bismuth": {
+      "stone": {
+        "base": "game:block/metal/sheet-plain/bismuth3"
+      }
+    },
+    "statuemetal-*-brass": {
+      "stone": {
+        "base": "game:block/metal/sheet-plain/brass3"
+      }
+    },
+    "statuemetal-*-molybdochalkos": {
+      "stone": {
+        "base": "game:block/metal/sheet-plain/molybdochalkos3"
+      }
+    },
+    "statuemetal-*": {
+      "stone": {
+        "base": "game:block/metal/sheet-plain/{metal}1"
+      }
+    }
+  },
+  "shapeByType": {
+    "statuemetal-large-*": {
+      "base": "nf3tstatue:block/pedestal-large"
+    },
+    "*": {
+      "base": "nf3tstatue:block/pedestal"
+    }
+  },
+  "behaviorsByType": {
+    "statuemetal-large-*": [
+      {
+        "name": "Multiblock",
+        "properties": {
+          "sizex": 3,
+          "sizey": 4,
+          "sizez": 3,
+          "cposition": {
+            "x": 1,
+            "y": 0,
+            "z": 1
+          },
+          "offsetHitboxes": true
+        }
+      }
+    ],
+    "*": []
+  },
+  "faceCullModeByType": {
+    "statuemetal-large-*": "NeverCull",
+    "*": "Default"
+  },
+  "collisionboxesByType": {
+    "statuemetal-large-*": [
+      {
+        "x1": -0.875,
+        "y1": 0,
+        "z1": -0.875,
+        "x2": 1.875,
+        "y2": 0.1875,
+        "z2": 1.875
+      },
+      {
+        "x1": 0.25,
+        "y1": 0,
+        "z1": 0.25,
+        "x2": 0.75,
+        "y2": 3.5,
+        "z2": 0.75
+      }
+    ],
+    "*": [
+      {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+      }
+    ]
+  },
+  "selectionboxesByType": {
+    "statuemetal-large-*": [
+      {
+        "x1": -0.875,
+        "y1": 0,
+        "z1": -0.875,
+        "x2": 1.875,
+        "y2": 3.5,
+        "z2": 1.875
+      }
+    ],
+    "*": [
+      {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+      }
+    ]
+  }
+}

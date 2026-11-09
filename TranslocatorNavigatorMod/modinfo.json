@@ -6,7 +6,7 @@
     "gildedchronicles"
   ],
   "description": "A client side mod that calculates the shortest path between your current position and a target, factoring in translocator jumps as \"shortcuts.\"",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "side": "Client",
   "requiredOnServer": false,
   "dependencies": {

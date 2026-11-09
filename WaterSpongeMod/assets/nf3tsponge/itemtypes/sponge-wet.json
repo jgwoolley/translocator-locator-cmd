@@ -14,11 +14,14 @@
     "spongeState": "wet"
   },
   "shape": {
-    "base": "game:item/resource/cloth"
+    "base": "item/sponge"
   },
   "textures": {
     "color": {
       "base": "game:block/cloth/linen/blue"
+    },
+    "pad": {
+      "base": "game:block/cloth/linen/black"
     }
   },
   "guiTransform": {
@@ -29,8 +32,8 @@
     },
     "origin": {
       "x": 0.5,
-      "y": 0.1,
-      "z": 0.58
+      "y": 0.09,
+      "z": 0.5
     },
     "scale": 2.5
   },

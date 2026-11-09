@@ -1,0 +1,59 @@
+<p>A client side mod that calculates the shortest path between your current position and a target, factoring in translocator jumps as "shortcuts."</p>
+<p>The mod does this by waiting until you are directly looking at a translocator. Then it adds that translocator, and any connected translocator to the list.</p>
+<h3>Navigator window</h3>
+<p>Press <strong>Ctrl+T</strong> (rebindable under Controls as "Translocator Navigator") or type <code>.tlnav</code> to open the navigator window.</p>
+<ul>
+<li>Enter a <strong>Start</strong> and a <strong>Destination</strong> in the coordinates the game shows, or press <strong>Here</strong> to use your current position.</li>
+<li><strong>Find route</strong> lists the route step by step (walk to a translocator, teleport, walk on) and shows how far the translocators save you. <strong>Copy</strong> puts a step's coordinates on the clipboard.</li>
+<li><strong>Start guidance</strong> shows the current step at the top of the screen, with the distance and direction from where you are, and an arrow beside it that points the way relative to where you look. It moves on by itself as you travel and through translocators, and tells you when you have arrived.</li>
+</ul>
+<h3>Commands</h3>
+<p>Description of the commands this mod adds.</p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+<td style="width: 50%;"><strong>Command</strong></td>
+<td style="width: 50%;"><strong>Description</strong></td>
+</tr>
+<tr>
+<td style="width: 50%;">.tlnav</td>
+<td style="width: 50%;">Opens the navigator window. <code>.tlnav stop</code> stops the on-screen guidance.</td>
+</tr>
+<tr>
+<td style="width: 50%;">.pathtl</td>
+<td style="width: 50%;">Find shortest path to coordinates using known translocators, by specifying an optional target location, and start location. Or will fall back to previous target location, and current player position.</td>
+</tr>
+<tr>
+<td style="width: 50%;">.pathtlhist</td>
+<td style="width: 50%;">Find shortest path to coordinates using known translocators with the previously given start and target location. Fails if none found.</td>
+</tr>
+<tr>
+<td style="width: 50%;">.counttl</td>
+<td style="width: 50%;">Counts the translocators seen by this mod within this world, as well as any others. Translocators are stored on the client system to prevent duplication.</td>
+</tr>
+</tbody>
+</table>
+<h3>Files</h3>
+<p>These files are used to store information that the mod needs to work. Please see the wiki page for <a href="https://wiki.vintagestory.at/VintagestoryData_folder" target="_blank" rel="noopener">VintagestoryData folder</a>.</p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+<td style="width: 50%;"><strong>File</strong></td>
+<td style="width: 50%;"><strong>Description</strong></td>
+</tr>
+<tr>
+<td style="width: 50%;">${DATA_PATH}/ModConfig/Nf3tConfig.json</td>
+<td style="width: 50%;">Stores common settings for all Nf3t mods.</td>
+</tr>
+<tr>
+<td style="width: 50%;">${DATA_PATH}/ModData/Nf3tData.json</td>
+<td style="width: 50%;">Stores common data used for all Nf3t mods.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Plans</h3>
+<ul>
+<li>Add support for <a href="https://mods.vintagestory.at/configlib" target="_blank" rel="noopener">configlib</a>.</li>
+<li>Refactor code to use VintageStory primitives for Block positions rather than my own custom stuff.</li>
+</ul>

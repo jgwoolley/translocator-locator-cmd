@@ -1,0 +1,354 @@
+{
+ "textureWidth": 16,
+ "textureHeight": 16,
+ "textures": {
+  "clay": "block/clay/hardened/fire"
+ },
+ "elements": [
+  {
+   "name": "Floor",
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    16,
+    1,
+    16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      1
+     ]
+    },
+    "east": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      1
+     ]
+    },
+    "south": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      1
+     ]
+    },
+    "west": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      1
+     ]
+    },
+    "up": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "name": "West",
+   "from": [
+    0,
+    1,
+    0
+   ],
+   "to": [
+    5,
+    16,
+    16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "east": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      15
+     ]
+    },
+    "south": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "west": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      15
+     ]
+    },
+    "up": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "name": "East",
+   "from": [
+    11,
+    1,
+    0
+   ],
+   "to": [
+    16,
+    16,
+    16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "east": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      15
+     ]
+    },
+    "south": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "west": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      16,
+      15
+     ]
+    },
+    "up": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      16
+     ]
+    },
+    "down": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      16
+     ]
+    }
+   }
+  },
+  {
+   "name": "North",
+   "from": [
+    5,
+    1,
+    0
+   ],
+   "to": [
+    11,
+    16,
+    5
+   ],
+   "faces": {
+    "north": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      15
+     ]
+    },
+    "east": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "south": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      15
+     ]
+    },
+    "west": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "up": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      5
+     ]
+    },
+    "down": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      5
+     ]
+    }
+   }
+  },
+  {
+   "name": "South",
+   "from": [
+    5,
+    1,
+    11
+   ],
+   "to": [
+    11,
+    16,
+    16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      15
+     ]
+    },
+    "east": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "south": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      15
+     ]
+    },
+    "west": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      5,
+      15
+     ]
+    },
+    "up": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      5
+     ]
+    },
+    "down": {
+     "texture": "#clay",
+     "uv": [
+      0,
+      0,
+      6,
+      5
+     ]
+    }
+   }
+  }
+ ]
+}

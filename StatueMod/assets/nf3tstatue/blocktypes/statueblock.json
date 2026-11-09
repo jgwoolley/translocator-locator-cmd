@@ -1,0 +1,159 @@
+{
+  "code": "statueblock",
+  "class": "BlockStatueBlank",
+  "entityClass": "BlockEntityStatue",
+  "variantgroups": [
+    {
+      "code": "size",
+      "states": [
+        "small",
+        "large",
+        "bust"
+      ]
+    },
+    {
+      "code": "rock",
+      "states": [
+        "suevite",
+        "travertine",
+        "whitemarble",
+        "redmarble",
+        "greenmarble"
+      ],
+      "loadFromProperties": "game:block/rock"
+    }
+  ],
+  "attributes": {
+    "canChisel": false,
+    "handbook": {
+      "groupBy": [
+        "statueblock-{size}-*"
+      ]
+    }
+  },
+  "blockmaterial": "Stone",
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "construction": [
+      "*"
+    ]
+  },
+  "textures": {
+    "all": {
+      "base": "game:block/stone/rock/{rock}1"
+    },
+    "stone": {
+      "base": "game:block/stone/rock/{rock}1"
+    }
+  },
+  "replaceable": 200,
+  "resistance": 4,
+  "sounds": {
+    "place": "game:block/stone",
+    "walk": "game:walk/stone",
+    "byTool": {
+      "Pickaxe": {
+        "hit": "game:block/rock-hit-pickaxe",
+        "break": "game:block/rock-break-pickaxe"
+      }
+    }
+  },
+  "drops": [
+    {
+      "type": "block",
+      "code": "statueblock-{size}-{rock}",
+      "quantity": {
+        "avg": 1
+      }
+    }
+  ],
+  "drawtypeByType": {
+    "statueblock-large-*": "JSON",
+    "*": "Cube"
+  },
+  "shapeByType": {
+    "statueblock-large-*": {
+      "base": "nf3tstatue:block/blank-large"
+    },
+    "*": {
+      "base": "game:block/basic/cube"
+    }
+  },
+  "faceCullModeByType": {
+    "statueblock-large-*": "NeverCull",
+    "*": "Default"
+  },
+  "sidesolidByType": {
+    "statueblock-large-*": {
+      "all": false
+    },
+    "*": {
+      "all": true
+    }
+  },
+  "sideopaqueByType": {
+    "statueblock-large-*": {
+      "all": false
+    },
+    "*": {
+      "all": true
+    }
+  },
+  "collisionboxByType": {
+    "statueblock-large-*": {
+      "x1": -1,
+      "y1": 0,
+      "z1": -1,
+      "x2": 2,
+      "y2": 3.5,
+      "z2": 2
+    },
+    "*": {
+      "x1": 0,
+      "y1": 0,
+      "z1": 0,
+      "x2": 1,
+      "y2": 1,
+      "z2": 1
+    }
+  },
+  "selectionboxByType": {
+    "statueblock-large-*": {
+      "x1": -1,
+      "y1": 0,
+      "z1": -1,
+      "x2": 2,
+      "y2": 3.5,
+      "z2": 2
+    },
+    "*": {
+      "x1": 0,
+      "y1": 0,
+      "z1": 0,
+      "x2": 1,
+      "y2": 1,
+      "z2": 1
+    }
+  },
+  "behaviorsByType": {
+    "statueblock-large-*": [
+      {
+        "name": "Multiblock",
+        "properties": {
+          "sizex": 3,
+          "sizey": 4,
+          "sizez": 3,
+          "cposition": {
+            "x": 1,
+            "y": 0,
+            "z": 1
+          },
+          "offsetHitboxes": true
+        }
+      }
+    ],
+    "*": []
+  }
+}

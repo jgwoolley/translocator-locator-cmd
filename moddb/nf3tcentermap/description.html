@@ -1,0 +1,6 @@
+<p>Adds commands to center the map on a coordinate and mark it with a temporary marker that disappears when the map is closed, plus shareable chat links for locations.</p>
+<ul>
+<li><code>.panmap &lt;x&gt; &lt;y&gt; &lt;z&gt; [name]</code> centers the map if it is already open and marks the spot. If the map is closed it gives you a link to open it at that location.</li>
+<li><code>.panmapshare [x y z] [name]</code> shares a location (your own position if you give no coordinates) with everyone on the server as a clickable chat link.</li></ul>
+<p>Coordinates are relative to the world spawn, like the map and the coordinate arguments of commands. The height is the real height.</p>
+<p>Works client-only. If the mod is also on the server, every player who has it gets the shared-location links; players without the mod see nothing. Sharing is limited to once every two seconds per player.</p>

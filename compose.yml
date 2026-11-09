@@ -1,0 +1,58 @@
+# ModDB tooling for the mods in this repo, behind the shared devbox Traefik (devbox_network); no host ports.
+#
+#   mods-site   http://mods.nf3t.localhost            the static mod pages, published as is (nginx)
+#   moddb       http://moddb-updater.nf3t.localhost   `vsdev moddb serve`: the interactive review page, writes moddb/.progress.json
+#
+#   vsdev moddb export                        # builds .vsdev/site for mods-site (build the zips in Releases/ first: ./build.sh)
+#   docker compose up -d                      # docker compose down to stop; `up -d mods-site` for one of them
+#
+# The hostnames are placeholders: neither page is deployed on nf3t.com yet. Change them with MODS_SITE_HOST / MODDB_HOST.
+# HOST_WORKSPACE is the workspace path on the Docker host, set in devbox terminals: the host's daemon resolves bind
+# mounts, not the container. Run from a terminal on the host itself, the fallback (..) is the same directory.
+
+services:
+  mods-site:
+    image: nginx:alpine
+    container_name: nf3t-mods-site
+    read_only: true
+    tmpfs: [/tmp, /run, /var/cache/nginx]
+    volumes:
+      - type: bind
+        source: ${HOST_WORKSPACE:-..}/translocator-locator-cmd/.vsdev/site
+        target: /usr/share/nginx/html
+        read_only: true
+        bind:
+          create_host_path: false
+    networks: [proxy]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${NETWORK_NAME:-devbox_network}
+      - traefik.http.routers.nf3t-mods-site.rule=Host(`${MODS_SITE_HOST:-mods.nf3t.localhost}`)
+      - traefik.http.routers.nf3t-mods-site.entrypoints=web
+      - traefik.http.services.nf3t-mods-site.loadbalancer.server.port=80
+    restart: unless-stopped
+
+  # Not a plain file server: vsdev (installed in the devbox image, hence that image and `pull_policy: never`) serves the
+  # review page and writes the checklist progress into moddb/, so the repo is mounted read-write. docker/moddb-proxy.mjs
+  # starts it and lets Traefik reach it (see the comment there).
+  moddb:
+    image: claude-vscode-ubuntu
+    pull_policy: never
+    container_name: nf3t-moddb
+    working_dir: /work
+    command: ["node", "/work/docker/moddb-proxy.mjs"]
+    volumes:
+      - ${HOST_WORKSPACE:-..}/translocator-locator-cmd:/work
+    networks: [proxy]
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${NETWORK_NAME:-devbox_network}
+      - traefik.http.routers.nf3t-moddb.rule=Host(`${MODDB_HOST:-moddb-updater.nf3t.localhost}`)
+      - traefik.http.routers.nf3t-moddb.entrypoints=web
+      - traefik.http.services.nf3t-moddb.loadbalancer.server.port=8080
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+    name: ${NETWORK_NAME:-devbox_network}

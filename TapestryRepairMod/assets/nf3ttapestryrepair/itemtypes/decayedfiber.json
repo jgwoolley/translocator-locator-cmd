@@ -1,0 +1,113 @@
+{
+	"code": "decayedfiber",
+	"maxstacksize": 64,
+	"shape": {
+		"base": "nf3ttapestryrepair:item/decayedfiber"
+	},
+	"creativeinventory": {
+		"general": [
+			"*"
+		],
+		"items": [
+			"*"
+		]
+	},
+	"materialDensity": 200,
+	"attributes": {
+		"handbook": {
+			"extraSections": [
+				{
+					"title": "nf3ttapestryrepair:handbook-decayedfiber-title",
+					"text": "nf3ttapestryrepair:handbook-decayedfiber-text"
+				}
+			]
+		},
+		"displaycaseable": true,
+		"shelvable": true
+	},
+	"guiTransform": {
+		"rotation": {
+			"x": 1,
+			"y": 43,
+			"z": -37
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 2.41
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 10,
+			"y": -50,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 2
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1,
+			"y": -1,
+			"z": -1.3
+		},
+		"rotation": {
+			"x": -93,
+			"y": -3,
+			"z": -5
+		},
+		"scale": 0.51
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.3,
+			"y": 0,
+			"z": 0.5299
+		},
+		"scale": 4
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Stacking",
+				"placeRemoveSound": "sounds/block/plant",
+				"stackingModel": "nf3ttapestryrepair:item/decayedfiber-pile",
+				"modelItemsToStackSizeRatio": 5,
+				"stackingCapacity": 17,
+				"transferQuantity": 1,
+				"bulkTransferQuantity": 6,
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.16,
+					"z2": 1
+				},
+				"cbScaleYByLayer": 0.2
+			}
+		}
+	]
+}

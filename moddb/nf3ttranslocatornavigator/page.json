@@ -1,0 +1,21 @@
+{
+  "modid": "nf3ttranslocatornavigator",
+  "moddbId": 6784,
+  "urlalias": null,
+  "name": "Nf3t - Translocator Navigator",
+  "side": "client",
+  "type": "mod",
+  "homepageurl": "",
+  "sourcecodeurl": "https://github.com/jgwoolley/translocator-locator-cmd",
+  "trailervideourl": "",
+  "issuetrackerurl": "",
+  "wikiurl": "",
+  "tags": [
+    "Utility"
+  ],
+  "logo": "logo.png",
+  "screenshots": [
+    "Main.jpg",
+    "Screenshot01.jpg"
+  ]
+}

@@ -674,6 +674,11 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,visualstudio,visualstudiocode,rider
 
-vs_server
+vintagestory
 ModDB
 .idea
+# vsdev moddb serve checklist progress
+moddb/.progress.json
+
+.vsdev/
+commit.sh

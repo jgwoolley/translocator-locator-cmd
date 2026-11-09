@@ -12,7 +12,7 @@
     "height": 2,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-small-{rock}"
+      "code": "nf3tstatue:statueblock-small-{rock}"
     }
   },
   {
@@ -33,7 +33,7 @@
     "height": 2,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-small-{rock}"
+      "code": "nf3tstatue:statueblock-small-{rock}"
     }
   },
   {
@@ -49,7 +49,7 @@
     "height": 3,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-large-{rock}"
+      "code": "nf3tstatue:statueblock-large-{rock}"
     }
   },
   {
@@ -70,7 +70,7 @@
     "height": 3,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-large-{rock}"
+      "code": "nf3tstatue:statueblock-large-{rock}"
     }
   },
   {
@@ -86,7 +86,7 @@
     "height": 1,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-bust-{rock}"
+      "code": "nf3tstatue:statueblock-bust-{rock}"
     }
   },
   {
@@ -107,7 +107,7 @@
     "height": 1,
     "output": {
       "type": "block",
-      "code": "nf3tstatue:statue-bust-{rock}"
+      "code": "nf3tstatue:statueblock-bust-{rock}"
     }
   }
 ]

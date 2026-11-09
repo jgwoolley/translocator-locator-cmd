@@ -1,0 +1,2334 @@
+{
+ "textureWidth": 16,
+ "textureHeight": 16,
+ "textures": {
+  "stone": "game:block/stone/rock/granite1"
+ },
+ "elements": [
+  {
+   "name": "Pedestal",
+   "from": [
+    1.7,
+    0,
+    2.9
+   ],
+   "to": [
+    14.3,
+    2.0,
+    13.1
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      12.6,
+      2.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      12.6,
+      2.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      10.2,
+      2.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      10.2,
+      2.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      12.6,
+      10.2
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      12.6,
+      10.2
+     ]
+    }
+   }
+  },
+  {
+   "name": "FootR",
+   "from": [
+    4.4,
+    2.0,
+    5.6
+   ],
+   "to": [
+    7.6,
+    3.6,
+    10.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.2,
+      1.6
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.2,
+      1.6
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      5.2
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      5.2
+     ]
+    }
+   }
+  },
+  {
+   "name": "LowerLegR",
+   "from": [
+    5.2,
+    3.6,
+    7.2
+   ],
+   "to": [
+    6.8,
+    7.6,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "KneeR",
+   "from": [
+    4.8,
+    7.2,
+    6.8
+   ],
+   "to": [
+    7.2,
+    9.6,
+    9.2
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "UpperLegR",
+   "from": [
+    5.2,
+    9.2,
+    7.2
+   ],
+   "to": [
+    6.8,
+    12.4,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "FootL",
+   "from": [
+    8.4,
+    2.0,
+    5.6
+   ],
+   "to": [
+    11.6,
+    3.6,
+    10.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.2,
+      1.6
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.2,
+      1.6
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      5.2
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      5.2
+     ]
+    }
+   }
+  },
+  {
+   "name": "LowerLegL",
+   "from": [
+    9.2,
+    3.6,
+    7.2
+   ],
+   "to": [
+    10.8,
+    7.6,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "KneeL",
+   "from": [
+    8.8,
+    7.2,
+    6.8
+   ],
+   "to": [
+    11.2,
+    9.6,
+    9.2
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      2.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "UpperLegL",
+   "from": [
+    9.2,
+    9.2,
+    7.2
+   ],
+   "to": [
+    10.8,
+    12.4,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      3.2
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "Belt",
+   "from": [
+    3.6,
+    11.6,
+    5.2
+   ],
+   "to": [
+    12.4,
+    14.0,
+    10.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      5.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      5.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plug",
+   "from": [
+    6.4,
+    12.0,
+    10.8
+   ],
+   "to": [
+    9.6,
+    13.6,
+    11.52
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.6
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.72,
+      1.6
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.72,
+      1.6
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      0.72
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      0.72
+     ]
+    }
+   }
+  },
+  {
+   "name": "BodyLow",
+   "from": [
+    3.2,
+    14.0,
+    4.8
+   ],
+   "to": [
+    12.8,
+    17.2,
+    11.2
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      9.6,
+      3.2
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      9.6,
+      3.2
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      3.2
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      3.2
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      9.6,
+      6.4
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      9.6,
+      6.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "YellowBand",
+   "from": [
+    4.8,
+    14.8,
+    11.2
+   ],
+   "to": [
+    11.2,
+    16.56,
+    11.76
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      1.76
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      1.76
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.56,
+      1.76
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.56,
+      1.76
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      0.56
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      6.4,
+      0.56
+     ]
+    }
+   }
+  },
+  {
+   "name": "BodyMid",
+   "from": [
+    3.6,
+    17.2,
+    5.2
+   ],
+   "to": [
+    12.4,
+    21.2,
+    10.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      4.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      4.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      4.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      4.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      5.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      8.8,
+      5.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChestDial",
+   "from": [
+    6.0,
+    18.0,
+    10.8
+   ],
+   "to": [
+    10.0,
+    20.8,
+    11.68
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      2.8
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      2.8
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.88,
+      2.8
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.88,
+      2.8
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      0.88
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      0.88
+     ]
+    }
+   }
+  },
+  {
+   "name": "BodyHigh",
+   "from": [
+    5.2,
+    21.2,
+    6.0
+   ],
+   "to": [
+    10.8,
+    23.6,
+    10.0
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      4.0,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      4.0
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      4.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shoulders",
+   "from": [
+    6.4,
+    23.6,
+    6.8
+   ],
+   "to": [
+    9.6,
+    24.8,
+    9.2
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.2
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.2
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      1.2
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.4,
+      1.2
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      2.4
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      2.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShoulderR",
+   "from": [
+    2.32,
+    18.96,
+    6.96
+   ],
+   "to": [
+    4.4,
+    21.04,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    }
+   }
+  },
+  {
+   "name": "UpperArmR",
+   "from": [
+    2.56,
+    15.2,
+    7.2
+   ],
+   "to": [
+    4.16,
+    20.0,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   },
+   "rotationOrigin": [
+    3.36,
+    20.0,
+    8.0
+   ],
+   "rotationZ": -22
+  },
+  {
+   "name": "ElbowR",
+   "from": [
+    0.522,
+    14.51,
+    6.96
+   ],
+   "to": [
+    2.602,
+    16.59,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    }
+   }
+  },
+  {
+   "name": "ForearmR",
+   "from": [
+    0.762,
+    11.55,
+    7.2
+   ],
+   "to": [
+    2.362,
+    15.55,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   },
+   "rotationOrigin": [
+    1.562,
+    15.55,
+    8.0
+   ],
+   "rotationZ": 14
+  },
+  {
+   "name": "ClawR0",
+   "from": [
+    2.13,
+    9.268,
+    7.36
+   ],
+   "to": [
+    2.93,
+    11.668,
+    8.16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "rotationOrigin": [
+    2.53,
+    11.668,
+    8.0
+   ],
+   "rotationZ": 42
+  },
+  {
+   "name": "ClawR1",
+   "from": [
+    2.13,
+    9.268,
+    8.24
+   ],
+   "to": [
+    2.93,
+    11.668,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "rotationOrigin": [
+    2.53,
+    11.668,
+    8.0
+   ],
+   "rotationZ": -14
+  },
+  {
+   "name": "ShoulderL",
+   "from": [
+    11.6,
+    18.96,
+    6.96
+   ],
+   "to": [
+    13.68,
+    21.04,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    }
+   }
+  },
+  {
+   "name": "UpperArmL",
+   "from": [
+    11.84,
+    15.2,
+    7.2
+   ],
+   "to": [
+    13.44,
+    20.0,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.8
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   },
+   "rotationOrigin": [
+    12.64,
+    20.0,
+    8.0
+   ],
+   "rotationZ": 22
+  },
+  {
+   "name": "ElbowL",
+   "from": [
+    13.398,
+    14.51,
+    6.96
+   ],
+   "to": [
+    15.478,
+    16.59,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      2.08,
+      2.08
+     ]
+    }
+   }
+  },
+  {
+   "name": "ForearmL",
+   "from": [
+    13.638,
+    11.55,
+    7.2
+   ],
+   "to": [
+    15.238,
+    15.55,
+    8.8
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      4.0
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    }
+   },
+   "rotationOrigin": [
+    14.438,
+    15.55,
+    8.0
+   ],
+   "rotationZ": -14
+  },
+  {
+   "name": "ClawL0",
+   "from": [
+    13.07,
+    9.268,
+    7.36
+   ],
+   "to": [
+    13.87,
+    11.668,
+    8.16
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "rotationOrigin": [
+    13.47,
+    11.668,
+    8.0
+   ],
+   "rotationZ": -42
+  },
+  {
+   "name": "ClawL1",
+   "from": [
+    13.07,
+    9.268,
+    8.24
+   ],
+   "to": [
+    13.87,
+    11.668,
+    9.04
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      2.4
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    }
+   },
+   "rotationOrigin": [
+    13.47,
+    11.668,
+    8.0
+   ],
+   "rotationZ": 14
+  },
+  {
+   "name": "Neck",
+   "from": [
+    7.6,
+    24.8,
+    7.6
+   ],
+   "to": [
+    8.4,
+    30.0,
+    8.4
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      5.2
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      5.2
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      5.2
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      5.2
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.8,
+      0.8
+     ]
+    }
+   }
+  },
+  {
+   "name": "Head",
+   "from": [
+    5.2,
+    30.0,
+    6.4
+   ],
+   "to": [
+    10.8,
+    32.8,
+    9.6
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.8
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      2.8
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      2.8
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      3.2,
+      2.8
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      3.2
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      5.6,
+      3.2
+     ]
+    }
+   }
+  },
+  {
+   "name": "EyeR",
+   "from": [
+    5.84,
+    30.8,
+    9.6
+   ],
+   "to": [
+    7.44,
+    32.4,
+    10.56
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.96,
+      1.6
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.96,
+      1.6
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.96
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.96
+     ]
+    }
+   }
+  },
+  {
+   "name": "EyeL",
+   "from": [
+    8.56,
+    30.8,
+    9.6
+   ],
+   "to": [
+    10.16,
+    32.4,
+    10.56
+   ],
+   "faces": {
+    "north": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "south": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      1.6
+     ]
+    },
+    "east": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.96,
+      1.6
+     ]
+    },
+    "west": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      0.96,
+      1.6
+     ]
+    },
+    "up": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.96
+     ]
+    },
+    "down": {
+     "texture": "#stone",
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.96
+     ]
+    }
+   }
+  }
+ ]
+}

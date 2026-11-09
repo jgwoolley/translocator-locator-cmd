@@ -33,7 +33,7 @@ public class BuildContext : FrostingContext
         "TranslocatorLocatorCmdMod",
         "TranslocatorNavigatorMod",
         "WaterSpongeMod",
-        // "BlueprintCopy",
+        "BlueprintCopyMod",
         "TranslocatorRepairMod",
         "CenterMapMod",
         "SchematicLocatorMod",

@@ -11,6 +11,8 @@ namespace Nf3t.VintageStory.TranslocatorShortestPath;
 
 public class TranslocatorNavigatorModSystem : ModSystem
 {
+    public const string HotkeyCode = "nf3ttranslocatornavigator";
+
     public override bool ShouldLoad(EnumAppSide side)
     {
         return side == EnumAppSide.Client;
@@ -26,6 +28,55 @@ public class TranslocatorNavigatorModSystem : ModSystem
         CreatePathCommand(api, context);
         CreatePathHistoryCommand(api, context);
         CreateCountTranslocatorCommand(api, context);
+        CreateNavigatorGui(api, context);
+    }
+
+    private static void CreateNavigatorGui(ICoreClientAPI api, Context context)
+    {
+        var navigator = new Navigator(context);
+        var dialog = new GuiDialogNavigator(api, navigator);
+        var hud = new HudNavigator(api, navigator);
+        navigator.Changed += () =>
+        {
+            hud.Refresh();
+            dialog.Refresh();
+        };
+
+        // The HUD distance changes as the player moves, so refresh it every tick while guiding.
+        api.Event.RegisterGameTickListener(_ =>
+        {
+            if (navigator.Guidance == null) return;
+            navigator.Tick();
+            hud.Refresh();
+        }, 250);
+
+        api.Input.RegisterHotKey(HotkeyCode, "Translocator Navigator", GlKeys.T, HotkeyType.GUIOrOtherControls,
+            ctrlPressed: true);
+        api.Input.SetHotKeyHandler(HotkeyCode, _ => ToggleDialog(dialog));
+
+        api.ChatCommands.Create("tlnav")
+            .WithDescription("Opens the Translocator Navigator window to plan a route using known translocators.")
+            .HandleWith(_ =>
+            {
+                if (!dialog.IsOpened()) dialog.TryOpen();
+                return TextCommandResult.Success();
+            })
+            .BeginSubCommand("stop")
+            .WithDescription("Stops the on-screen route guidance.")
+            .HandleWith(_ =>
+            {
+                if (navigator.Guidance == null) return TextCommandResult.Success("No route is being guided.");
+                navigator.StopGuidance();
+                return TextCommandResult.Success("Route guidance stopped.");
+            })
+            .EndSubCommand();
+    }
+
+    private static bool ToggleDialog(GuiDialog dialog)
+    {
+        if (dialog.IsOpened()) dialog.TryClose();
+        else dialog.TryOpen();
+        return true;
     }
 
     private static void CreateGameTickListeners(ICoreClientAPI api, Context context)

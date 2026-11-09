@@ -1,0 +1,13 @@
+<p>Client-side utility that writes one representative color per block to a JSON file, for map making, palettes and tooling.</p>
+<p>Run <code>.blockcolors</code> and the colors are saved to <code>ModData/Nf3tBlockColors.json</code> in the game's data folder, for example:</p>
+<pre class="language-json"><code>{
+  "game:soil-medium-none": {
+    "hex": "#6B5A45",
+    "alpha": 255
+  }
+}</code></pre>
+<p>This file is also where the Vintage Story wiki (<code>jgwoolley.github.io/vintage-story-wiki</code>) gets the block colors of its schematic viewer.</p>
+<ul>
+<li>Optional wildcard filter on the block code: <code>.blockcolors game:rock-*</code></li>
+<li>Blocks with no color texture (invisible or specially rendered blocks) are written as white (<code>#FFFFFF</code>)</li>
+<li>The color is the game's own quick average of the block's color texture (the one used for the world map), not an exact mean of every pixel, and it ignores climate and season tinting</li></ul>

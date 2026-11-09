@@ -34,12 +34,11 @@ Files that are no longer used.
 * Efforts to build the project without references to VINTAGESTORY HOME
     * [Libs](Libs): Experimentally working on adding git submodule support to get the .dlls instead.
     * Old Docker build scripts
-        * [build.sh](build.sh): Builds the projects?
+        * [build.sh](build.sh): Runs vsdev (from PATH, else via npx), installs the game files into `./vintagestory` with it, then builds and packages all mods.
         * [run.sh](run.sh): Builds the projects?
         * [clean.sh](clean.sh): Runs project cleanup commands.
-        * [extract.sh](extract.sh): Downloads VintageStory server, which it turns out, is not good enough to get the development environment setup.
 
 ## Mod page tracking
 
-`ModPages/` mirrors the mod database pages (description, links, tags, release changelogs) so they can be
-versioned. `dotnet run --project ModDbCli -- diff` reports any difference from the live site; see `ModPages/README.md`.
+[`moddb/`](moddb) mirrors the mod database pages (description, links, tags, release changelogs) so they can be
+versioned. `vsdev moddb diff` reports any difference from the live site; see `moddb/README.md`.
