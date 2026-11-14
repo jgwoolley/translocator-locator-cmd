@@ -35,7 +35,9 @@ public class Utils
         if (assetLocation == null) return false;
         if (assetLocation.PathStartsWith(searchBlockPrefix)) return true;
         
+        // Schematics can name blocks from mods that aren't installed; GetBlock gives null for those.
         var block = api.World.GetBlock(assetLocation);
+        if (block == null) return false;
         var stack = new ItemStack(block);
         var blockName = stack.GetName();
 

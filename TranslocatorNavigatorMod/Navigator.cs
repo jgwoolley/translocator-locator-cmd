@@ -14,6 +14,9 @@ public class Navigator(Context context)
     public TranslocatorPathResult? Result { get; private set; }
     public SimplePos Start { get; private set; }
     public SimplePos Goal { get; private set; }
+
+    /// <summary>Name of the destination when another mod asked for the route (e.g. a screenshot's label); null otherwise.</summary>
+    public string? Label { get; private set; }
     public IReadOnlyList<RouteStep> Steps { get; private set; } = [];
 
     /// <summary>Set while the HUD is guiding the player along <see cref="Steps"/>.</summary>
@@ -22,10 +25,11 @@ public class Navigator(Context context)
     /// <summary>Raised when the route or the guidance step changes.</summary>
     public event Action? Changed;
 
-    public void FindRoute(SimplePos start, SimplePos goal)
+    public void FindRoute(SimplePos start, SimplePos goal, string? label = null)
     {
         Start = start;
         Goal = goal;
+        Label = label;
         Result = Context.CalculatePath(start, goal, refresh: true);
         Steps = Result.IsFounded() ? RouteSteps.Build(Result.Path, Context.KnownTranslocators) : [];
         Guidance = null;

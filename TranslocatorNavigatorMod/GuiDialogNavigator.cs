@@ -35,6 +35,19 @@ public class GuiDialogNavigator(ICoreClientAPI capi, Navigator navigator) : GuiD
         Compose();
     }
 
+    /// <summary>Shows the navigator's current route (planned elsewhere, e.g. by another mod), opening the dialog if
+    /// needed.</summary>
+    public void ShowRoute()
+    {
+        coordsFilled = true;
+        SetCoords(0, navigator.Start);
+        SetCoords(3, navigator.Goal);
+        error = null;
+        page = 0;
+        if (IsOpened()) Compose();
+        else TryOpen();
+    }
+
     /// <summary>Rebuilds the dialog if it is open, e.g. after the guided step changed.</summary>
     public void Refresh()
     {
@@ -72,7 +85,8 @@ public class GuiDialogNavigator(ICoreClientAPI capi, Navigator navigator) : GuiD
 
         var composer = capi.Gui.CreateCompo("nf3ttlnav", dialogBounds)
             .AddShadedDialogBG(bgBounds)
-            .AddDialogTitleBar("Translocator Navigator", () => TryClose())
+            .AddDialogTitleBar(navigator.Label == null ? "Translocator Navigator" : $"Route to {navigator.Label}",
+                () => TryClose())
             .BeginChildElements(bgBounds)
             .BeginChildElements(contentBounds);
 

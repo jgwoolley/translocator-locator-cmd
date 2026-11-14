@@ -1,0 +1,1600 @@
+{
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": {
+    "stone": "game:block/stone/polishedrock-old/full/basalt1",
+    "brick": "game:block/stone/agedbrick/basalt1",
+    "skullcobble": "game:block/stone/cobbleskull/basalt",
+    "human": "game:block/creature/skullhumanoid",
+    "human-inside": "game:block/creature/insideskull-small"
+  },
+  "elements": [
+    {
+      "name": "wall",
+      "from": [
+        0,
+        0.9525,
+        0
+      ],
+      "to": [
+        3,
+        16.9525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "wall-2",
+      "from": [
+        13,
+        0.9525,
+        0
+      ],
+      "to": [
+        16,
+        16.9525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            3,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "wall-3",
+      "from": [
+        3,
+        0.9525,
+        0
+      ],
+      "to": [
+        13,
+        2.9525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "wall-4",
+      "from": [
+        3,
+        13.5525,
+        0
+      ],
+      "to": [
+        13,
+        16.9525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            3.4000000000000004
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            3.4000000000000004
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            3.4000000000000004
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            3.4000000000000004
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            10,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "archstep",
+      "from": [
+        3,
+        12.352500000000001,
+        0
+      ],
+      "to": [
+        4.4,
+        13.5525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            1.1999999999999993
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            1.1999999999999993
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            1.1999999999999993
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            1.1999999999999993
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "archstep-2",
+      "from": [
+        11.6,
+        12.352500000000001,
+        0
+      ],
+      "to": [
+        13,
+        13.5525,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            1.1999999999999993
+          ]
+        },
+        "east": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            1.1999999999999993
+          ]
+        },
+        "south": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            1.1999999999999993
+          ]
+        },
+        "west": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            4,
+            1.1999999999999993
+          ]
+        },
+        "up": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#brick",
+          "uv": [
+            0,
+            0,
+            1.4000000000000004,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "name": "nicheback",
+      "from": [
+        3,
+        2.9525,
+        0
+      ],
+      "to": [
+        13,
+        13.5525,
+        0.8
+      ],
+      "faces": {
+        "north": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            10,
+            10.6
+          ]
+        },
+        "east": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            0.8,
+            10.6
+          ]
+        },
+        "south": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            10,
+            10.6
+          ]
+        },
+        "west": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            0.8,
+            10.6
+          ]
+        },
+        "up": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            10,
+            0.8
+          ]
+        },
+        "down": {
+          "texture": "#skullcobble",
+          "uv": [
+            0,
+            0,
+            10,
+            0.8
+          ]
+        }
+      }
+    },
+    {
+      "name": "coping",
+      "from": [
+        0,
+        16.9525,
+        -0.4
+      ],
+      "to": [
+        16,
+        18.3525,
+        4.6
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            16,
+            1.3999999999999986
+          ]
+        },
+        "east": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            5,
+            1.3999999999999986
+          ]
+        },
+        "south": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            16,
+            1.3999999999999986
+          ]
+        },
+        "west": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            5,
+            1.3999999999999986
+          ]
+        },
+        "up": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            16,
+            5
+          ]
+        },
+        "down": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            16,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "name": "sill",
+      "from": [
+        2.4,
+        2.3525,
+        3.8
+      ],
+      "to": [
+        13.6,
+        2.9525,
+        5.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            11.2,
+            0.6000000000000001
+          ]
+        },
+        "east": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            1.6000000000000005,
+            0.6000000000000001
+          ]
+        },
+        "south": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            11.2,
+            0.6000000000000001
+          ]
+        },
+        "west": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            1.6000000000000005,
+            0.6000000000000001
+          ]
+        },
+        "up": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            11.2,
+            1.6000000000000005
+          ]
+        },
+        "down": {
+          "texture": "#stone",
+          "uv": [
+            0,
+            0,
+            11.2,
+            1.6000000000000005
+          ]
+        }
+      }
+    },
+    {
+      "name": "nicheskull",
+      "from": [
+        5.6,
+        2.9525,
+        3
+      ],
+      "to": [
+        5.6,
+        2.9525,
+        3
+      ],
+      "faces": {},
+      "rotationOrigin": [
+        5.6,
+        2.9525,
+        3
+      ],
+      "rotationY": 96,
+      "children": [
+        {
+          "name": "nicheskullcentre",
+          "from": [
+            -0.5,
+            0,
+            0
+          ],
+          "to": [
+            -0.5,
+            0,
+            0
+          ],
+          "faces": {},
+          "children": [
+            {
+              "name": "skull",
+              "from": [
+                -2,
+                -0.3,
+                -2.5
+              ],
+              "to": [
+                3,
+                4.7,
+                2.52
+              ],
+              "rotationOrigin": [
+                0,
+                1.2,
+                0
+              ],
+              "rotationZ": -4,
+              "faces": {
+                "north": {
+                  "texture": "#human",
+                  "uv": [
+                    3,
+                    11,
+                    8,
+                    16
+                  ]
+                },
+                "east": {
+                  "texture": "#human",
+                  "uv": [
+                    5.5,
+                    11,
+                    10.5,
+                    16
+                  ]
+                },
+                "south": {
+                  "texture": "#human",
+                  "uv": [
+                    8,
+                    11,
+                    13,
+                    16
+                  ]
+                },
+                "west": {
+                  "texture": "#human",
+                  "uv": [
+                    2.5,
+                    2,
+                    7.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#human",
+                  "uv": [
+                    11,
+                    0,
+                    16,
+                    5
+                  ],
+                  "rotation": 90
+                },
+                "down": {
+                  "texture": "#human",
+                  "uv": [
+                    1,
+                    2,
+                    6,
+                    7
+                  ],
+                  "rotation": 90,
+                  "enabled": false
+                }
+              },
+              "children": [
+                {
+                  "name": "inside skull",
+                  "from": [
+                    0.1,
+                    -0.01,
+                    0.01
+                  ],
+                  "to": [
+                    4.9,
+                    4.99,
+                    5.01
+                  ],
+                  "rotationOrigin": [
+                    0.1,
+                    -0.5,
+                    -0.2
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        3,
+                        11,
+                        7.5,
+                        16
+                      ]
+                    },
+                    "east": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        5.5,
+                        11,
+                        10.5,
+                        16
+                      ]
+                    },
+                    "south": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        8,
+                        11,
+                        12.5,
+                        16
+                      ]
+                    },
+                    "west": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2.5,
+                        2,
+                        7.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        10,
+                        3.5,
+                        14.5,
+                        8.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2,
+                        1,
+                        6.5,
+                        6
+                      ],
+                      "enabled": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nicheskull-2",
+      "from": [
+        10.6,
+        2.9525,
+        3
+      ],
+      "to": [
+        10.6,
+        2.9525,
+        3
+      ],
+      "faces": {},
+      "rotationOrigin": [
+        10.6,
+        2.9525,
+        3
+      ],
+      "rotationY": 82,
+      "children": [
+        {
+          "name": "nicheskullcentre-2",
+          "from": [
+            -0.5,
+            0,
+            0
+          ],
+          "to": [
+            -0.5,
+            0,
+            0
+          ],
+          "faces": {},
+          "children": [
+            {
+              "name": "skull-2",
+              "from": [
+                -2,
+                -0.3,
+                -2.5
+              ],
+              "to": [
+                3,
+                4.7,
+                2.52
+              ],
+              "rotationOrigin": [
+                0,
+                1.2,
+                0
+              ],
+              "rotationZ": -4,
+              "faces": {
+                "north": {
+                  "texture": "#human",
+                  "uv": [
+                    3,
+                    11,
+                    8,
+                    16
+                  ]
+                },
+                "east": {
+                  "texture": "#human",
+                  "uv": [
+                    5.5,
+                    11,
+                    10.5,
+                    16
+                  ]
+                },
+                "south": {
+                  "texture": "#human",
+                  "uv": [
+                    8,
+                    11,
+                    13,
+                    16
+                  ]
+                },
+                "west": {
+                  "texture": "#human",
+                  "uv": [
+                    2.5,
+                    2,
+                    7.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#human",
+                  "uv": [
+                    11,
+                    0,
+                    16,
+                    5
+                  ],
+                  "rotation": 90
+                },
+                "down": {
+                  "texture": "#human",
+                  "uv": [
+                    1,
+                    2,
+                    6,
+                    7
+                  ],
+                  "rotation": 90,
+                  "enabled": false
+                }
+              },
+              "children": [
+                {
+                  "name": "inside skull-2",
+                  "from": [
+                    0.1,
+                    -0.01,
+                    0.01
+                  ],
+                  "to": [
+                    4.9,
+                    4.99,
+                    5.01
+                  ],
+                  "rotationOrigin": [
+                    0.1,
+                    -0.5,
+                    -0.2
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        3,
+                        11,
+                        7.5,
+                        16
+                      ]
+                    },
+                    "east": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        5.5,
+                        11,
+                        10.5,
+                        16
+                      ]
+                    },
+                    "south": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        8,
+                        11,
+                        12.5,
+                        16
+                      ]
+                    },
+                    "west": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2.5,
+                        2,
+                        7.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        10,
+                        3.5,
+                        14.5,
+                        8.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2,
+                        1,
+                        6.5,
+                        6
+                      ],
+                      "enabled": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nicheskull-3",
+      "from": [
+        5.6,
+        7.9525,
+        3
+      ],
+      "to": [
+        5.6,
+        7.9525,
+        3
+      ],
+      "faces": {},
+      "rotationOrigin": [
+        5.6,
+        7.9525,
+        3
+      ],
+      "rotationY": 86,
+      "children": [
+        {
+          "name": "nicheskullcentre-3",
+          "from": [
+            -0.5,
+            0,
+            0
+          ],
+          "to": [
+            -0.5,
+            0,
+            0
+          ],
+          "faces": {},
+          "children": [
+            {
+              "name": "skull-3",
+              "from": [
+                -2,
+                -0.3,
+                -2.5
+              ],
+              "to": [
+                3,
+                4.7,
+                2.52
+              ],
+              "rotationOrigin": [
+                0,
+                1.2,
+                0
+              ],
+              "rotationZ": -4,
+              "faces": {
+                "north": {
+                  "texture": "#human",
+                  "uv": [
+                    3,
+                    11,
+                    8,
+                    16
+                  ]
+                },
+                "east": {
+                  "texture": "#human",
+                  "uv": [
+                    5.5,
+                    11,
+                    10.5,
+                    16
+                  ]
+                },
+                "south": {
+                  "texture": "#human",
+                  "uv": [
+                    8,
+                    11,
+                    13,
+                    16
+                  ]
+                },
+                "west": {
+                  "texture": "#human",
+                  "uv": [
+                    2.5,
+                    2,
+                    7.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#human",
+                  "uv": [
+                    11,
+                    0,
+                    16,
+                    5
+                  ],
+                  "rotation": 90
+                },
+                "down": {
+                  "texture": "#human",
+                  "uv": [
+                    1,
+                    2,
+                    6,
+                    7
+                  ],
+                  "rotation": 90,
+                  "enabled": false
+                }
+              },
+              "children": [
+                {
+                  "name": "inside skull-3",
+                  "from": [
+                    0.1,
+                    -0.01,
+                    0.01
+                  ],
+                  "to": [
+                    4.9,
+                    4.99,
+                    5.01
+                  ],
+                  "rotationOrigin": [
+                    0.1,
+                    -0.5,
+                    -0.2
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        3,
+                        11,
+                        7.5,
+                        16
+                      ]
+                    },
+                    "east": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        5.5,
+                        11,
+                        10.5,
+                        16
+                      ]
+                    },
+                    "south": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        8,
+                        11,
+                        12.5,
+                        16
+                      ]
+                    },
+                    "west": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2.5,
+                        2,
+                        7.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        10,
+                        3.5,
+                        14.5,
+                        8.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2,
+                        1,
+                        6.5,
+                        6
+                      ],
+                      "enabled": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "nicheskull-4",
+      "from": [
+        10.4,
+        7.9525,
+        3
+      ],
+      "to": [
+        10.4,
+        7.9525,
+        3
+      ],
+      "faces": {},
+      "rotationOrigin": [
+        10.4,
+        7.9525,
+        3
+      ],
+      "rotationY": 100,
+      "children": [
+        {
+          "name": "nicheskullcentre-4",
+          "from": [
+            -0.5,
+            0,
+            0
+          ],
+          "to": [
+            -0.5,
+            0,
+            0
+          ],
+          "faces": {},
+          "children": [
+            {
+              "name": "skull-4",
+              "from": [
+                -2,
+                -0.3,
+                -2.5
+              ],
+              "to": [
+                3,
+                4.7,
+                2.52
+              ],
+              "rotationOrigin": [
+                0,
+                1.2,
+                0
+              ],
+              "rotationZ": -4,
+              "faces": {
+                "north": {
+                  "texture": "#human",
+                  "uv": [
+                    3,
+                    11,
+                    8,
+                    16
+                  ]
+                },
+                "east": {
+                  "texture": "#human",
+                  "uv": [
+                    5.5,
+                    11,
+                    10.5,
+                    16
+                  ]
+                },
+                "south": {
+                  "texture": "#human",
+                  "uv": [
+                    8,
+                    11,
+                    13,
+                    16
+                  ]
+                },
+                "west": {
+                  "texture": "#human",
+                  "uv": [
+                    2.5,
+                    2,
+                    7.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#human",
+                  "uv": [
+                    11,
+                    0,
+                    16,
+                    5
+                  ],
+                  "rotation": 90
+                },
+                "down": {
+                  "texture": "#human",
+                  "uv": [
+                    1,
+                    2,
+                    6,
+                    7
+                  ],
+                  "rotation": 90,
+                  "enabled": false
+                }
+              },
+              "children": [
+                {
+                  "name": "inside skull-4",
+                  "from": [
+                    0.1,
+                    -0.01,
+                    0.01
+                  ],
+                  "to": [
+                    4.9,
+                    4.99,
+                    5.01
+                  ],
+                  "rotationOrigin": [
+                    0.1,
+                    -0.5,
+                    -0.2
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        3,
+                        11,
+                        7.5,
+                        16
+                      ]
+                    },
+                    "east": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        5.5,
+                        11,
+                        10.5,
+                        16
+                      ]
+                    },
+                    "south": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        8,
+                        11,
+                        12.5,
+                        16
+                      ]
+                    },
+                    "west": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2.5,
+                        2,
+                        7.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        10,
+                        3.5,
+                        14.5,
+                        8.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2,
+                        1,
+                        6.5,
+                        6
+                      ],
+                      "enabled": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "floorskull",
+      "from": [
+        8,
+        0.9525,
+        11
+      ],
+      "to": [
+        8,
+        0.9525,
+        11
+      ],
+      "faces": {},
+      "rotationOrigin": [
+        8,
+        0.9525,
+        11
+      ],
+      "rotationY": 125,
+      "rotationZ": 18,
+      "children": [
+        {
+          "name": "floorskullcentre",
+          "from": [
+            -0.5,
+            0,
+            0
+          ],
+          "to": [
+            -0.5,
+            0,
+            0
+          ],
+          "faces": {},
+          "children": [
+            {
+              "name": "skull-5",
+              "from": [
+                -2,
+                -0.3,
+                -2.5
+              ],
+              "to": [
+                3,
+                4.7,
+                2.52
+              ],
+              "rotationOrigin": [
+                0,
+                1.2,
+                0
+              ],
+              "rotationZ": -4,
+              "faces": {
+                "north": {
+                  "texture": "#human",
+                  "uv": [
+                    3,
+                    11,
+                    8,
+                    16
+                  ]
+                },
+                "east": {
+                  "texture": "#human",
+                  "uv": [
+                    5.5,
+                    11,
+                    10.5,
+                    16
+                  ]
+                },
+                "south": {
+                  "texture": "#human",
+                  "uv": [
+                    8,
+                    11,
+                    13,
+                    16
+                  ]
+                },
+                "west": {
+                  "texture": "#human",
+                  "uv": [
+                    2.5,
+                    2,
+                    7.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#human",
+                  "uv": [
+                    11,
+                    0,
+                    16,
+                    5
+                  ],
+                  "rotation": 90
+                },
+                "down": {
+                  "texture": "#human",
+                  "uv": [
+                    1,
+                    2,
+                    6,
+                    7
+                  ],
+                  "rotation": 90,
+                  "enabled": false
+                }
+              },
+              "children": [
+                {
+                  "name": "inside skull-5",
+                  "from": [
+                    0.1,
+                    -0.01,
+                    0.01
+                  ],
+                  "to": [
+                    4.9,
+                    4.99,
+                    5.01
+                  ],
+                  "rotationOrigin": [
+                    0.1,
+                    -0.5,
+                    -0.2
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        3,
+                        11,
+                        7.5,
+                        16
+                      ]
+                    },
+                    "east": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        5.5,
+                        11,
+                        10.5,
+                        16
+                      ]
+                    },
+                    "south": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        8,
+                        11,
+                        12.5,
+                        16
+                      ]
+                    },
+                    "west": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2.5,
+                        2,
+                        7.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        10,
+                        3.5,
+                        14.5,
+                        8.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#human-inside",
+                      "uv": [
+                        2,
+                        1,
+                        6.5,
+                        6
+                      ],
+                      "enabled": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

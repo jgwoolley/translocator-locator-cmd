@@ -1,0 +1,5157 @@
+{
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textures": {
+    "plate": "nf3treliquiarum:block/armor-worn",
+    "trim": "nf3treliquiarum:block/armor-trim-worn",
+    "joint": "nf3treliquiarum:block/joint-worn",
+    "lens": "game:block/cloth/basic/red",
+    "deadlens": "game:block/cloth/basic/gray",
+    "wax": "nf3treliquiarum:block/wax-worn",
+    "paper": "nf3treliquiarum:block/parchment-worn"
+  },
+  "elements": [
+    {
+      "name": "hips",
+      "from": [
+        8,
+        4.5341000000000005,
+        13
+      ],
+      "to": [
+        8,
+        4.5341000000000005,
+        13
+      ],
+      "faces": {},
+      "children": [
+        {
+          "name": "waist",
+          "from": [
+            0,
+            0,
+            0
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ],
+          "faces": {},
+          "rotationOrigin": [
+            0,
+            0,
+            0
+          ],
+          "rotationX": -8,
+          "rotationZ": 5,
+          "children": [
+            {
+              "name": "abdomen",
+              "from": [
+                -7,
+                0,
+                -5
+              ],
+              "to": [
+                7,
+                8,
+                5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    8
+                  ]
+                },
+                "east": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    8
+                  ]
+                },
+                "south": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    8
+                  ]
+                },
+                "west": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    8
+                  ]
+                },
+                "up": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    10
+                  ]
+                },
+                "down": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    10
+                  ]
+                }
+              }
+            },
+            {
+              "name": "abdomen plates",
+              "from": [
+                -6,
+                1,
+                4
+              ],
+              "to": [
+                6,
+                7,
+                6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    6
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    2,
+                    6
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    6
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    2,
+                    6
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    2
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    2
+                  ]
+                }
+              }
+            },
+            {
+              "name": "belt",
+              "from": [
+                -7.5,
+                -1,
+                -5.5
+              ],
+              "to": [
+                7.5,
+                2,
+                5.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    3
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    11,
+                    3
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    3
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    11,
+                    3
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    11
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    11
+                  ]
+                }
+              }
+            },
+            {
+              "name": "buckle",
+              "from": [
+                -2,
+                -1.5,
+                5.5
+              ],
+              "to": [
+                2,
+                2.5,
+                6.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    1,
+                    4
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    1,
+                    4
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    1
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    1
+                  ]
+                }
+              }
+            },
+            {
+              "name": "chest",
+              "from": [
+                -9,
+                7,
+                -6
+              ],
+              "to": [
+                9,
+                21,
+                6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    14
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    14
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    14
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    12,
+                    14
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    12
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    12
+                  ]
+                }
+              }
+            },
+            {
+              "name": "chest plate",
+              "from": [
+                -8,
+                9,
+                6
+              ],
+              "to": [
+                8,
+                19,
+                7.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    10
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    1.5,
+                    10
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    10
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    1.5,
+                    10
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "chest ridge",
+              "from": [
+                -8.5,
+                15,
+                7
+              ],
+              "to": [
+                8.5,
+                16.5,
+                8.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    1.5,
+                    1.5
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    1.5,
+                    1.5
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    1.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "wound",
+              "from": [
+                2,
+                10.5,
+                7.4
+              ],
+              "to": [
+                5.5,
+                13.5,
+                7.6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3.5,
+                    3
+                  ]
+                },
+                "east": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    0.5,
+                    3
+                  ]
+                },
+                "south": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3.5,
+                    3
+                  ]
+                },
+                "west": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    0.5,
+                    3
+                  ]
+                },
+                "up": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3.5,
+                    0.5
+                  ]
+                },
+                "down": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3.5,
+                    0.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "wound edge",
+              "from": [
+                1.5,
+                11,
+                7.5
+              ],
+              "to": [
+                6,
+                13,
+                7.8
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    2
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    0.5,
+                    2
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    2
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    0.5,
+                    2
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    0.5
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    0.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "collar",
+              "from": [
+                -5,
+                20,
+                -4
+              ],
+              "to": [
+                5,
+                23,
+                4
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    3
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    3
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    3
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    3
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    8
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    10,
+                    8
+                  ]
+                }
+              }
+            },
+            {
+              "name": "backpack",
+              "from": [
+                -7.5,
+                8,
+                -12
+              ],
+              "to": [
+                7.5,
+                23,
+                -6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    15
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    6,
+                    15
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    15
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    6,
+                    15
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    6
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    15,
+                    6
+                  ]
+                }
+              }
+            },
+            {
+              "name": "backpack trim",
+              "from": [
+                -8,
+                12,
+                -12.5
+              ],
+              "to": [
+                8,
+                14,
+                -5.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    2
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    2
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    2
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    2
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    7
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    16,
+                    7
+                  ]
+                }
+              }
+            },
+            {
+              "name": "vent left",
+              "from": [
+                -6.5,
+                20,
+                -11
+              ],
+              "to": [
+                -2.5,
+                27,
+                -7
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                }
+              }
+            },
+            {
+              "name": "vent right",
+              "from": [
+                2.5,
+                20,
+                -11
+              ],
+              "to": [
+                6.5,
+                27,
+                -7
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4,
+                    4
+                  ]
+                }
+              }
+            },
+            {
+              "name": "vent left mouth",
+              "from": [
+                -6,
+                27,
+                -10.5
+              ],
+              "to": [
+                -3,
+                27.5,
+                -7.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "east": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "south": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "west": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "up": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    3
+                  ]
+                },
+                "down": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    3
+                  ]
+                }
+              }
+            },
+            {
+              "name": "vent right mouth",
+              "from": [
+                3,
+                27,
+                -10.5
+              ],
+              "to": [
+                6,
+                27.5,
+                -7.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "east": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "south": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "west": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    0.5
+                  ]
+                },
+                "up": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    3
+                  ]
+                },
+                "down": {
+                  "texture": "#joint",
+                  "uv": [
+                    0,
+                    0,
+                    3,
+                    3
+                  ]
+                }
+              }
+            },
+            {
+              "name": "neck",
+              "from": [
+                0,
+                21,
+                1
+              ],
+              "to": [
+                0,
+                21,
+                1
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                0,
+                21,
+                1
+              ],
+              "rotationX": 16,
+              "rotationY": 14,
+              "rotationZ": -20,
+              "children": [
+                {
+                  "name": "helmet",
+                  "from": [
+                    -4.5,
+                    0,
+                    -4.5
+                  ],
+                  "to": [
+                    4.5,
+                    9,
+                    4.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "helmet crown",
+                  "from": [
+                    -3.5,
+                    9,
+                    -3.5
+                  ],
+                  "to": [
+                    3.5,
+                    10,
+                    3.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        1
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        1
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        1
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        1
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        7
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        7
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "brow",
+                  "from": [
+                    -4.7,
+                    5.5,
+                    3.8
+                  ],
+                  "to": [
+                    4.7,
+                    6.7,
+                    5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        9.4,
+                        1.2000000000000002
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.2000000000000002,
+                        1.2000000000000002
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        9.4,
+                        1.2000000000000002
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.2000000000000002,
+                        1.2000000000000002
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        9.4,
+                        1.2000000000000002
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        9.4,
+                        1.2000000000000002
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "lens left",
+                  "from": [
+                    -3.6,
+                    3.6,
+                    4.4
+                  ],
+                  "to": [
+                    -1.1,
+                    5.4,
+                    4.9
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "east": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "south": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "west": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "up": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#deadlens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "lens right",
+                  "from": [
+                    1.1,
+                    3.6,
+                    4.4
+                  ],
+                  "to": [
+                    3.6,
+                    5.4,
+                    4.9
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "east": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "south": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "west": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.8000000000000003
+                      ]
+                    },
+                    "up": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#lens",
+                      "uv": [
+                        0,
+                        0,
+                        2.5,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "rebreather",
+                  "from": [
+                    -1.7,
+                    0.4,
+                    4.3
+                  ],
+                  "to": [
+                    1.7,
+                    3.3,
+                    5.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.4,
+                        2.9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.2000000000000002,
+                        2.9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.4,
+                        2.9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.2000000000000002,
+                        2.9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.4,
+                        1.2000000000000002
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.4,
+                        1.2000000000000002
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "grille slit 0",
+                  "from": [
+                    -1.25,
+                    0.9,
+                    5.5
+                  ],
+                  "to": [
+                    -0.75,
+                    2.8,
+                    5.6
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "grille slit 1",
+                  "from": [
+                    -0.25,
+                    0.9,
+                    5.5
+                  ],
+                  "to": [
+                    0.25,
+                    2.8,
+                    5.6
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "grille slit 2",
+                  "from": [
+                    0.75,
+                    0.9,
+                    5.5
+                  ],
+                  "to": [
+                    1.25,
+                    2.8,
+                    5.6
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        1.9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "cheek left",
+                  "from": [
+                    -4.7,
+                    0,
+                    1
+                  ],
+                  "to": [
+                    -3,
+                    3.5,
+                    4.7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.7,
+                        3.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.7,
+                        3.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.7
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.7
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "cheek right",
+                  "from": [
+                    3,
+                    0,
+                    1
+                  ],
+                  "to": [
+                    4.7,
+                    3.5,
+                    4.7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.7,
+                        3.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        3.7,
+                        3.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.7
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        1.7000000000000002,
+                        3.7
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "left shoulder",
+              "from": [
+                -10,
+                17,
+                -0.5
+              ],
+              "to": [
+                -10,
+                17,
+                -0.5
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                -10,
+                17,
+                -0.5
+              ],
+              "rotationZ": 10,
+              "children": [
+                {
+                  "name": "pad",
+                  "from": [
+                    -6,
+                    -3,
+                    -7
+                  ],
+                  "to": [
+                    3,
+                    6,
+                    7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        14,
+                        9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        14,
+                        9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        14
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        14
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad dome",
+                  "from": [
+                    -5,
+                    6,
+                    -6
+                  ],
+                  "to": [
+                    2,
+                    8,
+                    6
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        2
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        12,
+                        2
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        2
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        12,
+                        2
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        12
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        12
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad dome top",
+                  "from": [
+                    -3.5,
+                    8,
+                    -4.5
+                  ],
+                  "to": [
+                    0.5,
+                    9,
+                    4.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        1
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        1
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        9
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        9
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad rim",
+                  "from": [
+                    -6.5,
+                    -4,
+                    -7.5
+                  ],
+                  "to": [
+                    3.5,
+                    -2.5,
+                    7.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        1.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        15,
+                        1.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        1.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        15,
+                        1.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        15
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        15
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "seal wax",
+                  "from": [
+                    -3.5,
+                    0,
+                    7
+                  ],
+                  "to": [
+                    0.5,
+                    4,
+                    8
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        4
+                      ]
+                    },
+                    "east": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        1,
+                        4
+                      ]
+                    },
+                    "south": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        4
+                      ]
+                    },
+                    "west": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        1,
+                        4
+                      ]
+                    },
+                    "up": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    },
+                    "down": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "seal wax rim",
+                  "from": [
+                    -4,
+                    0.5,
+                    6.8
+                  ],
+                  "to": [
+                    1,
+                    3.5,
+                    7.7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        3
+                      ]
+                    },
+                    "east": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        0.9000000000000004,
+                        3
+                      ]
+                    },
+                    "south": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        3
+                      ]
+                    },
+                    "west": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        0.9000000000000004,
+                        3
+                      ]
+                    },
+                    "up": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        0.9000000000000004
+                      ]
+                    },
+                    "down": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        0.9000000000000004
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "seal wax rim2",
+                  "from": [
+                    -3,
+                    -0.5,
+                    6.8
+                  ],
+                  "to": [
+                    0,
+                    4.5,
+                    7.7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        3,
+                        5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        0.9000000000000004,
+                        5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        3,
+                        5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        0.9000000000000004,
+                        5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        3,
+                        0.9000000000000004
+                      ]
+                    },
+                    "down": {
+                      "texture": "#wax",
+                      "uv": [
+                        0,
+                        0,
+                        3,
+                        0.9000000000000004
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "seal strip 0",
+                  "from": [
+                    -3.3,
+                    -8,
+                    7.7
+                  ],
+                  "to": [
+                    -2.1999999999999997,
+                    1,
+                    7.9
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    }
+                  },
+                  "rotationOrigin": [
+                    -2.8,
+                    1,
+                    7.8
+                  ],
+                  "rotationZ": -6
+                },
+                {
+                  "name": "seal strip 1",
+                  "from": [
+                    -1.9999999999999998,
+                    -6,
+                    7.7
+                  ],
+                  "to": [
+                    -0.8999999999999997,
+                    1,
+                    7.9
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        7
+                      ]
+                    },
+                    "east": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        7
+                      ]
+                    },
+                    "south": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        7
+                      ]
+                    },
+                    "west": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        7
+                      ]
+                    },
+                    "up": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "seal strip 2",
+                  "from": [
+                    -0.6999999999999997,
+                    -9,
+                    7.7
+                  ],
+                  "to": [
+                    0.40000000000000036,
+                    1,
+                    7.9
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        10
+                      ]
+                    },
+                    "east": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        10
+                      ]
+                    },
+                    "south": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        10
+                      ]
+                    },
+                    "west": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        0.5,
+                        10
+                      ]
+                    },
+                    "up": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#paper",
+                      "uv": [
+                        0,
+                        0,
+                        1.1,
+                        0.5
+                      ]
+                    }
+                  },
+                  "rotationOrigin": [
+                    -0.19999999999999973,
+                    1,
+                    7.8
+                  ],
+                  "rotationZ": 6
+                }
+              ]
+            },
+            {
+              "name": "right shoulder",
+              "from": [
+                10,
+                17,
+                -0.5
+              ],
+              "to": [
+                10,
+                17,
+                -0.5
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                10,
+                17,
+                -0.5
+              ],
+              "rotationZ": -10,
+              "children": [
+                {
+                  "name": "pad-2",
+                  "from": [
+                    -3,
+                    -3,
+                    -7
+                  ],
+                  "to": [
+                    6,
+                    6,
+                    7
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        14,
+                        9
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        9
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        14,
+                        9
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        14
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        14
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad dome-2",
+                  "from": [
+                    -2,
+                    6,
+                    -6
+                  ],
+                  "to": [
+                    5,
+                    8,
+                    6
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        2
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        12,
+                        2
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        2
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        12,
+                        2
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        12
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        7,
+                        12
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad dome top-2",
+                  "from": [
+                    -0.5,
+                    8,
+                    -4.5
+                  ],
+                  "to": [
+                    3.5,
+                    9,
+                    4.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        1
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        1
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        1
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        9
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        4,
+                        9
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "pad rim-2",
+                  "from": [
+                    -3.5,
+                    -4,
+                    -7.5
+                  ],
+                  "to": [
+                    6.5,
+                    -2.5,
+                    7.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        1.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        15,
+                        1.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        1.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        15,
+                        1.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        15
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        10,
+                        15
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "right arm",
+              "from": [
+                11.5,
+                15,
+                0
+              ],
+              "to": [
+                11.5,
+                15,
+                0
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                11.5,
+                15,
+                0
+              ],
+              "rotationX": -4,
+              "rotationZ": -12,
+              "children": [
+                {
+                  "name": "right arm upper",
+                  "from": [
+                    -2.5,
+                    -10,
+                    -2.5
+                  ],
+                  "to": [
+                    2.5,
+                    0,
+                    2.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "east": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "south": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "west": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "up": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "right arm elbow",
+                  "from": [
+                    -3,
+                    -11.5,
+                    -3
+                  ],
+                  "to": [
+                    3,
+                    -8.5,
+                    3
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "right arm elbow joint",
+                  "from": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "to": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "faces": {},
+                  "rotationOrigin": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "rotationX": -78,
+                  "children": [
+                    {
+                      "name": "right arm forearm",
+                      "from": [
+                        -2.8,
+                        -9,
+                        -2.8
+                      ],
+                      "to": [
+                        2.8,
+                        0,
+                        2.8
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            5.6
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            5.6
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "right arm vambrace",
+                      "from": [
+                        -3.2,
+                        -8,
+                        -3.2
+                      ],
+                      "to": [
+                        3.2,
+                        -4,
+                        3.2
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "east": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "south": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "west": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "up": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            6.4
+                          ]
+                        },
+                        "down": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            6.4
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "right arm wrist",
+                      "from": [
+                        0,
+                        -9,
+                        0
+                      ],
+                      "to": [
+                        0,
+                        -9,
+                        0
+                      ],
+                      "faces": {},
+                      "rotationOrigin": [
+                        0,
+                        -9,
+                        0
+                      ],
+                      "rotationX": -12,
+                      "children": [
+                        {
+                          "name": "right arm gauntlet",
+                          "from": [
+                            -3.2,
+                            -5,
+                            -3.2
+                          ],
+                          "to": [
+                            3.2,
+                            0,
+                            3.2
+                          ],
+                          "faces": {
+                            "north": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "east": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "south": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "west": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "up": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                6.4
+                              ]
+                            },
+                            "down": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                6.4
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "name": "right arm fingers",
+                          "from": [
+                            -3,
+                            -8,
+                            -2.5
+                          ],
+                          "to": [
+                            3,
+                            -5,
+                            2.5
+                          ],
+                          "faces": {
+                            "north": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                3
+                              ]
+                            },
+                            "east": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                5,
+                                3
+                              ]
+                            },
+                            "south": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                3
+                              ]
+                            },
+                            "west": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                5,
+                                3
+                              ]
+                            },
+                            "up": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                5
+                              ]
+                            },
+                            "down": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                5
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "left arm",
+              "from": [
+                -11.5,
+                15,
+                0
+              ],
+              "to": [
+                -11.5,
+                15,
+                0
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                -11.5,
+                15,
+                0
+              ],
+              "rotationX": -42,
+              "rotationZ": 16,
+              "children": [
+                {
+                  "name": "left arm upper",
+                  "from": [
+                    -2.5,
+                    -10,
+                    -2.5
+                  ],
+                  "to": [
+                    2.5,
+                    0,
+                    2.5
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "east": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "south": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "west": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        10
+                      ]
+                    },
+                    "up": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        5
+                      ]
+                    },
+                    "down": {
+                      "texture": "#joint",
+                      "uv": [
+                        0,
+                        0,
+                        5,
+                        5
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "left arm elbow",
+                  "from": [
+                    -3,
+                    -11.5,
+                    -3
+                  ],
+                  "to": [
+                    3,
+                    -8.5,
+                    3
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "east": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "south": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "west": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        3
+                      ]
+                    },
+                    "up": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6
+                      ]
+                    },
+                    "down": {
+                      "texture": "#trim",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "left arm elbow joint",
+                  "from": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "to": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "faces": {},
+                  "rotationOrigin": [
+                    0,
+                    -10,
+                    0
+                  ],
+                  "rotationX": -55,
+                  "children": [
+                    {
+                      "name": "left arm forearm",
+                      "from": [
+                        -2.8,
+                        -9,
+                        -2.8
+                      ],
+                      "to": [
+                        2.8,
+                        0,
+                        2.8
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            9
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            5.6
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            5.6,
+                            5.6
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "left arm vambrace",
+                      "from": [
+                        -3.2,
+                        -8,
+                        -3.2
+                      ],
+                      "to": [
+                        3.2,
+                        -4,
+                        3.2
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "east": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "south": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "west": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            4
+                          ]
+                        },
+                        "up": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            6.4
+                          ]
+                        },
+                        "down": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            6.4,
+                            6.4
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "left arm wrist",
+                      "from": [
+                        0,
+                        -9,
+                        0
+                      ],
+                      "to": [
+                        0,
+                        -9,
+                        0
+                      ],
+                      "faces": {},
+                      "children": [
+                        {
+                          "name": "left arm gauntlet",
+                          "from": [
+                            -3.2,
+                            -5,
+                            -3.2
+                          ],
+                          "to": [
+                            3.2,
+                            0,
+                            3.2
+                          ],
+                          "faces": {
+                            "north": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "east": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "south": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "west": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                5
+                              ]
+                            },
+                            "up": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                6.4
+                              ]
+                            },
+                            "down": {
+                              "texture": "#plate",
+                              "uv": [
+                                0,
+                                0,
+                                6.4,
+                                6.4
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "name": "left arm fingers",
+                          "from": [
+                            -3,
+                            -8,
+                            -2.5
+                          ],
+                          "to": [
+                            3,
+                            -5,
+                            2.5
+                          ],
+                          "faces": {
+                            "north": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                3
+                              ]
+                            },
+                            "east": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                5,
+                                3
+                              ]
+                            },
+                            "south": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                3
+                              ]
+                            },
+                            "west": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                5,
+                                3
+                              ]
+                            },
+                            "up": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                5
+                              ]
+                            },
+                            "down": {
+                              "texture": "#trim",
+                              "uv": [
+                                0,
+                                0,
+                                6,
+                                5
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "right leg",
+          "from": [
+            5,
+            0,
+            0
+          ],
+          "to": [
+            5,
+            0,
+            0
+          ],
+          "faces": {},
+          "rotationOrigin": [
+            5,
+            0,
+            0
+          ],
+          "rotationX": -2,
+          "rotationY": 10,
+          "children": [
+            {
+              "name": "right leg thigh",
+              "from": [
+                -3.5,
+                -3.5,
+                0
+              ],
+              "to": [
+                3.5,
+                4,
+                14
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    7.5
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    7.5
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    7.5
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    7.5
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    14
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    14
+                  ]
+                }
+              }
+            },
+            {
+              "name": "right leg hip plate",
+              "from": [
+                -4,
+                -1,
+                -1
+              ],
+              "to": [
+                4,
+                4.5,
+                6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    5.5
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    5.5
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    5.5
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    5.5
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    7
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    7
+                  ]
+                }
+              }
+            },
+            {
+              "name": "right leg knee",
+              "from": [
+                -3.2,
+                -2.5,
+                12
+              ],
+              "to": [
+                3.2,
+                4.5,
+                16.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    7
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    7
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    7
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    4.5
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    4.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "right leg knee joint",
+              "from": [
+                0,
+                0,
+                14
+              ],
+              "to": [
+                0,
+                0,
+                14
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                0,
+                0,
+                14
+              ],
+              "rotationX": 4,
+              "children": [
+                {
+                  "name": "right leg shin",
+                  "from": [
+                    -3,
+                    -3,
+                    0
+                  ],
+                  "to": [
+                    3,
+                    3.5,
+                    13
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        13,
+                        6.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        13,
+                        6.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        13
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        13
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "right leg greave",
+                  "from": [
+                    -3.3,
+                    1,
+                    2
+                  ],
+                  "to": [
+                    3.3,
+                    4,
+                    11
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        3
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        3
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        3
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        3
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        9
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        9
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "right leg ankle",
+                  "from": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "to": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "faces": {},
+                  "rotationOrigin": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "rotationX": -80,
+                  "children": [
+                    {
+                      "name": "right leg boot",
+                      "from": [
+                        -3.6,
+                        -3,
+                        -3
+                      ],
+                      "to": [
+                        3.6,
+                        3.5,
+                        4.5
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            6.5
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.5,
+                            6.5
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            6.5
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.5,
+                            6.5
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            7.5
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            7.5
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "right leg toe",
+                      "from": [
+                        -3.4,
+                        -3,
+                        4.5
+                      ],
+                      "to": [
+                        3.4,
+                        2,
+                        7
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            5
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            2.5,
+                            5
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            5
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            2.5,
+                            5
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            2.5
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            2.5
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "right leg sole",
+                      "from": [
+                        -3.8,
+                        -4,
+                        -3.2
+                      ],
+                      "to": [
+                        3.8,
+                        -3,
+                        7.2
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            1
+                          ]
+                        },
+                        "east": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            10.4,
+                            1
+                          ]
+                        },
+                        "south": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            1
+                          ]
+                        },
+                        "west": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            10.4,
+                            1
+                          ]
+                        },
+                        "up": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            10.4
+                          ]
+                        },
+                        "down": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            10.4
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "left leg",
+          "from": [
+            -5,
+            0,
+            0
+          ],
+          "to": [
+            -5,
+            0,
+            0
+          ],
+          "faces": {},
+          "rotationOrigin": [
+            -5,
+            0,
+            0
+          ],
+          "rotationX": -14,
+          "rotationY": -12,
+          "children": [
+            {
+              "name": "left leg thigh",
+              "from": [
+                -3.5,
+                -3.5,
+                0
+              ],
+              "to": [
+                3.5,
+                4,
+                14
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    7.5
+                  ]
+                },
+                "east": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    7.5
+                  ]
+                },
+                "south": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    7.5
+                  ]
+                },
+                "west": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    14,
+                    7.5
+                  ]
+                },
+                "up": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    14
+                  ]
+                },
+                "down": {
+                  "texture": "#plate",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    14
+                  ]
+                }
+              }
+            },
+            {
+              "name": "left leg hip plate",
+              "from": [
+                -4,
+                -1,
+                -1
+              ],
+              "to": [
+                4,
+                4.5,
+                6
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    5.5
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    5.5
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    5.5
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    7,
+                    5.5
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    7
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    8,
+                    7
+                  ]
+                }
+              }
+            },
+            {
+              "name": "left leg knee",
+              "from": [
+                -3.2,
+                -2.5,
+                12
+              ],
+              "to": [
+                3.2,
+                4.5,
+                16.5
+              ],
+              "faces": {
+                "north": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    7
+                  ]
+                },
+                "east": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    7
+                  ]
+                },
+                "south": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    7
+                  ]
+                },
+                "west": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    4.5,
+                    7
+                  ]
+                },
+                "up": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    4.5
+                  ]
+                },
+                "down": {
+                  "texture": "#trim",
+                  "uv": [
+                    0,
+                    0,
+                    6.4,
+                    4.5
+                  ]
+                }
+              }
+            },
+            {
+              "name": "left leg knee joint",
+              "from": [
+                0,
+                0,
+                14
+              ],
+              "to": [
+                0,
+                0,
+                14
+              ],
+              "faces": {},
+              "rotationOrigin": [
+                0,
+                0,
+                14
+              ],
+              "rotationX": 26,
+              "children": [
+                {
+                  "name": "left leg shin",
+                  "from": [
+                    -3,
+                    -3,
+                    0
+                  ],
+                  "to": [
+                    3,
+                    3.5,
+                    13
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6.5
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        13,
+                        6.5
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        6.5
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        13,
+                        6.5
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        13
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6,
+                        13
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "left leg greave",
+                  "from": [
+                    -3.3,
+                    1,
+                    2
+                  ],
+                  "to": [
+                    3.3,
+                    4,
+                    11
+                  ],
+                  "faces": {
+                    "north": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        3
+                      ]
+                    },
+                    "east": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        3
+                      ]
+                    },
+                    "south": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        3
+                      ]
+                    },
+                    "west": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        9,
+                        3
+                      ]
+                    },
+                    "up": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        9
+                      ]
+                    },
+                    "down": {
+                      "texture": "#plate",
+                      "uv": [
+                        0,
+                        0,
+                        6.6,
+                        9
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "left leg ankle",
+                  "from": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "to": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "faces": {},
+                  "rotationOrigin": [
+                    0,
+                    0,
+                    13
+                  ],
+                  "rotationX": -68,
+                  "children": [
+                    {
+                      "name": "left leg boot",
+                      "from": [
+                        -3.6,
+                        -3,
+                        -3
+                      ],
+                      "to": [
+                        3.6,
+                        3.5,
+                        4.5
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            6.5
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.5,
+                            6.5
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            6.5
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.5,
+                            6.5
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            7.5
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            7.2,
+                            7.5
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "left leg toe",
+                      "from": [
+                        -3.4,
+                        -3,
+                        4.5
+                      ],
+                      "to": [
+                        3.4,
+                        2,
+                        7
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            5
+                          ]
+                        },
+                        "east": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            2.5,
+                            5
+                          ]
+                        },
+                        "south": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            5
+                          ]
+                        },
+                        "west": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            2.5,
+                            5
+                          ]
+                        },
+                        "up": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            2.5
+                          ]
+                        },
+                        "down": {
+                          "texture": "#plate",
+                          "uv": [
+                            0,
+                            0,
+                            6.8,
+                            2.5
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "name": "left leg sole",
+                      "from": [
+                        -3.8,
+                        -4,
+                        -3.2
+                      ],
+                      "to": [
+                        3.8,
+                        -3,
+                        7.2
+                      ],
+                      "faces": {
+                        "north": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            1
+                          ]
+                        },
+                        "east": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            10.4,
+                            1
+                          ]
+                        },
+                        "south": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            1
+                          ]
+                        },
+                        "west": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            10.4,
+                            1
+                          ]
+                        },
+                        "up": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            10.4
+                          ]
+                        },
+                        "down": {
+                          "texture": "#trim",
+                          "uv": [
+                            0,
+                            0,
+                            7.6,
+                            10.4
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "content",
+  "modid": "nf3treliquiarum",
+  "name": "GildedChronicles - Reliquiarum",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Some things in this world were never made here. Relics from other worlds lie hidden across the land, and nobody knows who left them. Test build: a few relics are hidden in the world so far; the rest are in the creative inventory.",
+  "version": "0.1.0",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
+  "dependencies": {
+    "game": "1.22.7",
+    "survival": "1.22.7"
+  }
+}

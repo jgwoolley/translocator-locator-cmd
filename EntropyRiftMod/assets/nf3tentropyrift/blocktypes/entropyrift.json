@@ -1,0 +1,162 @@
+{
+	"code": "entropyrift",
+	"class": "BlockEntropyRift",
+	"entityClass": "EntropyRift",
+	"variantgroups": [
+		{
+			"code": "state",
+			"states": [
+				"empty",
+				"powered"
+			]
+		}
+	],
+	"behaviors": [
+		{
+			"name": "Multiblock",
+			"properties": {
+				"sizex": 1,
+				"sizey": 2,
+				"sizez": 1,
+				"cposition": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				}
+			}
+		}
+	],
+	"entityBehaviors": [
+		{
+			"name": "Animatable"
+		}
+	],
+	"creativeinventory": {
+		"general": [
+			"*-empty"
+		],
+		"decorative": [
+			"*-empty"
+		]
+	},
+	"shapeByType": {
+		"*-empty": {
+			"base": "nf3tentropyrift:block/entropyrift-empty"
+		},
+		"*-powered": {
+			"base": "nf3tentropyrift:block/entropyrift-powered"
+		}
+	},
+	"drops": [
+		{
+			"type": "block",
+			"code": "nf3tentropyrift:entropyrift-empty",
+			"quantity": {
+				"avg": 1
+			}
+		}
+	],
+	"attributes": {
+		"handbook": {
+			"groupBy": [
+				"entropyrift-*"
+			],
+			"extraSections": [
+				{
+					"title": "nf3tentropyrift:handbook-rift-title",
+					"text": "nf3tentropyrift:handbook-rift-text"
+				}
+			]
+		}
+	},
+	"drawtype": "json",
+	"blockmaterial": "Metal",
+	"faceCullMode": "NeverCull",
+	"replaceable": 160,
+	"resistance": 3,
+	"lightAbsorption": 0,
+	"sidesolid": {
+		"all": false
+	},
+	"sideopaque": {
+		"all": false
+	},
+	"sideao": {
+		"all": false
+	},
+	"emitSideAo": {
+		"all": false
+	},
+	"lightHsvByType": {
+		"*-empty": [
+			0,
+			0,
+			0
+		],
+		"*-powered": [
+			0,
+			7,
+			7
+		]
+	},
+	"selectionbox": {
+		"x1": 0.03,
+		"y1": 0,
+		"z1": 0.03,
+		"x2": 0.97,
+		"y2": 2,
+		"z2": 0.97
+	},
+	"collisionbox": {
+		"x1": 0.03,
+		"y1": 0,
+		"z1": 0.03,
+		"x2": 0.97,
+		"y2": 2,
+		"z2": 0.97
+	},
+	"sounds": {
+		"place": "game:block/anvil",
+		"hit": "game:block/anvil",
+		"break": "game:block/anvil",
+		"walk": "game:walk/stone"
+	},
+	"heldTpIdleAnimation": "holdbothhandslarge",
+	"heldRightReadyAnimation": "heldblockready",
+	"heldTpUseAnimation": "twohandplaceblock",
+	"materialDensity": 2000,
+	"guiTransform": {
+		"rotation": {
+			"x": -22,
+			"y": -45,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.95,
+			"z": 0.5
+		},
+		"scale": 0.6
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.2,
+			"y": -0.5,
+			"z": -0.9
+		},
+		"rotation": {
+			"x": 0,
+			"y": -35,
+			"z": -5
+		},
+		"scale": 0.4
+	},
+	"groundTransform": {
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 2
+	}
+}

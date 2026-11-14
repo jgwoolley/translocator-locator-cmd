@@ -111,7 +111,7 @@ public class HudNavigator : HudElement
     {
         // Looking straight down has no direction: keep the last arrow rather than flicker.
         if (angle == null && navigator.Guidance?.Current != null) return;
-        if (angle == arrowAngle) return;
+        if (angle == null && arrowAngle == null) return;
         if (angle != null && arrowAngle != null && Math.Abs(Wrap(angle.Value - arrowAngle.Value)) < ArrowRedrawStep) return;
         arrowAngle = angle;
         SingleComposer.GetCustomDraw("arrow").Redraw();

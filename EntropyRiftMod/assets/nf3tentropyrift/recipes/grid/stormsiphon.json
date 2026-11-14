@@ -1,0 +1,14 @@
+[
+	{
+		"ingredientPattern": "_R_,RCR,PMP",
+		"ingredients": {
+			"R": { "type": "item", "code": "game:rod-cupronickel" },
+			"C": { "type": "item", "code": "game:jonasparts-connector01" },
+			"P": { "type": "item", "code": "game:metalplate-cupronickel" },
+			"M": { "type": "block", "code": "game:metal-parts" }
+		},
+		"width": 3,
+		"height": 3,
+		"output": { "type": "block", "code": "nf3tentropyrift:stormsiphon-empty", "quantity": 1 }
+	}
+]

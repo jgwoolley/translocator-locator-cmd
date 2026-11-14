@@ -1,6 +1,6 @@
 # Research notes
 
-Findings and suggestions for four open questions. Nothing here has been implemented.
+Findings and suggestions for five open questions. Nothing here has been implemented.
 
 **How to read this.** Sources are the game C# in `/home/ubuntu/workspace/vintage-story-wiki`
 (`vsapi`, `vsessentialsmod`, `vssurvivalmod`) and the shipped assets in `vintagestory/assets`.
@@ -13,6 +13,7 @@ Contents:
 2. [Turning Translocator Navigator into a GUI](#2-turning-translocator-navigator-into-a-gui)
 3. [Translocator Repair vs. other mods that change translocator classes](#3-translocator-repair-vs-other-mods-that-change-translocator-classes)
 4. [What to do about Nf3tVSCommon](#4-what-to-do-about-nf3tvscommon)
+5. [A reverse rift ward: a device that lowers stability and draws boss-tier rust creatures](#5-a-reverse-rift-ward-a-device-that-lowers-stability-and-draws-boss-tier-rust-creatures)
 
 ---
 
@@ -348,3 +349,231 @@ Two other problems showed up in the code:
   `Dijkstra.NET` is only used by `TranslocatorPathResult` in Common, so the Locator ships it only
   because Common references it. Moving the path code into the Navigator (or compiling it only there
   under option A) drops it from the Locator zip.
+
+---
+
+## 5. A reverse rift ward: a device that lowers stability and draws boss-tier rust creatures
+
+**Built** as the Entropy Rift (`EntropyRiftMod`): its own spawner as in "Design" step 3 (with a boss guarantee and a boss
+refund), the stability drain of step 1 through `OnGetTemporalStability` on both sides, plus a server-side floor (0.15) on the
+players' own stability near it outside storms, since the drain alone takes them all the way to 0. See the mod's README.
+
+Goal: a placeable Jonas-style device that does the opposite of stabilising. Around it, temporal
+stability drops and the rust creatures that spawn are the top tier, up to the "gearfoot" tier.
+
+Sources: game version 1.22.7. Survival code is in `vssurvivalmod/Systems/TemporalStability/`. The
+runtime spawner (`ServerSystemEntitySpawner`, `EntitySpawnerResult`) is in the closed
+`VintagestoryLib.dll` and was read with `ilspycmd`.
+
+### What "gearfoot tier" means in the game files
+
+*Gearfoot* is a **bowtorn** variant (`bowtorn-gearfoot`), not a drifter. It sits one step above
+nightmare. Each rust-creature family has an equivalent:
+
+| Family | Normal tiers (storm/upgrade order) | Above nightmare | Max HP (nightmare → special) |
+| --- | --- | --- | --- |
+| Drifter | normal, deep, tainted, corrupt, nightmare | `drifter-double-headed` | 40 → 54 |
+| Shiver | surface, deep, tainted, corrupt, nightmare | `shiver-deepsplit` (also stilt, bellhead) | 45 → 60 |
+| Bowtorn | surface, deep, tainted, corrupt, nightmare | `bowtorn-gearfoot` | 32 → 50 |
+
+How each one appears in vanilla:
+
+* **Gearfoot never spawns on its own.** Its runtime `maxQuantity` is `0` (`entities/lore/bowtorn.json`,
+  `spawnconditions.runtime.maxQuantityByType`). It is not in `config/mobextraspawns.json` and no
+  worldgen asset names it. Only commands or creative spawning produce one. Its drops are 1 ±0.4
+  temporal gears plus about 5 rusty gears, and a kill restores 0.35 of the killer's stability
+  (`onDeathStabilityRecoveryByType`).
+* **Double-headed drifter and deepsplit shiver** spawn only during temporal storms, as
+  `rareSpawns` (`chancePerStorm: 1`, group `boss`, at most one per player per storm,
+  `TemporalStability.cs:575-586`).
+* **Nightmare** spawns naturally only very deep (`maxY 0.23` × sea level). It can also appear
+  anywhere through the low-stability upgrade below.
+
+So the design has two parts. Lowering stability is enough to get **nightmare** tier everywhere.
+**Gearfoot/boss** tier needs the device to spawn mobs itself.
+
+### How stability and spawning work now
+
+1. **Location stability.** `SystemTemporalStability.GetTemporalStability(x,y,z)`
+   (`TemporalStability.cs:852`) is a noise value (surface 0.8–1.5, lower deeper down) minus storm
+   strength. At the end it calls the **public event `OnGetTemporalStability`** and returns the
+   handler's result **without clamping it**. The game already uses this hook:
+   `StoryStructuresSpawnConditions` (`Lore/StoryStructuresSpawnConditions.cs:27,76`) forces 1.0
+   inside the Resonance Archives. It subscribes in `Start()`, so **both sides** use it.
+2. **Player stability** (`BehaviorTemporalStabilityAffected.cs:333-344`). This behavior runs on
+   client and server. Each tick it moves the player's own stability (`WatchedAttributes["temporalStability"]`)
+   by `(here - 1)`. Below 1 it loses about `(1 - here) / 800` per second. Above 1 it gains about
+   `(here - 1) / 200` per second. Worked out: in a spot with stability 0, a player at 100% reaches
+   0.25 in about 10 minutes and 0 in about 13 minutes. A value of −3 (allowed, because the event
+   isn't clamped) is 4× faster. Rifts use a separate `stabilityOffset` of up to −20
+   (`Rifts.cs:181`) but reset it to 0 every 100 ms, so a mod shouldn't use that field.
+3. **What low player stability does already.** Below 0.3: fog and rust-coloured rain. Below 0.2:
+   glitch shader. Below 0.13: poison damage every 4 s (`:376-387`).
+4. **The runtime spawner** (closed source) picks a type that passes its depth band
+   (`minY`/`maxY` relative to sea level), its `chance` and its caps. Then:
+   * `CanSpawnAt` asks the **nearest player's** `EntityPlayer.OnCanSpawnNearby`. The stability system
+     sets that to `SystemTemporalStability.CanSpawnNearby` (`:788`). For types with
+     `spawnCloserDuringLowStability` (all three families), low **player** stability scales away the
+     light-level limit, so they spawn next to torches. Below 0.125 it forces spawns within 10 blocks.
+     **However, on the open surface** (sunlight 16) they still need a rift within 20 blocks at night,
+     or within 6 blocks by day at 7%.
+   * `EntitySpawnerResult.Spawn` then fires `OnTrySpawnEntity` with `ref EntityProperties`. The
+     stability system's handler (`:640-693`) upgrades the type when the nearest player's stability
+     (or the storm) is below 0.25: `index += round((0.25 - stab) * 15)`, capped at nightmare. A
+     player at ≤ 0.017 stability turns every surface drifter into a nightmare one. The family can also
+     change (drifter → shiver/bowtorn) according to the current storm pattern weights. The spawner
+     records the original code in `Attributes["originaltype"]`, so upgraded mobs still count toward
+     the **original** type's cap.
+   * The upgrade never goes past index 4. Bosses come only from the storm code's own spawner
+     (`trySpawnForPlayer`/`DoSpawn`, `:505-636`). That spawner ignores spawn caps and
+     `CanSpawnNearby`, tags mobs `origin = "timedistortion"`, sets `ignoreDaylightFlee`, and
+     schedules a despawn through `timeddespawn`.
+
+### Design
+
+One mod (`side: Universal`, required on both sides). It would be modelled on `BlockEntityRiftWard`
+(`BlockEntity/BERiftWard.cs`): temporal-gear fuel counted in days, toggled by right click with an
+empty hand, an animated spinning model and a looping ambient sound. Working names: *Rift lure* or
+*Temporal destabilizer*.
+
+**1. Lower stability around the device (cheap, no patches).**
+
+* `ModSystemDestabilizer.Start()` (both sides) subscribes to `OnGetTemporalStability`. The handler
+  returns `min(stability, deviceValue(dist))` for the nearest active device. Example falloff: −1 at
+  the core, rising to the vanilla value at radius R (say 24–32 blocks). Keep the value ≥ 0 at first;
+  going negative is a balance decision.
+* The device list has to exist **on the client as well**. Otherwise the client predicts other
+  values and the stability gear, sounds and glitch effects disagree with the server. The block entity
+  adds itself in `Initialize` and removes itself in `OnBlockUnloaded`/`OnBlockRemoved` on both sides.
+  `On` and fuel are synced through `ToTreeAttributes`/`MarkDirty`, like the rift ward.
+* The handler runs **every tick for every player**, on both sides, and also off-thread from the
+  spawner. Use a small immutable array that is swapped on change, and compare squared distances.
+  Don't take locks or do LINQ in the handler.
+
+What this gives for free: player stability drains near the device, along with the glitch, fog,
+rust-rain and poison effects, and vanilla spawns become nightmare tier once a player is near 0. The
+mobs ignore light underground and spawn close. Killing them restores stability, so the player has to
+hold a balance.
+
+**2. Upgrades based on the device, not the player (optional).** A second `OnTrySpawnEntity`
+handler can upgrade by distance to the device, so mobs reach the top tier before the player's own
+stability is gone. It runs after vanilla's handler because survival registers earlier. Check the
+order with a log line before relying on it.
+
+**3. Boss tier: the device's own spawner (needed for gearfoot).** This copies the storm spawner
+pattern (`trySpawnForPlayer` + `DoSpawn`):
+
+* Server tick every few seconds while the device is on, fuelled, and a player is within R.
+* Tier table in a JSON config (for example `config/nf3t…-spawns.json`) with weights by device
+  strength or fuel tier: nightmare variants commonly; `drifter-double-headed`, `shiver-deepsplit`,
+  `bowtorn-gearfoot` rarely.
+* Before spawning: count this mod's mobs in range through `EntityPartitioning.WalkEntities` with a
+  marker attribute (for example `origin = "nf3tdestabilizer"`) and enforce a cap, at most one boss alive.
+  Use `CollisionTester` against `SpawnCollisionBox` and walk down to solid ground, as in `:596-605`.
+* After spawning: `Attributes.SetBool("ignoreDaylightFlee", true)`, so the mobs work on the surface by
+  day. Optionally set a timed despawn. The vanilla `despawn` behaviors (more than 32 blocks away
+  for 30 s) already remove them when players leave.
+* This path never calls `CanSpawnNearby`, so the **surface/rift rule doesn't apply** and the device
+  works outdoors. The alternative, injecting a permanent rift (`ModSystemRifts.riftsById` +
+  `NextRiftId` + `BroadCastRifts`, all public), depends on how `ServerRifts` and `KillOldRifts`
+  treat foreign rifts. It is unverified and more fragile.
+
+**4. Cost and risk (balance).** Gearfoot drops a temporal gear, so the device is a gear farm. The
+gear fuel cost per day should be higher than the expected gear yield, or bosses should drop nothing
+while the device is involved. A drop-table override would need a Harmony patch or a separate entity
+variant. Device-spawned mobs ignore vanilla caps, so the mod's own cap is the only limit. Rift
+wards block rifts but don't touch stability, so they don't counter this device. Server owners
+probably want a world-config switch to disable it.
+
+### Things to verify before building
+
+* **The rate figures are worked out from the code, not measured.** Check them with
+  `/entity cmd` or by reading the player's `temporalStability` over time near a test device.
+* **Handler order** of `OnTrySpawnEntity` (survival first, then this mod) if step 2 depends on it.
+* **Client/server agreement.** With the client hook missing, the stability gear should visibly
+  disagree. That proves the hook needs to be registered on the client.
+* **Negative stability values.** Only `BehaviorTemporalStabilityAffected` reads
+  `GetTemporalStability`, and it clamps the player's own value. Check that sounds and effects in
+  `updateSoundsAndEffects` don't misbehave below 0 before allowing it.
+* **Interaction with storms.** During a storm, vanilla already lowers stability and runs its own
+  boss spawns. The device cap should probably count `origin = "timedistortion"` mobs too.
+
+### Is the stability loss permanent?
+
+No. There are two separate values:
+
+* **The area around the device.** This is computed fresh on every call (`GetTemporalStability`), and
+  nothing is written to the world. When the device is turned off, runs out of fuel or is broken, the
+  area is back to its normal value straight away.
+* **The player's own stability** (`WatchedAttributes["temporalStability"]`) is saved and changes
+  slowly. Vanilla restores it in three ways:
+  * Standing where location stability is **above 1** (much of the surface; the noise gives 0.8–1.5).
+    It gains `(here - 1) / 200` per second, so at 1.5 it goes from 0 to full in about 7 minutes.
+    Where the area value is between 0.8 and 1 it keeps falling slowly, as in vanilla.
+  * Killing rust creatures: `onDeathStabilityRecovery`, from +0.01 (surface tier) to +0.3 (nightmare
+    bowtorn) and +0.35 (gearfoot).
+  * The knife ritual: knife in the main hand and a temporal gear in the off hand restores +0.30
+    (`ItemKnife.cs:146`).
+  * **UNVERIFIED:** whether dying resets it. Check in game.
+
+### Simpler alternative: a spawner block that rarely rolls a boss
+
+This drops the stability change entirely. A placed block spawns drifters (or a mix of rust
+creatures) and has a small chance per spawn of a boss-tier mob. The game already has most of this:
+
+* **`BlockEntitySpawner`** (`BlockEntity/BESpawner.cs`) is the creative "meta spawner" block
+  (`game/blocktypes/meta.json`, `meta-spawner`). It is a public class with `virtual OnGameTick`,
+  `virtual DoSpawn` and `virtual GetNextHerdId`, and public `Data` (`BESpawnerData`). It already
+  provides:
+  * `EntityCodes` (one is picked at random each attempt)
+  * `MaxCount` (the most it keeps alive; dead or despawned mobs are removed from its list)
+  * `InGameHourInterval` and `GroupSize`
+  * `SpawnArea` (a cuboid relative to the block)
+  * `SpawnRangeMode` with `MinPlayerRange`/`MaxPlayerRange` (for example: spawn only while a player is within N blocks)
+  * a charge system: `InternalCapacity` + `RechargePerHour`. A mob that despawns alive gives its
+    charge back, which works as a fuel or charge mechanic.
+* What stops it being a survival block as it is: the settings dialog opens only in creative
+  (`BlockSpawner.cs:17`, `BESpawner.cs:526`). `SpawnOnlyAfterImport` defaults to `true`, so a
+  hand-placed spawner does nothing unless it came from a schematic.
+* **The hook:** each attempt fires `sapi.Event.PushEvent("onattemptspawnerspawn", tree)` with
+  `type` and `pos`, then reads `type` back (`BESpawner.cs:252-256`). A mod can rewrite `type` there.
+  The event is global, though, so it also reaches spawners in vanilla structures. Filter on `pos`.
+
+**Suggested build:** a survival block whose block entity **subclasses `BlockEntitySpawner`**.
+
+1. In `Initialize`, fill `Data` from the block's JSON attributes, so the numbers can be tuned
+   without code changes:
+   * `EntityCodes`: `drifter-normal` … `drifter-nightmare`
+   * `MaxCount` ≈ 3
+   * `InGameHourInterval` ≈ 0.25
+   * `SpawnOnlyAfterImport = false`
+   * `SpawnRangeMode = WhenInRange` with `MinPlayerRange` ≈ 24
+   * optional charge settings
+2. Rare boss roll: override `DoSpawn(entityType, pos, herdId)`. With probability p (e.g. 0.02),
+   swap `entityType` for one entry of a `bossCodes` list (`bowtorn-gearfoot`, `drifter-double-headed`,
+   `shiver-deepsplit`) before calling `base.DoSpawn`. Keep a separate limit of one boss alive. A pity
+   counter (raise p after each miss) makes it feel fair. Note that the base class checks for space
+   using the **original** type's collision box. The gearfoot is 0.7 × 2.3 blocks, a little taller than
+   a drifter, so it could occasionally clip a ceiling. A collision re-check in the override avoids that.
+3. After `base.DoSpawn`, tag the entity (for example `origin = "nf3tdriftspawner"`). For daytime use on
+   the surface also set `Attributes["ignoreDaylightFlee"] = true`, as the storm spawner does.
+4. Activation: a survival right-click (toggle, or feed temporal or rusty gears for charge), modelled
+   on the rift ward. Don't use the creative dialog.
+
+**Compared with the stability device:**
+
+| | Stability device (§5 design) | Spawner block |
+| --- | --- | --- |
+| Players hurt by low stability | yes, recoverable as above | no |
+| Code size | event hook + client sync + own spawner | one block entity subclass + block JSON |
+| Patches/Harmony | none | none |
+| Respects vanilla spawn caps, light, rift rules | partly | no, the block is the only limit |
+| Boss tier | needs its own spawner anyway | built into the `DoSpawn` override |
+
+The spawner is the smaller and safer build. The balance concern from §4 still applies: each
+gearfoot drops a temporal gear, so p, the interval, and any fuel cost set the gear-per-day rate.
+
+Checked: `BlockEntitySpawner` saves its spawned-entity IDs (`BESpawner.cs:572-583`). But each
+tick it drops any ID that isn't in `LoadedEntities` (`:296-303`), so a mob that wandered into an
+unloaded chunk stops counting toward `MaxCount`. The cap is "alive and loaded", not a hard limit.
+With the vanilla `despawn` behaviors (32+ blocks from players) this rarely matters.

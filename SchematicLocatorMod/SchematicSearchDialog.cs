@@ -109,11 +109,12 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
             SingleComposer.AddButton(displayAsset, () => OnAssetLocationClicked(row.AssetLocation), assetBounds, labelFont, EnumButtonStyle.None);
             SingleComposer.AddHoverText(row.AssetLocation, labelFont, 300, assetBounds);
             
-            var assetLocPath = Utils.NorthifyAssetLocationPath(row.MatchedBlock);
-            var assetLoc = new AssetLocation(assetLocPath);
-            var block = capi.World.GetBlock(assetLoc);
-            var stack = new ItemStack(block);
-            var blockName = stack.GetName();
+            // The block as this client knows it: its north-facing variant for the icon, else the variant itself. A schematic can
+            // name a block this client does not have (a mod that is not installed here): then show its code and no icon.
+            var block = capi.World.GetBlock(new AssetLocation(Utils.NorthifyAssetLocationPath(row.MatchedBlock)))
+                        ?? capi.World.GetBlock(new AssetLocation(row.MatchedBlock));
+            var stack = block == null ? null : new ItemStack(block);
+            var blockName = stack?.GetName() ?? row.MatchedBlock;
             
             // 2. MATCHED BLOCK NAME (Truncated with "..." at the end to keep the prefix visible)
             string displayBlock = blockName.Length > 22 
@@ -131,7 +132,8 @@ public class SchematicSearchDialog(ICoreClientAPI capi) : GuiDialog(capi)
             // The content bounds is 600 wide. Placing the icon at 560 tucks it safely 
             // after the Count text and right before the window edge.
             // 4. BLOCK ICON (Moved to the FAR RIGHT)
-            SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(560, yOffset - 1, 24, 24), stack));
+            if (stack != null)
+                SingleComposer.AddInteractiveElement(new ItemIconElement(capi, ElementBounds.Fixed(560, yOffset - 1, 24, 24), stack));
 
             // Increase this from 26 to 34 to give the icons more breathing room
             yOffset += 34; 

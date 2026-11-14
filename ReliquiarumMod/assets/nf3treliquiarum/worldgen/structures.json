@@ -1,0 +1,60 @@
+{
+  "rocktypeRemapGroups": {},
+  "schematicYOffsets": {},
+  "structures": [
+    {
+      "code": "nf3treliquiarum-imperialreliquary",
+      "name": "Reliquiarum: the imperial reliquary",
+      "chance": 0.02,
+      "schematics": [
+        "nf3treliquiarum:surface/imperialreliquary"
+      ],
+      "replacewithblocklayers": [
+        "game:soil-low-normal"
+      ],
+      "rockTypeRemapGroup": "standard",
+      "offsetY": -2,
+      "suppressTrees": true,
+      "placement": "surface"
+    },
+    {
+      "code": "nf3treliquiarum-smallshrine",
+      "name": "Reliquiarum: small marble shrine",
+      "chance": 0.01,
+      "schematics": [
+        "nf3treliquiarum:surface/smallshrine/*"
+      ],
+      "offsetY": -1,
+      "suppressTrees": true,
+      "placement": "surface"
+    },
+    {
+      "code": "nf3treliquiarum-ancientshrine",
+      "name": "Reliquiarum: ancient marble shrine",
+      "chance": 0.012,
+      "schematics": [
+        "nf3treliquiarum:surface/ancientshrine/*"
+      ],
+      "offsetY": -8,
+      "suppressTrees": true,
+      "placement": "surface"
+    },
+    {
+      "code": "nf3treliquiarum-desertshrine",
+      "name": "Reliquiarum: buried quartz shrine",
+      "chance": 0.012,
+      "schematics": [
+        "nf3treliquiarum:surface/desertshrine/*"
+      ],
+      "replacewithblocklayers": [
+        "game:soil-medium-none",
+        "game:soil-medium-verysparse",
+        "game:soil-medium-sparse"
+      ],
+      "offsetY": -11,
+      "minTemp": 15,
+      "maxRain": 0.35,
+      "placement": "surface"
+    }
+  ]
+}

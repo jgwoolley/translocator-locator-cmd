@@ -45,3 +45,14 @@ For the user's manual site updates, `vsdev moddb serve` starts a local read-only
 Draft pages are not visible to the API, so `vsdev moddb` reports those mods as not published; their `moddb/` files are
 written by hand. Images in `moddb/<modid>/images/` are downloaded from the live page, not generated
 (`CreateImages/` makes the files to upload).
+
+## Statue rendering is mirrored in vsdev (keep in sync)
+
+`StatueMod` builds a statue's mesh in code (`StatueMesh.cs`, `StatuePose.cs`). The same geometry is ported to TypeScript in the
+vintage-story-wiki repo (`../vintage-story-wiki/libs/vs-schematic/src/statue.ts`, tested by `libs/vs-schematic/test/statue.test.ts`), so
+`vsdev screenshots` can draw a statue (a `"statue"` scene part in `vs-manifest.json`) and `vsdev render` can draw statues inside
+schematics. When you change how a statue looks or what its block entity stores (`StatueMesh.cs`, `StatuePose.cs`, `StatueAppearance.cs`
+attribute names, `BlockEntityStatue.cs` scales, `StatueTypes.cs` specials, `StatueTack.cs`, `StatuePoses.cs`, `StatuePlatform.cs`,
+`StatueMolding.cs`, or the textures in `assets/nf3tstatue/blocktypes/statue*.json`), make the same change in `statue.ts` and its test,
+and say so to the user; the wiki repo's CLAUDE.md says the same in the other direction. `CreateImages/statue_shape.py` (the baked
+render-only shape for the store images) predates the port: a `"statue"` scene part does the same without it.

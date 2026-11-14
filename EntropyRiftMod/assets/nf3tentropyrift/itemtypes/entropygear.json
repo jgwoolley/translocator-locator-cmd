@@ -1,0 +1,46 @@
+{
+	"code": "entropygear",
+	"class": "ItemEntropyGear",
+	"shape": { "base": "nf3tentropyrift:item/entropygear" },
+	"creativeinventory": { "general": ["*"], "items": ["*"] },
+	"maxstacksize": 1,
+	"materialDensity": 4000,
+	"lightHsv": [ 5, 7, 3 ],
+	"storageFlags": 257,
+	"attributes": {
+		"entropyFuel": true,
+		"displayable": {
+			"shelf": {
+				"size": { "width": 5, "height": 1, "length": 5 },
+				"transform": {
+					"translation": { "x": 0.02, "y": 0, "z": -0.01 },
+					"origin": { "x": 0.4, "y": 0.4, "z": 0.5 }
+				},
+				"randYRotAngle": 60
+			}
+		},
+		"handbook": {
+			"extraSections": [
+				{ "title": "nf3tentropyrift:handbook-gear-title", "text": "nf3tentropyrift:handbook-gear-text" }
+			]
+		}
+	},
+	"guiTransform": {
+		"translation": { "x": 3, "y": 1, "z": 0 },
+		"rotation": { "x": 145, "y": -12, "z": 0 },
+		"origin": { "x": 0.5, "y": 0.0625, "z": 0.5 },
+		"scale": 2.5
+	},
+	"tpHandTransform": {
+		"translation": { "x": -0.95, "y": -0.11, "z": -0.85 },
+		"rotation": { "x": 0, "y": -89, "z": 5 },
+		"origin": { "x": 0.5, "y": 0.0625, "z": 0.5 },
+		"scale": 0.61
+	},
+	"groundTransform": {
+		"translation": { "x": 0, "y": 0, "z": 0 },
+		"rotation": { "x": 0, "y": 0, "z": 0 },
+		"origin": { "x": 0.39, "y": 0, "z": 0.47 },
+		"scale": 3.76
+	}
+}

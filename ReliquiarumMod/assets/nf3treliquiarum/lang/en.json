@@ -1,0 +1,22 @@
+{
+  "game:tabname-reliquiarum": "Reliquiarum",
+  "nf3treliquiarum:block-relic-fallengiant-*": "Fallen giant",
+  "nf3treliquiarum:block-relic-reliquary-*": "Reliquary",
+  "nf3treliquiarum:block-relic-stasispod-*": "Broken stasis pod",
+  "nf3treliquiarum:block-relic-scarab-*": "Broken scarab",
+  "nf3treliquiarum:block-relic-aquila-*": "Gilded eagle",
+  "nf3treliquiarum:block-relic-giantprone-*": "Armored giant, face down",
+  "nf3treliquiarum:block-relic-deathlessstanding-*": "Dormant deathless warrior",
+  "nf3treliquiarum:block-relic-deathlesskneeling-*": "Collapsed deathless warrior",
+  "nf3treliquiarum:block-relic-lectern-*": "Gothic lectern",
+  "nf3treliquiarum:block-relic-candelabrum-*": "Wax-drowned candelabrum",
+  "nf3treliquiarum:block-relic-machinealtar-*": "Machine altar",
+  "nf3treliquiarum:block-relic-cogitator-*": "Dead cogitator",
+  "nf3treliquiarum:block-relic-brokenpew-*": "Broken pew",
+  "nf3treliquiarum:block-relic-skullniche-*": "Skull niche",
+  "nf3treliquiarum:block-relic-munitionscrate-*": "Sealed munitions crate",
+  "nf3treliquiarum:block-relic-dataslates-*": "Scattered data-slates",
+  "nf3treliquiarum:block-relic-eaglebanner-*": "Tattered eagle banner",
+  "nf3treliquiarum:block-relic-cogbanner-*": "Tattered cog banner",
+  "nf3treliquiarum:block-relic-lastclash-*": "The last clash"
+}

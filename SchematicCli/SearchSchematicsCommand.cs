@@ -2,7 +2,6 @@
 
 using System.ComponentModel;
 using System.IO.Compression;
-using System.Security.Cryptography;
 using Newtonsoft.Json;
 using Spectre.Console.Cli;
 using Vintagestory.API.Common;
@@ -13,18 +12,8 @@ namespace Nf3t.VintageStory.SchematicCli;
 
 public class SearchSchematicsCommand : Command<SearchSchematicsCommand.Settings>
 {
-    private static string CalculateMd5(string filename)
-    {
-        using var md5 = MD5.Create();
-        using var stream = File.OpenRead(filename);
-        var hash = md5.ComputeHash(stream);
-        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-    }
-
     private static void ProcessMod(Request request, string modPath)
     {
-        var md5 = CalculateMd5(modPath);
-
         using var archive = ZipFile.OpenRead(modPath);
         // Filter entries that start with the path and end with .json
         var jsonFiles = archive.Entries.Where(e =>

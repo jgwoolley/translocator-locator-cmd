@@ -1,0 +1,52 @@
+{
+  "code": "relic",
+  "variantgroups": [
+    { "code": "type", "states": [ "fallengiant", "reliquary", "stasispod", "scarab", "aquila", "giantprone", "deathlessstanding", "deathlesskneeling", "lectern", "candelabrum", "machinealtar", "cogitator", "brokenpew", "skullniche", "munitionscrate", "dataslates", "eaglebanner", "cogbanner", "lastclash" ] },
+    { "code": "side", "loadFromProperties": "game:abstract/horizontalorientation" }
+  ],
+  "behaviors": [
+    { "name": "HorizontalOrientable", "properties": { "dropBlockFace": "south" } }
+  ],
+  "creativeinventory": { "general": [ "*-south" ], "reliquiarum": [ "*-south" ] },
+  "attributes": { "handbook": { "exclude": true } },
+  "shapebytype": {
+    "*-north": { "base": "block/{type}", "rotateY": 0 },
+    "*-west": { "base": "block/{type}", "rotateY": 90 },
+    "*-south": { "base": "block/{type}", "rotateY": 180 },
+    "*-east": { "base": "block/{type}", "rotateY": 270 }
+  },
+  "guiTransformByType": {
+    "*-lastclash-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.37, "y": 0.96, "z": 0.25 }, "scale": 0.34 },
+    "*-fallengiant-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.62, "y": 1.13, "z": -0.39 }, "scale": 0.38 },
+    "*-reliquary-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 0.89, "z": 0.5 }, "scale": 0.67 },
+    "*-stasispod-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.42, "y": 1.36, "z": 0.16 }, "scale": 0.4 },
+    "*-scarab-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.61, "y": 0.35, "z": 0.28 }, "scale": 0.66 },
+    "*-aquila-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 0.45, "z": 0.5 }, "scale": 1 },
+    "*-giantprone-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.47, "y": 0.46, "z": 0.56 }, "scale": 0.38 },
+    "*-deathlessstanding-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 1, "z": 0.08 }, "scale": 0.48 },
+    "*-deathlesskneeling-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.54, "y": 0.78, "z": 0.68 }, "scale": 0.61 },
+    "*-lectern-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.59, "y": 0.51, "z": 0.37 }, "scale": 0.94 },
+    "*-candelabrum-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 0.76, "z": 0.46 }, "scale": 0.63 },
+    "*-machinealtar-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 0.5, "z": 0.48 }, "scale": 0.96 },
+    "*-cogitator-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.53, "y": 0.47, "z": 0.6 }, "scale": 0.81 },
+    "*-brokenpew-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.56, "y": 0.47, "z": 0.55 }, "scale": 0.88 },
+    "*-skullniche-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 0.57, "z": 0.53 }, "scale": 0.83 },
+    "*-munitionscrate-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.33, "y": 0.26, "z": 0.56 }, "scale": 0.87 },
+    "*-dataslates-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.46, "y": 0.05, "z": 0.51 }, "scale": 1.01 },
+    "*-eaglebanner-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 1.44, "z": 0.5 }, "scale": 0.38 },
+    "*-cogbanner-*": { "rotation": { "x": -22.6, "y": -45.3, "z": 0 }, "origin": { "x": 0.5, "y": 1.44, "z": 0.5 }, "scale": 0.38 }
+  },
+  "blockmaterial": "Metal",
+  "drawtype": "json",
+  "faceCullMode": "NeverCull",
+  "replaceable": 100,
+  "resistance": 3,
+  "lightAbsorption": 0,
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "sounds": {
+    "place": "game:block/heavymetal-hit",
+    "break": "game:block/heavymetal-hit",
+    "hit": "game:block/heavymetal-hit"
+  }
+}

@@ -367,6 +367,120 @@
         0.4,
         1.4
       ]
+    },
+    {
+      "name": "screenshots-logo",
+      "preset": "moddb-logo-wide",
+      "output": "ScreenshotsMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "scene": [
+        {
+          "model": "survival:shapes/block/wood/painting2x1.json",
+          "at": [
+            0,
+            0.3,
+            0
+          ]
+        },
+        {
+          "model": "survival:shapes/item/utility/map.json",
+          "at": [
+            -0.6,
+            0,
+            -0.2
+          ],
+          "rotationY": 8,
+          "scale": 1.7
+        },
+        {
+          "model": "survival:shapes/item/utility/compass.json",
+          "at": [
+            -0.1,
+            0.06,
+            -0.15
+          ],
+          "rotationY": -20,
+          "scale": 1.5
+        }
+      ],
+      "view": [
+        -0.25,
+        0.4,
+        -1
+      ]
+    },
+    {
+      "name": "screenshots-icon",
+      "preset": "modicon",
+      "output": "ScreenshotsMod/modicon.png",
+      "scene": [
+        {
+          "model": "survival:shapes/block/wood/painting1x1.json",
+          "at": [
+            0,
+            0.15,
+            0
+          ]
+        },
+        {
+          "model": "survival:shapes/item/utility/compass.json",
+          "at": [
+            0.05,
+            0,
+            -0.35
+          ],
+          "rotationY": -20,
+          "scale": 1.1
+        }
+      ],
+      "view": [
+        -0.3,
+        0.35,
+        -1
+      ]
+    },
+    {
+      "name": "entropyrift-icon",
+      "preset": "modicon",
+      "output": "EntropyRiftMod/modicon.png",
+      "model": "EntropyRiftMod/assets/nf3tentropyrift/shapes/block/stormsiphon-entropy.json"
+    },
+    {
+      "name": "entropyrift-logo",
+      "preset": "moddb-logo-wide",
+      "output": "EntropyRiftMod/Screenshots/Logo.png",
+      "background": "#f5f1e8",
+      "scene": [
+        {
+          "model": "EntropyRiftMod/assets/nf3tentropyrift/shapes/block/stormsiphon-temporal.json",
+          "at": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "model": "EntropyRiftMod/assets/nf3tentropyrift/shapes/block/entropyrift-powered.json",
+          "at": [
+            2,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reliquiarum-logo",
+      "model": "ReliquiarumMod/assets/nf3treliquiarum/shapes/block/reliquary.json",
+      "preset": "moddb-logo-wide",
+      "output": "ReliquiarumMod/Screenshots/Logo.png",
+      "background": "#f5f1e8"
+    },
+    {
+      "name": "reliquiarum-icon",
+      "model": "ReliquiarumMod/assets/nf3treliquiarum/shapes/block/reliquary.json",
+      "preset": "modicon",
+      "output": "ReliquiarumMod/modicon.png"
     }
   ]
 }

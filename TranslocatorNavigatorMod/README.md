@@ -20,6 +20,9 @@ Press **Ctrl+T** (rebindable under Controls as "Translocator Navigator") or type
 
 Only translocators you have looked at are known to the mod, so look at the translocators along your way first.
 
+Other mods can open a route too: [Screenshots](../ScreenshotsMod)' `.shots goto` plans a route to where a screenshot
+was taken and starts the guidance.
+
 ## Commands
 
 | Command        | Description                                                                         |

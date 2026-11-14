@@ -30,7 +30,6 @@ services:
       - traefik.http.routers.nf3t-mods-site.rule=Host(`${MODS_SITE_HOST:-mods.nf3t.localhost}`)
       - traefik.http.routers.nf3t-mods-site.entrypoints=web
       - traefik.http.services.nf3t-mods-site.loadbalancer.server.port=80
-    restart: unless-stopped
 
   # Not a plain file server: vsdev (installed in the devbox image, hence that image and `pull_policy: never`) serves the
   # review page and writes the checklist progress into moddb/, so the repo is mounted read-write. docker/moddb-proxy.mjs
@@ -50,7 +49,6 @@ services:
       - traefik.http.routers.nf3t-moddb.rule=Host(`${MODDB_HOST:-moddb-updater.nf3t.localhost}`)
       - traefik.http.routers.nf3t-moddb.entrypoints=web
       - traefik.http.services.nf3t-moddb.loadbalancer.server.port=8080
-    restart: unless-stopped
 
 networks:
   proxy:

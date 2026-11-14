@@ -1,0 +1,15 @@
+{
+  "type": "code",
+  "modid": "nf3tscreenshots",
+  "name": "GildedChronicles - Screenshots",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Client-side. Remembers where, in which world and on which server each screenshot was taken, so you can list, label and open them, and find your way back with Translocator Navigator.",
+  "version": "1.0.0",
+  "side": "Client",
+  "requiredOnServer": false,
+  "dependencies": {
+    "game": "1.22.7"
+  }
+}

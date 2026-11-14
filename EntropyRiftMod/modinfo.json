@@ -1,0 +1,17 @@
+{
+  "type": "code",
+  "modid": "nf3tentropyrift",
+  "name": "GildedChronicles - Entropy Rift",
+  "authors": [
+    "gildedchronicles"
+  ],
+  "description": "Adds the Storm Siphon, a Jonas device that draws a temporal storm into a temporal gear and turns it into an entropy gear, and the Entropy Rift, which spends an entropy gear drawing rust creatures and their bosses out of a rift while temporal stability sinks around it.",
+  "version": "1.0.0",
+  "side": "Universal",
+  "requiredOnClient": true,
+  "requiredOnServer": true,
+  "dependencies": {
+    "game": "1.22.7",
+    "survival": "1.22.7"
+  }
+}

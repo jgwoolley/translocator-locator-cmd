@@ -1,0 +1,59 @@
+// Textures of the armored giants, the artificers and the deathless warriors (reliquiarum-grimdark.shapes.mjs). Made with:
+//   vsdev texture CreateImages/reliquiarum-grimdark.textures.json5
+// The rest of their textures (armor-worn, joint-worn, wax-worn, robe-red, iron-worn, lens-dead...) come from the other generators.
+{
+  out: "../ReliquiarumMod/assets/nf3treliquiarum/textures/block",
+  colors: {
+    blue: "#2f4f86", blueHi: "#4a6aa3", blueDark: "#1f3152", blueChip: "#9a9fa4",
+    black: "#26282b", blackHi: "#3d4046",
+    rust: "#7a4424", rustDark: "#4a2816", grime: "#3a3428",
+    dmetal: "#8b9496", dmetalHi: "#d0d6d6", dmetalDark: "#3e4444", dgreen: "#4f7356", dglow: "#86d47f", dglowDark: "#2f5c35",
+    brass: "#a8893f", brassHi: "#d6bd6e", brassDark: "#5e4a1e",
+  },
+  textures: {
+    // Power armor that kept its paint: smooth blue, lighter on the raised parts, a few chips to bare metal and a little grime.
+    "armor-blue-worn": { size: 32, seed: 91, layers: [
+      { type: "fill", color: "blue" },
+      { type: "grain", amount: 0.04 },
+      { type: "noise", color: "blueHi", scale: 14, octaves: 1, coverage: 0.35, softness: 0.4, opacity: 0.35 },
+      { type: "noise", color: "blueDark", scale: 12, octaves: 2, coverage: 0.3, softness: 0.4, opacity: 0.3 },
+      { type: "noise", color: "blueChip", scale: 5, octaves: 2, coverage: 0.05, softness: 0.03 },
+      { type: "noise", color: "rust", scale: 4, octaves: 2, coverage: 0.02, softness: 0.03 },
+      { type: "scratches", count: 3, shade: 0.8 },
+    ] },
+    // The same, black.
+    "armor-black-worn": { size: 32, seed: 92, layers: [
+      { type: "fill", color: "black" },
+      { type: "grain", amount: 0.04 },
+      { type: "noise", color: "blackHi", scale: 14, octaves: 1, coverage: 0.35, softness: 0.4, opacity: 0.45 },
+      { type: "noise", color: "blueChip", scale: 5, octaves: 2, coverage: 0.04, softness: 0.03 },
+      { type: "noise", color: "rust", scale: 4, octaves: 2, coverage: 0.02, softness: 0.03 },
+      { type: "scratches", count: 3, shade: 0.75 },
+    ] },
+    // Brass trim on the painted armor: rims, knee pads, the chest emblem, the sword's guard.
+    "armor-trim-brass": { size: 16, seed: 96, layers: [
+      { type: "fill", color: "brass" },
+      { type: "grain", amount: 0.05 },
+      { type: "noise", color: "brassHi", scale: 7, octaves: 1, coverage: 0.3, softness: 0.4, opacity: 0.5 },
+      { type: "noise", color: "brassDark", scale: 6, octaves: 2, coverage: 0.25, softness: 0.35, opacity: 0.4 },
+    ] },
+    // The deathless warriors' living metal: bright silver, darker in the hollows, a faint green film.
+    "deathless-metal": { size: 32, seed: 93, layers: [
+      { type: "fill", color: "dmetal" },
+      { type: "grain", amount: 0.04 },
+      { type: "noise", color: "dmetalHi", scale: 12, octaves: 1, coverage: 0.3, softness: 0.4, opacity: 0.45 },
+      { type: "noise", color: "dmetalDark", scale: 10, octaves: 2, coverage: 0.25, softness: 0.4, opacity: 0.35 },
+      { type: "noise", color: "dgreen", scale: 8, octaves: 2, coverage: 0.06, softness: 0.2, opacity: 0.4 },
+    ] },
+    // Their dark inner frame.
+    "deathless-dark": { size: 16, seed: 94, layers: [
+      { type: "fill", color: "dmetalDark" },
+      { type: "grain", amount: 0.05 },
+    ] },
+    // Their green glow (eyes, core, the tube on the rifle): faded but still there.
+    "deathless-glow": { size: 16, seed: 95, layers: [
+      { type: "fill", color: "dglow" },
+      { type: "noise", color: "dglowDark", scale: 6, octaves: 1, coverage: 0.3, softness: 0.4, opacity: 0.5 },
+    ] },
+  },
+}

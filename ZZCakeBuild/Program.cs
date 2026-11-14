@@ -41,6 +41,9 @@ public class BuildContext : FrostingContext
         "TapestryRepairMod",
         "BlockColorMod",
         "StatueMod",
+        "ReliquiarumMod",
+        "ScreenshotsMod",
+        "EntropyRiftMod",
     };
 
     public BuildContext(ICakeContext context)
@@ -52,6 +55,13 @@ public class BuildContext : FrostingContext
 
     public string BuildConfiguration { get; }
     public bool SkipJsonValidation { get; }
+
+    /// <summary>
+    /// Where a project is published (and packaged from). Next to the mod folder <c>bin/&lt;config&gt;/Mods/mod</c>, not inside
+    /// it: the game loads that folder as a mod (the projects' launch profiles use it) and refuses a mod with a DLL in a
+    /// subfolder. Publishing, not the plain build output, is what copies NuGet dependencies such as Dijkstra.NET.dll.
+    /// </summary>
+    public string PublishDir(string projectName) => $"../{projectName}/bin/{BuildConfiguration}/publish";
 }
 
 [TaskName("ValidateJson")]
@@ -106,9 +116,9 @@ public sealed class BuildTask : FrostingTask<BuildContext>
                 continue;
             }
 
-            var publishDir = $"../{projectName}/bin/{context.BuildConfiguration}/Mods/mod/publish";
+            var publishDir = context.PublishDir(projectName);
 
-            // CRITICAL: Clean the internal publish folder to prevent "ghost" DLLs
+            // CRITICAL: Clean the publish folder to prevent "ghost" DLLs from earlier builds ending up in the zip
             if (context.DirectoryExists(publishDir)) context.CleanDirectory(publishDir);
 
             context.DotNetClean(csproj,
@@ -122,7 +132,8 @@ public sealed class BuildTask : FrostingTask<BuildContext>
                 new DotNetPublishSettings
                 {
                     ToolPath = toolPath,
-                    Configuration = context.BuildConfiguration
+                    Configuration = context.BuildConfiguration,
+                    OutputDirectory = publishDir
                 });
         }
     }
@@ -159,8 +170,7 @@ public sealed class PackageTask : FrostingTask<BuildContext>
             context.EnsureDirectoryExists(outputDir);
 
             // COPY BINARIES
-            context.CopyFiles($"../{projectName}/bin/{context.BuildConfiguration}/Mods/mod/publish/*",
-                outputDir);
+            context.CopyFiles($"{context.PublishDir(projectName)}/*", outputDir);
 
             // COPY ASSETS
             if (context.DirectoryExists($"../{projectName}/assets"))

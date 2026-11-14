@@ -84,6 +84,7 @@ public class SchematicLocatorModSystem : ModSystem
     public override void StartServerSide(ICoreServerAPI api)
     {
         base.StartServerSide(api);
+        StructureCommands.Register(api);
         var networkChannel = api.Network.GetChannel(NetworkChannel);
         networkChannel.SetMessageHandler<SchematicSearchRequest>((
             fromPlayer, packet) =>
@@ -120,7 +121,6 @@ public class SchematicLocatorModSystem : ModSystem
     {
         var assets = api.Assets.GetMany<BlockSchematic>(api.Logger, "worldgen/schematics/", string.IsNullOrEmpty(request.Domain) ? null: request.Domain);
         var results = new List<SchematicSearchResult>();
-        var error = string.Empty;
         foreach (var (asset, schematic) in assets)
         {
             try
@@ -149,7 +149,7 @@ public class SchematicLocatorModSystem : ModSystem
                         results.Add(new SchematicSearchResult()
                         {
                             AssetLocation = asset,
-                            MatchedBlock = blockCode.Path,
+                            MatchedBlock = blockCode.ToShortString(),   // with its domain for mod blocks (the client looks it up)
                             Count = 1,
                         });
                         continue;
@@ -178,15 +178,15 @@ public class SchematicLocatorModSystem : ModSystem
                         results.Add(new SchematicSearchResult()
                         {
                             AssetLocation = asset,
-                            MatchedBlock = blockCode.Path,
+                            MatchedBlock = blockCode.ToShortString(),   // with its domain for mod blocks (the client looks it up)
                             Count = 1,
                         });
                     }
                 }
             }
-            catch
+            catch (System.Exception e)
             {
-                api.Logger.Error($"Failed to load schematic {asset}: {error}");
+                api.Logger.Error($"Failed to load schematic {asset}: {e}");
             }
         }
         

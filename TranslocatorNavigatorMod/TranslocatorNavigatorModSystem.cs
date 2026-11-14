@@ -4,6 +4,7 @@ using System.Linq;
 using Nf3t.VintageStory.Common;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -12,6 +13,9 @@ namespace Nf3t.VintageStory.TranslocatorShortestPath;
 public class TranslocatorNavigatorModSystem : ModSystem
 {
     public const string HotkeyCode = "nf3ttranslocatornavigator";
+
+    /// <summary>Event bus message that plans a route from the player to a position and starts guidance.</summary>
+    public const string NavigateEvent = "nf3ttranslocatornavigator:navigate";
 
     public override bool ShouldLoad(EnumAppSide side)
     {
@@ -50,7 +54,20 @@ public class TranslocatorNavigatorModSystem : ModSystem
             hud.Refresh();
         }, 250);
 
-        api.Input.RegisterHotKey(HotkeyCode, "Translocator Navigator", GlKeys.T, HotkeyType.GUIOrOtherControls,
+        // Other mods (e.g. Screenshots' ".shots goto") ask for a route through the event bus, so neither mod needs the
+        // other installed: a tree with absolute "x", "y", "z" ints and an optional "label".
+        api.Event.RegisterEventBusListener((string _, ref EnumHandling handling, IAttribute data) =>
+        {
+            if (data is not ITreeAttribute tree || !tree.HasAttribute("x") || !tree.HasAttribute("z")) return;
+            var goal = new SimplePos(tree.GetInt("x"), tree.GetInt("y"), tree.GetInt("z"));
+            var label = tree.GetString("label");
+            navigator.FindRoute(context.GetPlayerPos(), goal, string.IsNullOrWhiteSpace(label) ? null : label);
+            navigator.StartGuidance();
+            dialog.ShowRoute();
+            handling = EnumHandling.PreventSubsequent;
+        }, filterByEventName: NavigateEvent);
+
+        api.Input.RegisterHotKey(HotkeyCode,"Translocator Navigator", GlKeys.T, HotkeyType.GUIOrOtherControls,
             ctrlPressed: true);
         api.Input.SetHotKeyHandler(HotkeyCode, _ => ToggleDialog(dialog));
 

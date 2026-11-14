@@ -18,6 +18,9 @@ Various mods I have created for VintageStory
 * [StatueMod](./StatueMod): Stone statues of a player in an emote pose
 * [SchematicLocatorMod](./SchematicLocatorMod): Not published
 * [CenterMapMod](./CenterMapMod): Not published
+* [ScreenshotsMod](./ScreenshotsMod): Not published; remembers where, in which world and on which server each screenshot was taken
+* [ReliquiarumMod](./ReliquiarumMod): Not published; relics from other worlds, hidden across the map (test build: creative inventory only so far)
+* [EntropyRiftMod](./EntropyRiftMod): Not published; the Storm Siphon turns a temporal gear into an entropy gear during a temporal storm
 
 ## Other files
 
